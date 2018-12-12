@@ -5,9 +5,9 @@ module.exports = {
   'MethodRegistry': require('./src/MethodRegistry'),
   'NO_OP': require('./src/NO_OP'),
   'QueryRequester': require('./src/QueryRequester'),
+  'TaskManager': require('./src/TaskManager'),
   'Resolver': require('./src/Resolver'),
   'applyOpts': require('./src/applyOpts'),
   'argsFromOpts': require('./src/argsFromOpts'),
-  'getArgNames': require('./src/getArgNames'),
-  'makePry': require('./src/makePry')
+  'getArgNames': require('./src/getArgNames')
 }

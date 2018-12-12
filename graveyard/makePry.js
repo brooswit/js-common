@@ -1,5 +1,7 @@
 const NO_OP = require('./NO_OP')
 
+console.warn('makePry is a work-in-progress')
+
 module.exports = function makePry (Class) {
   const pryClassIdKey = `___pry${Class.name}Id`
 
