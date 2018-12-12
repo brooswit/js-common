@@ -1,15 +1,13 @@
-const fs = require('fs');
-const fileNames = fs.readdirSync('./src/');
-
-let common = {}
-
-for (fileNameIndex in fileNames) {
-  const fileName = fileNames[fileNameIndex]
-  const splitFileName = fileName.split('.')
-  const requireName = splitFileName.splice(0, splitFileName.length -1)
-  try {
-    common[fileName] = require(`./src/${requireName}`)
-  } catch (e) {}
+module.exports = {
+  'AsyncArray': require('./src/AsyncArray'),
+  'JSONparseSafe': require('./src/JSONparseSafe'),
+  'Klazz': require('./src/Klazz'),
+  'MethodRegistry': require('./src/MethodRegistry'),
+  'NO_OP': require('./src/NO_OP'),
+  'QueryRequester': require('./src/QueryRequester'),
+  'Resolver': require('./src/Resolver'),
+  'applyOpts': require('./src/applyOpts'),
+  'argsFromOpts': require('./src/argsFromOpts'),
+  'getArgNames': require('./src/getArgNames'),
+  'makePry': require('./src/makePry')
 }
-
-module.exports = common
