@@ -9,7 +9,7 @@ module.exports = class TaskManager {
     this._getTaskList(taskName).push(taskData)
   }
 
-  consume(taskName) {
+  await consume(taskName) {
     const taskData = await this._getTaskList(taskName).consume()
     return taskData
   }
