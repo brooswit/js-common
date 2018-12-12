@@ -17,10 +17,10 @@ module.exports = class MethodRegistry {
     delete this._methods[methodName]
   }
 
-  execute (methodName, payload, context) {
+  execute (methodName, payload) {
     const method = this._methods[methodName]
     if (method) {
-      let result = applyOpts(method, payload, context)
+      let result = applyOpts(method, payload)
       if (!result.then) {
         result = (async () => {return result})()
       }
