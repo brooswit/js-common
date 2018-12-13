@@ -5,7 +5,7 @@ module.exports = class MethodRegistry {
     this._methods = {}
   }
 
-  register (methodName, method) {
+  register (methodName, method, context) {
     if (!method) {
       this.unregister(methodName)
       return
