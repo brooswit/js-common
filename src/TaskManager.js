@@ -39,7 +39,7 @@ module.exports = class TaskManager {
   async consumer(taskName, handler) {
     while(true) {
       try {
-        const task = this.consume(taskName)
+        const task = await this.consume(taskName)
         await handler(task)
       } catch(e) {
         console.warn(e)
