@@ -3,6 +3,7 @@ const Resolver = require('./Resolver')
 
 class Task extends Resolver {
   constructor(taskData) {
+    super()
     this.payload = taskData
   }
 }
