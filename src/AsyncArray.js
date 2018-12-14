@@ -44,10 +44,13 @@ class AsyncArray {
   }
 
   async _waitForContent () {
+    console.log('should I wait?')
     if (!this._isDone && this._internalArray.length === 0) {
+      console.log('waiting for content')
       let resolver = new Resolver()
       this._requests.push(resolver)
       await resolver
+      console.log('has content')
     }
   }
 }
