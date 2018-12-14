@@ -3,7 +3,6 @@ const Resolver = require('./Resolver')
 
 class Task {
   constructor(taskData) {
-    super()
     this.promise = new Resolver()
     this.payload = taskData
   }
