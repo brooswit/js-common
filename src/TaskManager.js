@@ -26,8 +26,9 @@ module.exports = class TaskManager {
 
   async consume(taskName) {
     const taskList = this._getTaskList(taskName)
+    console.log('shifting...')
     const task = await taskList.shift()
-    
+    console.log('shifted')
     task.catch(()=>{
       this.feed(taskname, task.payload)
     })
