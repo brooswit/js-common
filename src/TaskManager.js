@@ -1,9 +1,10 @@
 const AsyncArray = require('./AsyncArray')
 const Resolver = require('./Resolver')
 
-class Task extends Resolver {
+class Task {
   constructor(taskData) {
     super()
+    this.promise = new Resolver()
     this.payload = taskData
   }
 }
@@ -22,7 +23,7 @@ module.exports = class TaskManager {
     const task = new Task(taskData)
     this._getTaskList(taskName).push(task)
     console.log('waiting for task to complete')
-    const result = await task
+    const result = await task.promise
     console.log('task complete')
     return result
   }
@@ -30,10 +31,9 @@ module.exports = class TaskManager {
   async consume(taskName) {
     const taskList = this._getTaskList(taskName)
     console.log('shifting...')
-    let task = taskList.shift()
-    console.log('shiftung', task)
-    task = await task
-    task.catch(()=>{
+    const task = await taskList.shift()
+    console.log('shifted')
+    task.promise.catch(()=>{
       this.feed(taskname, task.payload)
     })
 
@@ -43,14 +43,11 @@ module.exports = class TaskManager {
 
   async consumer(taskName, handler) {
     while(true) {
-      try {
-        console.log('waiting for task', taskName)
-        const task = await this.consume(taskName)
-        console.log('got a task')
-        await handler(task)
-      } catch(e) {
-        console.warn(e)
-      }
+      console.log('waiting for task', taskName)
+      const task = await this.consume(taskName)
+      console.log('got a task')
+      handler(task)
+      await task.promise
     }
   }
 
