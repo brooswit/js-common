@@ -1,0 +1,5 @@
+class thing {
+    cache(key) {
+        
+    }
+}
