@@ -15,20 +15,13 @@ module.exports = class Klazz {
     this._internalEvents.on('ready', this._readyPromise.resolve)
     this._internalEvents.on('destroyed', this._destroyedPromise.resolve)
 
-    this.asyncConstructor.apply(arguments)
+    this._initialize.apply(this, arguments)
   }
 
-  async asyncConstructor (isReady = true) {
+  async _initialize (isReady = true) {
     if (isReady) this.ready()
   }
 
-  isActive () {
-    return !this._destroyedPromise.didComplete()
-  }
-
-  isReady () {
-    return this._readyPromise.didComplete()
-  }
 
   ready () {
     if (this.isReady()) return
@@ -40,6 +33,16 @@ module.exports = class Klazz {
     if (!this.isActive()) return
     this._internalEvents.emit('destroyed')
     if (this.deconstructor) this.deconstructor()
+  }
+
+
+
+  isActive () {
+    return !this._destroyedPromise.didComplete()
+  }
+
+  isReady () {
+    return this._readyPromise.didComplete()
   }
 
   async untilReady () {
