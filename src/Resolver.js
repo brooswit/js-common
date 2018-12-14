@@ -1,8 +1,8 @@
 const NO_OP = require('./NO_OP')
 
-module.exports = class Resolver extends Promise {
+module.exports = class Resolver {
   constructor (resolver = NO_OP) {
-    super((resolve, reject) => {
+    this._promise = new Promise((resolve, reject) => {
       this._didComplete = false
       this._didReject = false
       this._didResolve = false
