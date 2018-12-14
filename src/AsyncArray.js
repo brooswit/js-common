@@ -34,7 +34,6 @@ class AsyncArray {
   async shift () {
     await this._waitForContent()
     let value = this._internalArray.shift()
-    console.log('shift', value)
     return value
   }
 
