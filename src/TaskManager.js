@@ -25,7 +25,7 @@ module.exports = class TaskManager {
 
   async consume(taskName) {
     const taskList = this._getTaskList(taskName)
-    const task = await taskList.consume()
+    const task = await taskList.shift()
     
     task.catch(()=>{
       this.feed(taskname, task.payload)
