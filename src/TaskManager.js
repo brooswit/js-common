@@ -34,7 +34,6 @@ module.exports = class TaskManager {
     return task
   }
 
-
   async consumer(taskName, handler) {
     while(true) {
       const task = await this.consume(taskName)
