@@ -14,6 +14,14 @@ module.exports = class Resolver {
     })
   }
 
+  then() {
+    this._promise.then.apply(this._promise, arguments)
+  }
+
+  catch() {
+    this._promise.catch.apply(this._promise, arguments)
+  }
+
   resolve (value) {
     this._didComplete = true
     this._didResolve = true
