@@ -18,9 +18,12 @@ module.exports = class TaskManager {
   }
 
   async request(taskName, taskData) {
+    console.log('feed (request)')
     const task = new Task(taskData)
     this._getTaskList(taskName).push(task)
+    console.log('waiting for task to complete')
     const result = await task
+    console.log('task complete')
     return result
   }
 
