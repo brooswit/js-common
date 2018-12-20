@@ -3,6 +3,7 @@ module.exports = {
   'JSONparseSafe': require('./src/JSONparseSafe'),
   'Klazz': require('./src/Klazz'),
   'MethodRegistry': require('./src/MethodRegistry'),
+  'MethodManager': require('./src/MethodManager'),
   'NO_OP': require('./src/NO_OP'),
   'QueryRequester': require('./src/QueryRequester'),
   'TaskManager': require('./src/TaskManager'),
