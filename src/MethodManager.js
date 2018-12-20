@@ -17,7 +17,7 @@ module.exports = class MethodManager {
 
         let methodSocket = methodGroup.hook(method, context)
 
-        this._eventEmitter.once(`stop:${id}`, methodSocket.close)
+        this._eventEmitter.once(`stop:${methodSocket.id}`, methodSocket.close)
         this._eventEmitter.once(`close`, methodSocket.close)
 
         return methodSocket
