@@ -1,13 +1,4 @@
 const AsyncArray = require('./AsyncArray')
-const Resolver = require('./Resolver')
-
-class Task {
-  constructor(taskData) {
-    this.promise = new Resolver()
-    this.payload = taskData
-  }
-}
-
 
 module.exports = class TaskManager {
   constructor () {
