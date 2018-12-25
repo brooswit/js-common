@@ -1,6 +1,6 @@
 const AsyncArray = require('./AsyncArray')
 
-class Process {
+class Process  {
   constructor(lifecycleHandler) {
     this.active = true
     this._lifecycle(lifecycleHandler)
@@ -12,7 +12,7 @@ class Process {
     }
   }
 
-  cancel() {
+  close() {
     this.active = false
   }
 }
