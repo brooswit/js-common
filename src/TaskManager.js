@@ -22,7 +22,8 @@ module.exports = class TaskManager {
   }
 
   async _subscribe(taskName, subscriptionHandler, context) {
-    while(await _consume(taskName, subscriptionHandler, context)) {}
+    let active = true
+    while(active && await _consume(taskName, subscriptionHandler, context)) {}
   }
 
   async _consume(taskName, taskHandler, taskContext) {
