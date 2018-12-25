@@ -18,13 +18,11 @@ module.exports = class TaskManager {
   }
 
   subscribe(taskName, subscriptionHandler, context) {
-    return new Subscription(async function () {
-      while(this.active && await _consume(taskName, subscriptionHandler, context)) {}
-    })
+    this._subscribe(taskName, subscriptionHandler, context)
   }
 
   async _subscribe(taskName, subscriptionHandler, context) {
-    while(this.active && await _consume(taskName, subscriptionHandler, context)) {}
+    while(await _consume(taskName, subscriptionHandler, context)) {}
   }
 
   async _consume(taskName, taskHandler, taskContext) {
