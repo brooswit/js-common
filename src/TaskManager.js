@@ -19,14 +19,6 @@ module.exports = class TaskManager {
 
   request(taskName, payload, responseHandler, responseContext) {
     this._getTaskList(taskName).push({payload, responseHandler, responseContext})
-    await new Promise((resolve)=>{
-      
-    })
-    const task = new Task(taskData)
-    this._getTaskList(taskName).push(task)
-    const result = await task.promise
-    return result
-      this._taskManager.request(taskName, payload, responseHandler, context)
   }
 
   consume(taskName, taskHandler, taskContext) {
