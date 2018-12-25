@@ -26,7 +26,7 @@ module.exports = class TaskManager {
   }
 
   subscribe(taskName, subscriptionHandler, context) {
-    while(consume(taskName, subscriptionHandler, context)) {}
+    this._subscribe(taskName, subscriptionHandler, context)
   }
   async _subscribe(taskName, subscriptionHandler, context) {
     while(consume(taskName, subscriptionHandler, context)) {}
