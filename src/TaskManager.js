@@ -18,6 +18,10 @@ module.exports = class TaskManager {
   }
 
   request(taskName, payload, responseHandler, context) {
+    const task = new Task(taskData)
+    this._getTaskList(taskName).push(task)
+    const result = await task.promise
+    return result
       this._taskManager.request(taskName, payload, responseHandler, context)
   }
 
@@ -28,21 +32,9 @@ module.exports = class TaskManager {
   subscribe(taskName, subscriptionHandler, context) {
       this._taskManager.subscribe(taskName, subscriptionHandler, context)
   }
-  async request(taskName, payload) {
-    return await this._taskManager.request(taskName, payload)
-  }
 
-  feed(taskName, payload) {
-    return this._taskManager.feed(taskName, payload)
-  }
 
-  async consume(taskName) {
-    return await this._taskManager.consume(taskName)
-  }
 
-  subscribe(taskName, callback, context) {
-    this._taskManager.subscribe(taskName, callback, context)
-  }
 
   feed(taskName, taskData) {
     this.request(taskName, taskData)
