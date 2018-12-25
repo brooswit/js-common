@@ -14,7 +14,7 @@ module.exports = class TaskManager {
   }
 
   feed(taskName, payload) {
-    this._getTaskList(taskName).push(payload)
+    this._getTaskList(taskName).push({payload})
   }
 
   request(taskName, payload, responseHandler, responseContext) {
