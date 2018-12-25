@@ -38,7 +38,6 @@ module.exports = class TaskManager {
     return new Process(async function(){
       await this._consume(taskName, subscriptionHandler, context)
     })
-    this._subscribe(taskName, subscriptionHandler, context)
   }
 
   async _subscribe(taskName, subscriptionHandler, context) {
