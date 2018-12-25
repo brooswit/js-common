@@ -33,6 +33,10 @@ module.exports = class TaskManager {
       this._taskManager.subscribe(taskName, subscriptionHandler, context)
   }
 
+  _getTaskList(taskName) {
+      return this._taskLists[taskName] = this._taskLists[taskName] || new AsyncArray()
+  }
+
 
 
 
