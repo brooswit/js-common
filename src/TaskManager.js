@@ -8,6 +8,7 @@ class Task {
   }
 }
 
+
 module.exports = class TaskManager {
   constructor () {
     this._taskLists = {}
@@ -26,6 +27,9 @@ module.exports = class TaskManager {
   }
 
   subscribe(taskName, subscriptionHandler, context) {
+    return new Subscription(async ()=>{
+
+    })
     this._subscribe(taskName, subscriptionHandler, context)
   }
 
@@ -34,7 +38,7 @@ module.exports = class TaskManager {
     if (payload) {
       let taskResult = taskHandler.call(taskContext, payload)
       if (responseHandler) {
-        responseHandler.call(responseContext, taskResult)
+        await responseHandler.call(responseContext, taskResult)
       }
       return true
     }
