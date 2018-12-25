@@ -12,7 +12,21 @@ module.exports = class TaskManager {
   constructor () {
     this._taskLists = {}
   }
+  async request(taskName, payload) {
+    return await this._taskManager.request(taskName, payload)
+  }
 
+  feed(taskName, payload) {
+      return this._taskManager.feed(taskName, payload)
+  }
+
+  async consume(taskName) {
+      return await this._taskManager.consume(taskName)
+  }
+
+  subscribe(taskName, callback, context) {
+      this._taskManager.subscribe(taskName, callback, context)
+  }
   feed(taskName, taskData) {
     this.request(taskName, taskData)
   }
