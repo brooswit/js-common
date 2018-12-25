@@ -21,16 +21,9 @@ module.exports = class TaskManager {
     this._getTaskList(taskName).push({payload, responseHandler, responseContext})
   }
 
+  async _consume(taskName, taskHandler, taskContext) {
   consume(taskName, taskHandler, taskContext) {
-    let {payload, responseHandler, responseContext} = await this._getTaskList(taskName).shift()
-    if (payload) {
-      let taskResult = taskHandler.call(taskContext, payload)
-      if (responseHandler) {
-        responseHandler.call(responseContext, taskResult)
-      }
-      return true
-    }
-    return false
+    this._consume(taskName, taskHandler, taskContext)
   }
 
   subscribe(taskName, subscriptionHandler, context) {
