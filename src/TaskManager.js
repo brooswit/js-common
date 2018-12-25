@@ -24,7 +24,9 @@ module.exports = class TaskManager {
   consume(taskName, taskHandler, taskContext) {
     let {payload, responseHandler, responseContext} = await this._getTaskList(taskName).shift()
     let taskResult = taskHandler.call(taskContext, payload)
-    responseHandler.call(responseContext, taskResult)
+    if (responseHandler) {
+      responseHandler.call(responseContext, taskResult)
+    }
   }
 
   subscribe(taskName, subscriptionHandler, context) {
