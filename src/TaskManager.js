@@ -1,5 +1,11 @@
 const AsyncArray = require('./AsyncArray')
 
+class Process {
+  constructor(lifecycleHandler) {
+    this.active = true
+  }
+}
+
 module.exports = class TaskManager {
   constructor () {
     this._taskLists = {}
