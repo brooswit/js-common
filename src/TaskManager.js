@@ -17,7 +17,7 @@ module.exports = class TaskManager {
     this._getTaskList(taskName).push(payload)
   }
 
-  request(taskName, payload, responseHandler, context) {
+  request(taskName, payload, responseHandler, responseContext) {
     await new Promise((resolve)=>{
       this._getTaskList(taskName).push(()=>{
         resolve()
