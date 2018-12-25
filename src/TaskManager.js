@@ -7,7 +7,13 @@ class Process {
   }
 
   async _lifecycle(lifecycleHandler) {
-    lifecycleHandler.call(this)
+    while(this.active) {
+      await lifecycleHandler.call(this)
+    }
+  }
+
+  cancel() {
+    this.active = false
   }
 }
 
