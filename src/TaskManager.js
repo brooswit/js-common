@@ -19,11 +19,10 @@ module.exports = class TaskManager {
 
   request(taskName, payload, responseHandler, context) {
     await new Promise((resolve)=>{
-      
-    })
-    this._getTaskList(taskName).push(()=>{
-      resolve()
-      return payload
+      this._getTaskList(taskName).push(()=>{
+        resolve()
+        return payload
+      })
     })
     const task = new Task(taskData)
     this._getTaskList(taskName).push(task)
@@ -33,6 +32,7 @@ module.exports = class TaskManager {
   }
 
   consume(taskName, taskHandler, context) {
+    let payload = await this._getTaskList(taskName).shift()
       this._taskManager.consume(taskName, taskHandler, context)
   }
 
