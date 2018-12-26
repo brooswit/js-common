@@ -1,8 +1,9 @@
 const AsyncArray = require('./AsyncArray')
 
 class Process  {
-  constructor(lifecycleHandler) {
+  constructor(process) {
     this.active = true
+    process(th)
     this._lifecycle(lifecycleHandler)
   }
 
