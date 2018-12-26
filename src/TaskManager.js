@@ -34,8 +34,8 @@ module.exports = class TaskManager {
   }
 
   subscribe(taskName, subscriptionHandler, context) {
-    return new Process(async function() {
-      while(this.active) {
+    return new Process(async function(process) {
+      while(process.active) {
         await this._consume(taskName, subscriptionHandler, context)
       }
     })
