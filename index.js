@@ -1,15 +1,15 @@
 module.exports = {
-  'AsyncArray': require('./src/AsyncArray'),
-  'JSONparseSafe': require('./src/JSONparseSafe'),
-  'Klazz': require('./src/Klazz'),
-  'MethodRegistry': require('./src/MethodRegistry'),
-  'MethodManager': require('./src/MethodManager'),
-  'NO_OP': require('./src/NO_OP'),
-  'QueryRequester': require('./src/QueryRequester'),
-  'TaskManager': require('./src/TaskManager'),
-  'AsyncArray': require('./src/AsyncArray'),
-  'Resolver': require('./src/Resolver'),
   'applyOpts': require('./src/applyOpts'),
   'argsFromOpts': require('./src/argsFromOpts'),
-  'getArgNames': require('./src/getArgNames')
+  'AsyncArray': require('./src/AsyncArray'),
+  'getArgNames': require('./src/getArgNames')m
+  'JSONparseSafe': require('./src/JSONparseSafe'),
+  'Klazz': require('./src/Klazz'),
+  'MethodManager': require('./src/MethodManager'),
+  'MethodRegistry': require('./src/MethodRegistry'),
+  'NO_OP': require('./src/NO_OP'),
+  'PromiseToEmit': require('./src/PromiseToEmit'),
+  'QueryRequester': require('./src/QueryRequester'),
+  'Resolver': require('./src/Resolver'),
+  'TaskManager': require('./src/TaskManager'),
 }
