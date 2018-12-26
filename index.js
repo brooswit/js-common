@@ -1,4 +1,4 @@
-          // TODO: ADD MISSING 
+// TODO: ADD MISSING STUFF
 module.exports = {
   'applyOpts': require('./src/applyOpts'),
   'argsFromOpts': require('./src/argsFromOpts'),
