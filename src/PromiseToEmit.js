@@ -1,6 +1,10 @@
-const argsFromOpts = require('./argsFromOpts')
-
-module.exports = function applyOpts (func, opts, context) {
-  let args = argsFromOpts(opts, func)
-  return func.apply(context, args)
+module.exports = class PromiseToEmit extends Promise {
+  constructor(emitter, eventName, errorEventName) {
+      super((resolve, reject) => {
+          emitter.once(eventName, resolve)
+          if (errorEventName) {
+              emitter.once(errorEventName, reject)
+          }
+      })
+  }
 }

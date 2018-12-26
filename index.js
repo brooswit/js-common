@@ -7,6 +7,7 @@ module.exports = {
   'NO_OP': require('./src/NO_OP'),
   'QueryRequester': require('./src/QueryRequester'),
   'TaskManager': require('./src/TaskManager'),
+  'AsyncArray': require('./src/AsyncArray'),
   'Resolver': require('./src/Resolver'),
   'applyOpts': require('./src/applyOpts'),
   'argsFromOpts': require('./src/argsFromOpts'),
