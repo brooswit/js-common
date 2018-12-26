@@ -3,7 +3,7 @@ module.exports = {
   'applyOpts': require('./src/applyOpts'),
   'argsFromOpts': require('./src/argsFromOpts'),
   'AsyncArray': require('./src/AsyncArray'),
-  'calculateMemoryFootprint': require('./src/calculateMemoryFootprint')
+  'calculateMemoryFootprint': require('./src/calculateMemoryFootprint'),
   'getArgNames': require('./src/getArgNames'),
   'JSONparseSafe': require('./src/JSONparseSafe'),
   'Klazz': require('./src/Klazz'),
