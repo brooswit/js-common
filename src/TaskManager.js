@@ -3,13 +3,7 @@ const AsyncArray = require('./AsyncArray')
 class Process  {
   constructor(process) {
     this.active = true
-    process(th)
-    this._lifecycle(lifecycleHandler)
-  }
-
-  async _lifecycle(lifecycleHandler) {
-      await lifecycleHandler.call(this)
-    }
+    process(this)
   }
 
   close() {
