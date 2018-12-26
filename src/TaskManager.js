@@ -7,7 +7,6 @@ class Process  {
   }
 
   async _lifecycle(lifecycleHandler) {
-    while(this.active) {
       await lifecycleHandler.call(this)
     }
   }
@@ -36,8 +35,9 @@ module.exports = class TaskManager {
 
   subscribe(taskName, subscriptionHandler, context) {
     return new Process(async function() {
-      await this._consume(taskName, subscriptionHandler, context)
-    })
+      while(this.active) {
+        await this._consume(taskName, subscriptionHandler, context)
+      })
   }
 
   async _consume(taskName, taskHandler, taskContext) {
