@@ -1,6 +1,6 @@
 const AsyncArray = require('./AsyncArray')
 
-class Process  {
+class Process extends EventEmitter  {
   constructor(process) {
     this.active = true
     process(this)
