@@ -12,7 +12,7 @@ module.exports = class TaskManager {
         closed: false,
         payload
       }
-      this.process.onClose(()=>{
+      this.process.on('close', () => {
         taskData.closed = true
       })
       this._getTaskList(taskName).push(taskData)
