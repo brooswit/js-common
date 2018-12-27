@@ -5,7 +5,7 @@ class EventManager {
   }
 
   trigger(eventName, payload) {
-
+    this._eventEmitter.trigger(eventName, payload)
   }
 
   hook(eventName, callback, context) {
