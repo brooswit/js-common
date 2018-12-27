@@ -18,6 +18,11 @@ module.exports = class TaskManager {
 
   request(taskName, payload, responseHandler, responseContext) {
     return new Process(async (process) => {
+      let taskData = {
+        canceled: false,
+        payload, responseHandler, responseContext
+      }
+      this._getTaskList(taskName).push(taskData)
       this._getTaskList(taskName).push({payload, responseHandler, responseContext})
     })
   }
