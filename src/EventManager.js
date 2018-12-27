@@ -1,4 +1,9 @@
+const {Process} = require('./Process')
 class EventManager {
+  constructor() {
+    
+  }
+
   trigger(eventName, payload) {
 
   }
