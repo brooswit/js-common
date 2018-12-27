@@ -9,9 +9,12 @@ module.exports = class TaskManager {
   feed(taskName, payload) {
     return new Process(async (process) => {
       let taskData = {
-        canceled: false,
+        closed: false,
         payload
       }
+      this.process.onClose(()=>{
+        taskData.closed = true
+      })
       this._getTaskList(taskName).push(taskData)
     })
   }
@@ -19,11 +22,10 @@ module.exports = class TaskManager {
   request(taskName, payload, responseHandler, responseContext) {
     return new Process(async (process) => {
       let taskData = {
-        canceled: false,
+        closed: false,
         payload, responseHandler, responseContext
       }
       this._getTaskList(taskName).push(taskData)
-      this._getTaskList(taskName).push({payload, responseHandler, responseContext})
     })
   }
 
