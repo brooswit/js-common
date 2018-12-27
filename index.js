@@ -5,7 +5,7 @@ module.exports = {
   'AsyncArray': require('./src/AsyncArray'),
   'calculateMemoryFootprint': require('./src/calculateMemoryFootprint'),
   'getArgNames': require('./src/getArgNames'),
-  'EventEmitter': require('./src/EventEmitter'),
+  'EventManager': require('./src/EventManager'),
   'JSONparseSafe': require('./src/JSONparseSafe'),
   'Klazz': require('./src/Klazz'),
   'MethodManager': require('./src/MethodManager'),
