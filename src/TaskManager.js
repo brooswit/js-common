@@ -34,14 +34,14 @@ module.exports = class TaskManager {
 
   consume(taskName, taskHandler, taskContext) {
     return new Process(async (process) => {
-      this._consume(taskName, taskHandler, taskContext)
+      this._consume(taskName, taskHandler, taskContext, process)
     })
   }
 
   subscribe(taskName, subscriptionHandler, context) {
     return new Process(async (process) => {
       while(process.active) {
-        await this._consume(taskName, subscriptionHandler, context)
+        await this._consume(taskName, subscriptionHandler, context, process)
       }
     })
   }
