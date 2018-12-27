@@ -1,4 +1,5 @@
 const AsyncArray = require('./AsyncArray')
+const Process = require('./Process')
 
 module.exports = class TaskManager {
   constructor () {
