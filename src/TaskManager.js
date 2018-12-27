@@ -7,7 +7,7 @@ module.exports = class TaskManager {
   }
 
   feed(taskName, payload) {
-    // SHOULD NOT HONOR PROCESS CLOSURE
+    // NOTE: SHOULD NOT HONOR PROCESS CLOSURE
     return new Process(async (process) => {
       let taskData = {
         closed: false,
