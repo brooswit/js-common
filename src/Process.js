@@ -3,11 +3,13 @@ module.exports = class Process extends EventEmitter  {
     this.active = true
     if (parentProcess) {
       this._parentProcess = parentProcess
+      parentProcess.on('close', this.close, this)
     }
     process(this)
   }
   
-  close() {
-    this.active = false
-  }
+    close() {
+      this.emit('close')
+      this.active = false
+    }
   }
