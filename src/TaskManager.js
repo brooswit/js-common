@@ -13,15 +13,19 @@ module.exports = class TaskManager {
   }
 
   request(taskName, payload, responseHandler, responseContext) {
-    this._getTaskList(taskName).push({payload, responseHandler, responseContext})
+    return new Process(async (process)=>{
+      this._getTaskList(taskName).push({payload, responseHandler, responseContext})
+    })
   }
 
   consume(taskName, taskHandler, taskContext) {
-    this._consume(taskName, taskHandler, taskContext)
+    return new Process(async (process)=>{
+      this._consume(taskName, taskHandler, taskContext)
+    })
   }
 
   subscribe(taskName, subscriptionHandler, context) {
-    return new Process(async function(process) {
+    return new Process(async (process) => {
       while(process.active) {
         await this._consume(taskName, subscriptionHandler, context)
       }
