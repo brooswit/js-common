@@ -48,6 +48,7 @@ module.exports = class TaskManager {
 
   async _consume(taskName, taskHandler, taskContext, process) {
     // TODO: HONOR PROCESS CLOSURE
+    let closed, payload, responseHandler, responseContext
     do {
       {closed, payload, responseHandler, responseContext} = await this._getTaskList(taskName).shift()
     } while (closed)
