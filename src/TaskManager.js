@@ -12,7 +12,7 @@ module.exports = class TaskManager {
         closed: false,
         payload
       }
-      this.process.on('close', () => {
+      process.on('close', () => {
         taskData.closed = true
       })
       this._getTaskList(taskName).push(taskData)
@@ -25,7 +25,7 @@ module.exports = class TaskManager {
         closed: false,
         payload, responseHandler, responseContext
       }
-      this.process.on('close', () => {
+      process.on('close', () => {
         taskData.closed = true
       })
       this._getTaskList(taskName).push(taskData)
