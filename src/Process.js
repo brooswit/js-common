@@ -1,6 +1,9 @@
 module.exports = class Process extends EventEmitter  {
-    constructor(process) {
+    constructor(process, parentProcess) {
       this.active = true
+      if (parentProcess) {
+          this._parentProcess = parentProcess
+      }
       process(this)
     }
   
