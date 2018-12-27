@@ -1,7 +1,7 @@
 const {Process} = require('./Process')
 class EventManager {
   constructor() {
-    
+    this._eventEmitter = new EventEmitter
   }
 
   trigger(eventName, payload) {
