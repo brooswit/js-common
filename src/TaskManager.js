@@ -53,6 +53,7 @@ module.exports = class TaskManager {
       taskData = await this._getTaskList(taskName).shift()
     } while (taskData.closed)
     let {payload, responseHandler, responseContext} = taskData
+    
     if (payload) {
       let taskResult = taskHandler.call(taskContext, payload)
       if (responseHandler) {
