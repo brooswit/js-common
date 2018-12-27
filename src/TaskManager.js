@@ -8,7 +8,11 @@ module.exports = class TaskManager {
 
   feed(taskName, payload) {
     return new Process(async (process) => {
-      this._getTaskList(taskName).push({payload})
+      let taskData = {
+        canceled: false,
+        payload
+      }
+      this._getTaskList(taskName).push(taskData)
     })
   }
 
