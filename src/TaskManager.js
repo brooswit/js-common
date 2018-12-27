@@ -46,7 +46,7 @@ module.exports = class TaskManager {
     })
   }
 
-  async _consume(taskName, taskHandler, taskContext) {
+  async _consume(taskName, taskHandler, taskContext, process) {
     let {payload, responseHandler, responseContext} = await this._getTaskList(taskName).shift()
     if (payload) {
       let taskResult = taskHandler.call(taskContext, payload)
