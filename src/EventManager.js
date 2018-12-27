@@ -9,6 +9,8 @@ class EventManager {
   }
 
   hook(eventName, callback, context) {
-
+    return new Process(async (process) => {
+      
+    })
   }
 }
