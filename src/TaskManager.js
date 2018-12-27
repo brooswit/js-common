@@ -6,15 +6,17 @@ module.exports = class TaskManager {
     this._taskLists = {}
   }
 
-  feed(taskName, payload) {
+  feed(taskName, payload, persistent) {
     return new Process(async (process) => {
       let taskData = {
         closed: false,
         payload
       }
-      process.on('close', () => {
-        taskData.closed = true
-      })
+      if(!persistent) {
+        process.on('close', () => {
+          taskData.closed = true
+        })
+      }
       this._getTaskList(taskName).push(taskData)
     })
   }
