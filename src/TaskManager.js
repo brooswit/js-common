@@ -50,8 +50,9 @@ module.exports = class TaskManager {
     // TODO: HONOR PROCESS CLOSURE
     let taskData
     do {
-      let textData = await this._getTaskList(taskName).shift()
-    } while (closed)
+      taskData = await this._getTaskList(taskName).shift()
+    } while (taskData.closed)
+    let {payload, responseHandler, responseContext} = taskData
     if (payload) {
       let taskResult = taskHandler.call(taskContext, payload)
       if (responseHandler) {
