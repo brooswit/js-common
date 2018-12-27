@@ -1,7 +1,7 @@
 const EventEmitter = require('events')
 const {Process} = require('./Process')
 
-class EventManager {
+module.exports = class EventManager {
   constructor() {
     this._eventEmitter = new EventEmitter
   }
@@ -15,6 +15,6 @@ class EventManager {
       this._eventEmitter.on(eventName, callback, context)
       await new PromiseToEmit(process, 'close')
       this._eventEmitter.off(eventName, callback, context)
-    }, this)
+    })
   }
 }
