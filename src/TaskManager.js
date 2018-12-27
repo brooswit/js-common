@@ -1,16 +1,5 @@
 const AsyncArray = require('./AsyncArray')
 
-class Process extends EventEmitter  {
-  constructor(process) {
-    this.active = true
-    process(this)
-  }
-
-  close() {
-    this.active = false
-  }
-}
-
 module.exports = class TaskManager {
   constructor () {
     this._taskLists = {}
