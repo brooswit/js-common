@@ -2,7 +2,6 @@ const {PromiseToEmit}
 module.exports = class Process extends EventEmitter  {
   constructor(process, parentProcess) {
     this.active = true
-    this.promiseToClose = new PromiseToEmit(this, 'close')
     
     if (parentProcess) {
       this._parentProcess = parentProcess
