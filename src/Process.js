@@ -9,7 +9,7 @@ module.exports = class Process extends EventEmitter  {
       this._parentProcess = parentProcess
       this._parentProcess.on('close', this.close, this)
     }
-
+    console.de
     method(this)
   }
   
