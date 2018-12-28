@@ -14,12 +14,12 @@ module.exports = class EventManager {
     })
   }
 
-  hook(eventName, callback, context) {
+  hook(eventName, eventHandler, context) {
     console.debug(`hooking ${eventName}...`)
     return new Process(async (process) => {
-      this._eventEmitter.on(eventName, callback, context)
+      this._eventEmitter.on(eventName, eventHandler, context)
       await new PromiseToEmit(process, 'close', null, 'EventManager.hook')
-      this._eventEmitter.off(eventName, callback, context)
+      this._eventEmitter.off(eventName, eventHandler, context)
   })
   }
 }
