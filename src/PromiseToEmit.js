@@ -6,14 +6,14 @@ module.exports = class PromiseToEmit extends Promise {
               emitter.once(errorEventName, reject)
           }
           
-        function resolver(payload) => {
+        function resolver(payload) {
             cleanup()
-            resolve(payload
+            resolve(payload)
         }
 
-        function rejecter(error) => {
+        function rejecter(error) {
             cleanup()
-            reject(error
+            reject(error)
         }
           function cleanup() {
               emitter.off(eventname, resolver)
