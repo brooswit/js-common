@@ -13,7 +13,7 @@ module.exports = class Process extends EventEmitter  {
     }
     console.debug(`doing method`)
     method(this)
-    console.debug(`doing method`)
+    console.debug(`method done`)
   }
   
   close() {
