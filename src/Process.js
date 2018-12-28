@@ -2,6 +2,8 @@ const EventEmitter = require('events')
 module.exports = class Process extends EventEmitter  {
   constructor(method, parentProcess) {
     super()
+    console.debug(`new Process`)
+
     this.active = true
     this.closed = false
     
@@ -13,6 +15,7 @@ module.exports = class Process extends EventEmitter  {
   }
   
   close() {
+    console.debug(`close Process`)
     this._parentProcess.off('close', this.close, this)
     this.active = false
     this.closed = true
