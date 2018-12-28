@@ -35,13 +35,14 @@ module.exports = class TaskManager {
   }
 
   consume(taskName, taskHandler, taskContext) {
-    console.debug(`requesting ${eventName}`)
+    console.debug(`consuming ${eventName}`)
     return new Process(async (process) => {
       this._consume(taskName, taskHandler, taskContext, process)
     })
   }
 
   subscribe(taskName, subscriptionHandler, context) {
+    console.debug(`subscribing ${eventName}`)
     return new Process(async (process) => {
       while(process.active) {
         await this._consume(taskName, subscriptionHandler, context, process)
