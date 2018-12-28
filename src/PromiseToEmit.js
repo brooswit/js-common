@@ -1,9 +1,9 @@
 module.exports = class PromiseToEmit extends Promise {
   constructor(emitter, eventName, errorEventName) {
       super((resolve, reject) => {
-            emitter.once(eventName, resolver)
+            emitter.on(eventName, resolver)
             if (errorEventName) {
-                emitter.once(errorEventName, reject)
+                emitter.on(errorEventName, rejecter)
             }
           
             function resolver(payload) {
