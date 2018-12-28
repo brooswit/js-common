@@ -1,6 +1,5 @@
 module.exports = function promiseToEmit(emitter, eventName, errorEventName, label) {
     return new Promise((resolve, reject) => {
-        console.debug('PROMISE TO EMIT ' + eventName + " for " + label)
         emitter.on(eventName, resolver)
         if (errorEventName) {
             emitter.on(errorEventName, rejecter)
