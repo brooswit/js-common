@@ -8,7 +8,7 @@ module.exports = class TaskManager {
 
   feed(taskName, payload) {
     // NOTE: SHOULD NOT HONOR PROCESS CLOSURE
-    console.debug(`feeding ${eventName}`)
+    console.debug(`feeding ${taskName}`)
     return new Process(async (process) => {
       let taskData = {
         closed: false,
@@ -19,7 +19,7 @@ module.exports = class TaskManager {
   }
 
   request(taskName, payload, responseHandler, responseContext) {
-    console.debug(`requesting ${eventName}`)
+    console.debug(`requesting ${taskName}`)
     return new Process(async (process) => {
       let taskData = {
         closed: false,
@@ -35,14 +35,14 @@ module.exports = class TaskManager {
   }
 
   consume(taskName, taskHandler, taskContext) {
-    console.debug(`consuming ${eventName}`)
+    console.debug(`consuming ${taskName}`)
     return new Process(async (process) => {
       this._consume(taskName, taskHandler, taskContext, process)
     })
   }
 
   subscribe(taskName, subscriptionHandler, context) {
-    console.debug(`subscribing ${eventName}`)
+    console.debug(`subscribing ${taskName}`)
     return new Process(async (process) => {
       while(process.active) {
         await this._consume(taskName, subscriptionHandler, context, process)
