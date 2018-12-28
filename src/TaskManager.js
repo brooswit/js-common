@@ -8,6 +8,7 @@ module.exports = class TaskManager {
 
   feed(taskName, payload) {
     // NOTE: SHOULD NOT HONOR PROCESS CLOSURE
+    console.debug(`triggering ${eventName}`)
     return new Process(async (process) => {
       let taskData = {
         closed: false,
