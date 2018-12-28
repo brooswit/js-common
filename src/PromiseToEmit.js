@@ -1,4 +1,6 @@
-module.exports = function pro
+module.exports = function promiseToEmit(emitter, eventName, errorEventName, label) {
+    
+}
 class PromiseToEmit extends Promise {
   constructor(emitter, eventName, errorEventName, label) {
 
