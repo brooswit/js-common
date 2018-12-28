@@ -14,6 +14,7 @@ module.exports = class EventManager {
   }
 
   hook(eventName, callback, context) {
+    console.debug('hook')
     return new Process(async (process) => {
       this._eventEmitter.on(eventName, callback, context)
       await new PromiseToEmit(process, 'close')
