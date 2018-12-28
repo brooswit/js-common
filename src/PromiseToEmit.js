@@ -27,4 +27,3 @@ module.exports = class PromiseToEmit extends Promise {
         })
     }
 }
-
