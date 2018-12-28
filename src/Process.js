@@ -1,4 +1,4 @@
-const EventEmi
+const EventEmitter = require('events')
 module.exports = class Process extends EventEmitter  {
   constructor(process, parentProcess) {
     this.active = true
