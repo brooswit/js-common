@@ -23,7 +23,6 @@ module.exports = class EventManager {
       console.debug(`ready ${eventName}...`)
       await promise
       console.debug(`teardown ${eventName}...`)
-
       this._eventEmitter.off(eventName, eventHandler, eventContext)
   })
   }

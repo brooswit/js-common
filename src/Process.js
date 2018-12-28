@@ -11,7 +11,9 @@ module.exports = class Process extends EventEmitter  {
       this._parentProcess = parentProcess
       this._parentProcess.on('close', this.close, this)
     }
+    console.debug(`doing method`)
     method(this)
+    console.debug(`doing method`)
   }
   
   close() {
