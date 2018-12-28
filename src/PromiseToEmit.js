@@ -1,6 +1,6 @@
 module.exports = function promiseToEmit(emitter, eventName, errorEventName, label) {
     console.debug('PROMISE TO EMIT ' + eventName + " for " + label)
-
+    let resolver
 }
 class PromiseToEmit extends Promise {
   constructor(emitter, eventName, errorEventName, label) {
