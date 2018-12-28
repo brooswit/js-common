@@ -18,9 +18,11 @@ module.exports = class PromiseToEmit extends Promise {
 
             function cleanup() {
                 emitter.off(eventname, resolver)
-                emitter.off(errorEventName, rejecter)
+                if (errorEventName) {
+                    emitter.off(errorEventName, rejecter)
+                }
             }
         })
-    })
+    }
   }
 }
