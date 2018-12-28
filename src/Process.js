@@ -1,4 +1,4 @@
-const {PromiseToEmit}
+const EventEmi
 module.exports = class Process extends EventEmitter  {
   constructor(process, parentProcess) {
     this.active = true
