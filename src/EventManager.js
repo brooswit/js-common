@@ -18,8 +18,10 @@ module.exports = class EventManager {
     console.debug(`hooking ${eventName}...`)
     return new Process(async (process) => {
       this._eventEmitter.on(eventName, eventHandler, eventContext)
-      console.debug(`set ${eventName}...`)
-      await new PromiseToEmit(process, 'close', null, 'EventManager.hook')
+      console.debug(`setup ${eventName}...`)
+      let promise = new PromiseToEmit(process, 'close', null, 'EventManager.hook')
+      console.debug(`setup ${eventName}...`)
+
       this._eventEmitter.off(eventName, eventHandler, eventContext)
   })
   }
