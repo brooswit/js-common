@@ -1,6 +1,6 @@
 const EventEmitter = require('events')
 module.exports = class Process extends EventEmitter  {
-  constructor(process, parentProcess) {
+  constructor(meth, parentProcess) {
     super()
     this.active = true
     this.closed = false
