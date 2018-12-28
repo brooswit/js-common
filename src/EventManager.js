@@ -1,5 +1,5 @@
 const EventEmitter = require('events')
-const {Process} = require('./Process')
+const Process = require('./Process')
 
 module.exports = class EventManager {
   constructor() {
