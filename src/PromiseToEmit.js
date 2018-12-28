@@ -1,5 +1,6 @@
 module.exports = class PromiseToEmit extends Promise {
   constructor(emitter, eventName, errorEventName) {
+      console.log('PROMISE TO EMIT')
       console.log({emitter})
       super((resolve, reject) => {
             emitter.on(eventName, resolver)
