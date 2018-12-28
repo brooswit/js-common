@@ -20,7 +20,6 @@ module.exports = class EventManager {
       this._eventEmitter.on(eventName, callback, context)
       await new PromiseToEmit(process, 'close', null, 'EventManager.hook')
       this._eventEmitter.off(eventName, callback, context)
-      console.debug(`...hooked ${eventName}`)
   })
   }
 }
