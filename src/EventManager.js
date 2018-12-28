@@ -1,6 +1,6 @@
 const EventEmitter = require('events')
 const Process = require('./Process')
-// const PromiseToEmit = require('./PromiseToEmit')
+const PromiseToEmit = require('./PromiseToEmit')
 
 module.exports = class EventManager {
   constructor() {
