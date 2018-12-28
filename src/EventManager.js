@@ -1,6 +1,6 @@
 const EventEmitter = require('events')
 const Process = require('./Process')
-const PromiseToEmit = require('./PromiseToEmit')
+const promiseToEmit = require('./PromiseToEmit')
 
 module.exports = class EventManager {
   constructor() {
@@ -19,7 +19,7 @@ module.exports = class EventManager {
     return new Process(async (process) => {
       this._eventEmitter.on(eventName, eventHandler, eventContext)
       console.debug(`setting up ${eventName}...`)
-      let promise = new PromiseToEmit(process, 'close', null, 'EventManager.hook')
+      let promise = promiseToEmit(process, 'close', null, 'EventManager.hook')
       // console.debug(`ready ${eventName}...`)
       // await promise
       // console.debug(`teardown ${eventName}...`)
