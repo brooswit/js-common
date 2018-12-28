@@ -22,6 +22,8 @@ module.exports = class EventManager {
       let promise = new PromiseToEmit(process, 'close', null, 'EventManager.hook')
       console.debug(`ready ${eventName}...`)
       await promise
+      console.debug(`teardown ${eventName}...`)
+
       this._eventEmitter.off(eventName, eventHandler, eventContext)
   })
   }
