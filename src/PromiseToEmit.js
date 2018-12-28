@@ -5,7 +5,8 @@ module.exports = class PromiseToEmit extends Promise {
           if (errorEventName) {
               emitter.once(errorEventName, reject)
           }
-          function 
+          
+          function complete
       })
   }
 }
