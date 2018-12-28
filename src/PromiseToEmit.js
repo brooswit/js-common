@@ -6,7 +6,7 @@ module.exports = class PromiseToEmit extends Promise {
               emitter.once(errorEventName, reject)
           }
           
-          function complete
+          function resolver(payload) =
       })
   }
 }
