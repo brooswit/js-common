@@ -10,7 +10,8 @@ module.exports = class Process extends EventEmitter  {
       this._parentProcess = parentProcess
       this._parentProcess.on('close', this.close, this)
     }
-    method(this)
+
+    setTimeout(()=>{method(this)})
   }
   
   close() {
