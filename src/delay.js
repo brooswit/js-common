@@ -1,4 +1,4 @@
-module.exports = async function delay (time) {
+async function delay (time) {
     return new Promise((resolve) => { setTimeout(resolve, time) })
 }
 
@@ -11,3 +11,5 @@ delay.week = delay.weeks = delay.days * 7
 
 delay.month = delay.months = delay.days * 30
 delay.year = delay.years = delay.days * 365
+
+module.exports = delay
