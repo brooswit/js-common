@@ -1,7 +1,7 @@
 module.exports = function promiseToEmit(emitter, eventName, errorEventName, label) {
     console.log({emitter, eventName, errorEventName, label})
     return new Promise((resolve, reject) => {
-        const resolver, rejecter, cleanup
+        let resolver, rejecter, cleanup
 
         resolver = (payload) => {
             cleanup()
