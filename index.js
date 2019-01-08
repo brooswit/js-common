@@ -13,7 +13,7 @@ module.exports = {
   'MethodRegistry': require('./src/MethodRegistry'),
   'NO_OP': require('./src/NO_OP'),
   'Process': require('./src/Process'),
-  'PromiseToEmit': require('./src/PromiseToEmit'),
+  'promiseToEmit': require('./src/promiseToEmit'),
   'QueryRequester': require('./src/QueryRequester'),
   'Resolver': require('./src/Resolver'),
   'TaskManager': require('./src/TaskManager'),
