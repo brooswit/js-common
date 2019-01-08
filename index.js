@@ -4,6 +4,7 @@ module.exports = {
   'argsFromOpts': require('./src/argsFromOpts'),
   'AsyncArray': require('./src/AsyncArray'),
   'calculateMemoryFootprint': require('./src/calculateMemoryFootprint'),
+  'delay': require('./src/delay'),
   'getArgNames': require('./src/getArgNames'),
   'EventManager': require('./src/EventManager'),
   'JSONparseSafe': require('./src/JSONparseSafe'),
