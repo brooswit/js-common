@@ -1,28 +1,25 @@
 module.exports = function promiseToEmit(emitter, eventName, errorEventName, label) {
-    console.log({emitter, eventName, errorEventName, label})
     return new Promise((resolve, reject) => {
-        let resolver, rejecter, cleanup
-
-        resolver = (payload) => {
+        emitter.on(eventName, resolver)
+        if (errorEventName) {
+            emitter.on(errorEventName, rejecter)
+        }
+      
+        function resolver(payload) {
             cleanup()
             resolve(payload)
         }
 
-        rejecter = (error) => {
+        function rejecter(error) {
             cleanup()
             reject(error)
         }
-        
-        cleanup = () => {
-            emitter.off(eventname, resolver)
+
+        function cleanup() {
+            emitter.off(eventName, resolver)
             if (errorEventName) {
                 emitter.off(errorEventName, rejecter)
             }
-        }
-
-        emitter.on(eventName, resolver)
-        if (errorEventName) {
-            emitter.on(errorEventName, rejecter)
         }
     })
 }
