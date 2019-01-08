@@ -12,6 +12,7 @@ module.exports = {
   'MethodManager': require('./src/MethodManager'),
   'MethodRegistry': require('./src/MethodRegistry'),
   'NO_OP': require('./src/NO_OP'),
+  'Process': require('./src/Process'),
   'PromiseToEmit': require('./src/PromiseToEmit'),
   'QueryRequester': require('./src/QueryRequester'),
   'Resolver': require('./src/Resolver'),
