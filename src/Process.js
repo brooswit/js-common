@@ -1,4 +1,5 @@
 const EventEmitter = require('events')
+const promiseToEmit = require('./promiseToEmit')
 module.exports = class Process extends EventEmitter  {
   constructor(method, parentProcess) {
     super()
