@@ -50,21 +50,22 @@ module.exports = class TaskManager {
     })
   }
 
-  async _consume(taskName, taskHandler, taskContext, process) {
-    // TODO: HONOR PROCESS CLOSURE
-    let taskData
-    do {
-      taskData = await this._getTaskList(taskName).shift()
-    } while (taskData.closed)
-    let {payload, responseHandler, responseContext} = taskData
-    if (payload) {
-      let taskResult = taskHandler.call(taskContext, payload)
-      if (responseHandler) {
-        await responseHandler.call(responseContext, taskResult)
-      }
-      return true
-    }
-    return false
+  async _consume(taskName, taskHandler, taskContext, parentProcess) {
+    return new Process(async (process, parentProcess) => {
+      while(process.active) {
+        let taskData
+        do {
+          taskData = await this._getTaskList(taskName).shift()
+        } while (taskData.closed)
+        let {payload, responseHandler, responseContext} = taskData
+        if (payload) {
+          let taskResult = taskHandler.call(taskContext, payload)
+          if (responseHandler) {
+            await responseHandler.call(responseContext, taskResult)
+          }
+          return true
+        }
+        return false
   }
 
   _getTaskList(taskName) {
