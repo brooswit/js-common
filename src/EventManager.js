@@ -10,7 +10,7 @@ module.exports = class EventManager {
   trigger(eventName, eventPayload) {
     console.debug(`triggering ${eventName}`)
     return new Process(async (process)=>{
-      this._eventEmitter.trigger(eventName, eventPayload)
+      this._eventEmitter.emit(eventName, eventPayload)
     })
   }
 
