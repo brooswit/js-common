@@ -8,14 +8,12 @@ module.exports = class EventManager {
   }
 
   trigger(eventName, eventPayload) {
-    console.debug(`triggering ${eventName}`)
     return new Process(async (process)=>{
       this._eventEmitter.emit(eventName, eventPayload)
     })
   }
 
   hook(eventName, eventHandler, eventContext) {
-    console.debug(`hooking ${eventName}`)
     return new Process(async (process) => {
       this._eventEmitter.on(eventName, eventHandler, eventContext)
       let promise = promiseToEmit(process, 'close', null, 'EventManager.hook')
