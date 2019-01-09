@@ -6,7 +6,7 @@ module.exports = class Process extends EventEmitter  {
 
     this.active = true
     this.closed = false
-    this.promiseToClose = promiseToEmit(this,'close')
+    this.promiseToClose = promiseToEmit(this, 'close')
     
     if (parentProcess) {
       this._parentProcess = parentProcess
@@ -17,6 +17,7 @@ module.exports = class Process extends EventEmitter  {
   }
   
   close() {
+    if (this.closed) return
     if (this._parentProcess) {
       this._parentProcess.off('close', this.close, this)
     }
