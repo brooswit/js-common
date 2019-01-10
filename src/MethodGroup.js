@@ -1,10 +1,9 @@
-const EventEmitter = require('events')
+const EventEmitter = require('./EventEmitter');
 const MethodSocket = require('./MethodSocket')
 
 module.exports = class MethodGroup {
     constructor() {
         this._eventEmitter = new EventEmitter()
-        this._eventEmitter.setMaxListeners(65535)
     }
 
     hook(method, context) {
