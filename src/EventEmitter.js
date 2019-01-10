@@ -42,11 +42,12 @@ module.exports = class EventEmitter extends Process {
     }
 
     async emit(eventName, payload) {
-        let results = []
+        let promises = []
         for(let eventListenerIndex in this._eventListeners[eventName]) {
             let eventListener = this._eventListeners[eventName][eventListenerIndex]
-            results.push(eventListener && await eventListener.emit(payload))
+            promises.push(eventListener && eventListener.emit(payload))
         }
+        return await Promise.all(promises)
     }
 
     _find(eventName, callbackOrRefId, scope) {
