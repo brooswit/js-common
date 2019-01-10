@@ -4,10 +4,10 @@ module.exports = class EventEmitter extends Process {
             await this.promiseToClose
         })
     }
-    on(eventName, callback, context) {
-
+    on(eventName, callback, scope) {
+        this._contexts[eventName] = this._contexts[eventName] || []
     }
-    off(eventName, callback, context)
+    off(eventName, callback, scope)
     emit(eventName, payload)
 
 }
