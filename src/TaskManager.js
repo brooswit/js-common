@@ -24,11 +24,12 @@ module.exports = class TaskManager {
         payload, responseHandler, responseContext
       }
 
+      this._getTaskList(taskName).push(taskData)
+
       process.on('close', () => {
         taskData.closed = true
       })
 
-      this._getTaskList(taskName).push(taskData)
     })
   }
 
