@@ -20,6 +20,6 @@ module.exports = class Process  {
     if (this.closed) return
     this.active = false
     this.closed = true
-    promiseToClose.resolve()
+    this.promiseToClose.resolve()
   }
 }
