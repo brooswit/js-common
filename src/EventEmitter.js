@@ -21,7 +21,7 @@ class EventListener extends Process {
 
 module.exports = class EventEmitter extends Process {
     constructor() {
-        super(()=>{ await this.promiseToClose })
+        super(() => { await this.promiseToClose })
         this._nextRefId = 0
         this._eventListeners = {}
     }
@@ -37,8 +37,13 @@ module.exports = class EventEmitter extends Process {
     }
 
     off(eventName, callbackOrRefId, scope) {
-        eventListener = this._find(eventName, callbackOrRefId, scope)
-        eventListener && eventListener.close()
+        let callback = refId = callbackOrRefId
+        for(let eventListenerIndex in this._eventListeners[eventName]) {
+            let eventListener = this._eventListeners[eventListenerIndex]
+            if (!(eventListener.callback === callback && eventListener.scope === scope) && !(eventListener.refId === refId)) continue;
+            eventListener.close()
+            break
+        }
     }
 
     async emit(eventName, payload) {
@@ -48,14 +53,5 @@ module.exports = class EventEmitter extends Process {
             promises.push(eventListener && eventListener.emit(payload))
         }
         return await Promise.all(promises)
-    }
-
-    _find(eventName, callbackOrRefId, scope) {
-        let callback = refId = callbackOrRefId
-        for(let eventListenerIndex in this._eventListeners[eventName]) {
-            let eventListener = this._eventListeners[eventListenerIndex]
-            if (!(eventListener.callback === callback && eventListener.scope === scope) && !(eventListener.refId === refId)) continue;
-            return eventListener
-        }
     }
 }
