@@ -16,8 +16,7 @@ module.exports = class EventManager {
   hook(eventName, eventHandler, eventContext) {
     return new Process(async (process) => {
       this._eventEmitter.on(eventName, eventHandler, eventContext)
-      let promise = promiseToEmit(process, 'close', null, 'EventManager.hook')
-      await promise
+      await process.promiseToClose
       this._eventEmitter.off(eventName, eventHandler, eventContext)
   })
   }
