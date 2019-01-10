@@ -41,9 +41,12 @@ module.exports = class EventEmitter extends Process {
         eventListener && eventListener.close()
     }
 
-    emit(eventName, payload) {
-        eventListener = this._find(eventName, callbackOrRefId, scope)
-        return eventListener && eventListener.emit(payload)
+    async emit(eventName, payload) {
+        let results = []
+        for(let eventListenerIndex in this._eventListeners[eventName]) {
+            let eventListener = this._eventListeners[eventName][eventListenerIndex]
+            results.push(eventListener && await eventListener.emit(payload))
+        }
     }
 
     _find(eventName, callbackOrRefId, scope) {
