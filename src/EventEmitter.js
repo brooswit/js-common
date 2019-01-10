@@ -30,10 +30,10 @@ module.exports = class EventEmitter extends Process {
 
     off(eventName, callbackOrRefId, scope) {
         let callback = refId = callbackOrRefId
-        for(let eventListenerIndex in this._eventListeners[eventName]) {
-            let eventListener = this._eventListeners[eventListenerIndex]
+        for(let refId in this._eventListeners[eventName]) {
+            let eventListener = this._eventListeners[refId]
             if (!(eventListener.callback === callback && eventListener.scope === scope) && !(eventListener.refId === refId)) continue;
-            eventListener.process.close()
+            eventListener.close()
             break
         }
     }
