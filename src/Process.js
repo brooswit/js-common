@@ -15,7 +15,7 @@ module.exports = class Process extends EventEmitter  {
     }
 
     setTimeout(()=>{
-      if(await method(this)) {
+      if(!await method(this)) {
         this.close()
       }
     })
