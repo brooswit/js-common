@@ -3,6 +3,7 @@ const promiseToEmit = require('./promiseToEmit')
 module.exports = class Process extends EventEmitter  {
   constructor(method, parentProcess) {
     super()
+    this.setMaxListeners(65535)
 
     this.active = true
     this.closed = false
