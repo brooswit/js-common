@@ -33,6 +33,7 @@ module.exports = class EventEmitter extends Process {
             let context = this._contexts[contextIndex]
             if (!(context.callback === callback && context.scope === scope) && !(context.refId === refId)) continue;
             context.process.close()
+            break
         }
     }
     emit(eventName, payload) {
