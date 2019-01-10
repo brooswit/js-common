@@ -1,3 +1,5 @@
+const Process = require('./Process')
+
 class EventListener extends Process {
     constructor(eventEmitter, eventName, callback, scope, once) {
         this.callback = callback
