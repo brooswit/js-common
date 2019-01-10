@@ -41,5 +41,4 @@ module.exports = class EventEmitter extends Process {
     emit(eventName, payload) {
 
     }
-
 }
