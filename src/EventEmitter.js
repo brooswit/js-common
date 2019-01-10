@@ -54,7 +54,7 @@ module.exports = class EventEmitter extends Process {
         let promises = []
         for(let eventListenerIndex in this._eventListeners[eventName]) {
             let eventListener = this._eventListeners[eventName][eventListenerIndex]
-            promises.push(eventListener && eventListener.emit(payload))
+            eventListener && promises.push(eventListener.emit(payload))
         }
         return await Promise.all(promises)
     }
