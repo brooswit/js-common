@@ -1,4 +1,4 @@
-const EventEmitter = require('events').EventEmitter;;
+const EventEmitter = require('./EventEmitter');
 
 module.exports = class Stream {
     constructor(name) {
