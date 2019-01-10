@@ -18,7 +18,7 @@ class EventListener extends Process {
         })
     }
 
-    emit(payload) {
+    async emit(payload) {
         if(this._once) this.close()
         return await (this.callback.call(this.scope, payload))
     }
