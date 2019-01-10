@@ -26,10 +26,8 @@ module.exports = class TaskManager {
 
       this._getTaskList(taskName).push(taskData)
 
-      process.on('close', () => {
-        taskData.closed = true
-      })
-
+      await process.promiseToClose
+      taskData.closed = true
     })
   }
 
