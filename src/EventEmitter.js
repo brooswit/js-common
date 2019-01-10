@@ -33,7 +33,8 @@ module.exports = class EventEmitter extends Process {
     }
 
     off(eventName, callbackOrRefId, scope) {
-        this._find(eventName, callbackOrRefId, scope)
+        eventListener = this._find(eventName, callbackOrRefId, scope)
+        eventListener && eventListener.close()
     }
 
     emit(eventName, payload) {
