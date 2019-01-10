@@ -44,26 +44,26 @@ module.exports = class TaskManager {
       while(process.active) {
         let consumeProcess = this._consume(taskName, subscriptionHandler, context, process)
         await consumeProcess.promiseToClose
-        console.log('subscription ready', taskName)
+        console.log('subscription ready', taskName, process.closed)
       }
-      console.log('subscription end ', taskName)
+      console.log('subscription end ', taskName, process.closed)
     })
   }
 
   _consume(taskName, taskHandler, taskContext, parentProcess) {
     return new Process(async (process) => {
-      console.log('consume start', taskName)
-      process.promiseToClose.then(()=>{console.log('consume closed', taskName)})
+      console.log('consume start', taskName, process.closed)
+      process.promiseToClose.then(()=>{console.log('consume closed', taskName, process.closed)})
       let {payload, responseHandler, responseContext} = await this._getTaskList(taskName).shift()
-      console.log('consume got it', taskName)
+      console.log('consume got it', taskName, process.closed)
       if (process.closed) return
       let taskResult = await taskHandler.call(taskContext, payload)
-      console.log('consume doin it', taskName)
+      console.log('consume doin it', taskName, process.closed)
       if (process.closed) return
 
       if (responseHandler) {
         await responseHandler.call(responseContext, taskResult)
-        console.log('consume done', taskName)
+        console.log('consume done', taskName, process.closed)
       }
     }, parentProcess)
   }
