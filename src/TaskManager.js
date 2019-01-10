@@ -24,7 +24,6 @@ module.exports = class TaskManager {
         payload, responseHandler, responseContext
       }
 
-      console.log('pushing task')
       this._getTaskList(taskName).push(taskData)
 
       await process.promiseToClose
@@ -51,13 +50,11 @@ module.exports = class TaskManager {
     return new Process(async (process) => {
         let {payload, responseHandler, responseContext} = await this._getTaskList(taskName).shift()
         if (process.closed) return
-        console.log('consumed a thing')
         let taskResult = await taskHandler.call(taskContext, payload)
         if (process.closed) return
 
         if (responseHandler) {
           await responseHandler.call(responseContext, taskResult)
-        console.log('responded')
       }
     }, parentProcess)
   }
