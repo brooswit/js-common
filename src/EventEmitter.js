@@ -9,6 +9,10 @@ class EventListener extends Process {
         await eventEmitter.promiseToClose
         delete eventEmitter._eventListeners[eventName][refId]
     }
+
+    emit(payload) {
+        return await this.callback.call(this.scope, payload)
+    }
 }
 
 module.exports = class EventEmitter extends Process {
@@ -29,16 +33,19 @@ module.exports = class EventEmitter extends Process {
     }
 
     off(eventName, callbackOrRefId, scope) {
-        let callback = refId = callbackOrRefId
-        for(let eventListenerIndex in this._eventListeners[eventName]) {
-            let eventListener = this._eventListeners[eventListenerIndex]
-            if (!(eventListener.callback === callback && eventListener.scope === scope) && !(eventListener.refId === refId)) continue;
-            eventListener.close()
-            break
-        }
+        this._find(eventName, callbackOrRefId, scope)
     }
 
     emit(eventName, payload) {
 
+    }
+
+    _find(eventName, callbackOrRefId, scope) {
+        let callback = refId = callbackOrRefId
+        for(let eventListenerIndex in this._eventListeners[eventName]) {
+            let eventListener = this._eventListeners[eventListenerIndex]
+            if (!(eventListener.callback === callback && eventListener.scope === scope) && !(eventListener.refId === refId)) continue;
+            return eventListener
+        }
     }
 }
