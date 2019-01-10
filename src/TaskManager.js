@@ -52,13 +52,13 @@ module.exports = class TaskManager {
 
   _consume(taskName, taskHandler, taskContext, parentProcess) {
     return new Process(async (process) => {
-        let {payload, responseHandler, responseContext} = await this._getTaskList(taskName).shift()
-        if (process.closed) return
-        let taskResult = await taskHandler.call(taskContext, payload)
-        if (process.closed) return
+      let {payload, responseHandler, responseContext} = await this._getTaskList(taskName).shift()
+      if (process.closed) return
+      let taskResult = await taskHandler.call(taskContext, payload)
+      if (process.closed) return
 
-        if (responseHandler) {
-          await responseHandler.call(responseContext, taskResult)
+      if (responseHandler) {
+        await responseHandler.call(responseContext, taskResult)
       }
     }, parentProcess)
   }
