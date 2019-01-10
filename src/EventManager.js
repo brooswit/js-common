@@ -1,10 +1,10 @@
-const EventEmitter = require('events')
+const EventEmitter = require('./EventEmitter')
 const Process = require('./Process')
 const promiseToEmit = require('./promiseToEmit')
 
 module.exports = class EventManager {
   constructor() {
-    this._eventEmitter = new EventEmitter
+    this._eventEmitter = new EventEmitter()
     this._eventEmitter.setMaxListeners(65535)
   }
 

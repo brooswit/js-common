@@ -1,5 +1,5 @@
-const EventEmitter = require('events')
 const Resolver = require('./Resolver')
+
 module.exports = class Process  {
   constructor(method, parentProcess) {
     super()
