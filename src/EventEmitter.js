@@ -25,10 +25,12 @@ module.exports = class EventEmitter extends Process {
     }
 
     on(eventName, callback, scope) {
+        if(!callback) return promiseToEmit(this, eventName)
         return new EventListener(eventName, callback, scope)
     }
 
     once(eventName, callback, scope) {
+        if(!callback) return promiseToEmit(this, eventName, true)
         return new EventListener(eventName, callback, scope, true)
     }
 
