@@ -14,7 +14,7 @@ module.exports = class Process extends EventEmitter  {
       this._parentProcess.on('close', this.close, this)
     }
 
-    setTimeout(()=>{
+    setTimeout(async () => {
       await method(this)
       this.close()
     })
