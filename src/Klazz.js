@@ -8,6 +8,7 @@ module.exports = class Klazz {
     this._arguments = arguments
     this._id = nextId++
     this._internalEvents = new EventEmitter()
+    this._internalEvents.setMaxListeners(65535)
 
     this._readyPromise = new Resolver()
     this._destroyedPromise = new Resolver()
