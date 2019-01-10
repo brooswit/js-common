@@ -1,4 +1,4 @@
-const EventEmitter = require('events')
+const EventEmitter = require('./EventEmitter');
 
 let nextId = 0
 
@@ -7,7 +7,6 @@ module.exports = class MethodSocket {
         this.id = nextId++
 
         this._eventEmitter = new EventEmitter()
-        this._eventEmitter.setMaxListeners(65535)
         this._closed = false
 
         this._method = null
