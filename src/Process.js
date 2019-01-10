@@ -2,8 +2,6 @@ const Resolver = require('./Resolver')
 
 module.exports = class Process  {
   constructor(method, parentProcess) {
-    super()
-
     this.active = true
     this.closed = false
     this.promiseToClose = new Resolver()
