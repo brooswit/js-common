@@ -3,6 +3,7 @@ const EventEmitter = require('events')
 module.exports = class HookManager {
     constructor() {
         this._eventEmitter = new EventEmitter()
+        this._eventEmitter.setMaxListeners(65535)
     }
 
     hook(methodManager, eventName, method, context) {
