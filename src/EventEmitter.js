@@ -1,5 +1,11 @@
 class EventListener extends Process {
-    constructor()
+    constructor(eventEmitter, eventName, callback, scope, once) {
+        let refId = eventEmitter._nextRefId ++
+        eventEmitter._contexts[eventName] = eventEmitter._contexts[eventName] || {}
+        eventEmitter._contexts[eventName][refId] = {process, callback, scope, once}
+        await eventEmitter.promiseToClose
+        delete eventEmitter._contexts[eventName][refId]
+    }
 }
 
 module.exports = class EventEmitter extends Process {
@@ -10,22 +16,10 @@ module.exports = class EventEmitter extends Process {
         })
     }
     on(eventName, callback, scope) {
-        return new Process((process)=>{
-            let refId = this._nextRefId ++
-            this._contexts[eventName] = this._contexts[eventName] || {}
-            this._contexts[eventName][refId] = {process, callback, scope}
-            await this.promiseToClose
-            delete this._contexts[eventName][refId]
-        })
+        return new EventListener(eventName, callback, scope)
     }
     once(eventName, callback, scope) {
-        return new Process((process)=>{
-            let refId = this._nextRefId ++
-            this._contexts[eventName] = this._contexts[eventName] || {}
-            this._contexts[eventName][refId] = {process, callback, scope, once: true}
-            await this.promiseToClose
-            delete this._contexts[eventName][refId]
-        })
+        return new EventListener(eventName, callback, scope, true)
     }
     off(eventName, callbackOrRefId, scope) {
         let callback = refId = callbackOrRefId
