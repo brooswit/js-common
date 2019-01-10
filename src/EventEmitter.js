@@ -13,14 +13,16 @@ module.exports = class EventEmitter extends Process {
         return new Process((process)=>{
             let refId = this._nextRefId ++
             this._contexts[eventName] = this._contexts[eventName] || []
-            this._contexts[eventName].push({refId, callback, scope})
+            this._contexts[eventName].push({process, refId, callback, scope})
             await this.promiseToClose
         })
     }
     once(eventName, callback, scope) {
-        let refId = this._nextRefId ++
-        this._contexts[eventName] = this._contexts[eventName] || []
-        this._contexts[eventName].push({refId, callback, scope, once: true})
+        return new Process((process)=>{
+            let refId = this._nextRefId ++
+            this._contexts[eventName] = this._contexts[eventName] || []
+            this._contexts[eventName].push({process, refId, callback, scope, once: true})
+        })
     }
     off(eventName, callbackOrRefId, scope) {
         let callback = refId = callbackOrRefId
