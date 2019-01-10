@@ -6,7 +6,9 @@ class EventListener extends Process {
         let refId = eventEmitter._nextRefId ++
         eventEmitter._eventListeners[eventName] = eventEmitter._eventListeners[eventName] || {}
         eventEmitter._eventListeners[eventName][refId] = this
-        await eventEmitter.promiseToClose
+
+        await Promise.race([this.promiseToClose, eventEmitter.promiseToClose])
+
         delete eventEmitter._eventListeners[eventName][refId]
     }
 
