@@ -21,8 +21,10 @@ module.exports = class EventEmitter extends Process {
     once(eventName, callback, scope) {
         return new Process((process)=>{
             let refId = this._nextRefId ++
-            this._contexts[eventName] = this._contexts[eventName] || []
-            this._contexts[eventName].push({process, refId, callback, scope, once: true})
+            this._contexts[eventName] = this._contexts[eventName] || {}
+            this._contexts[eventName][refId] = {process, callback, scope, once: true}
+            await this.promiseToClose
+            delete this._contexts[eventName][refId]
         })
     }
     off(eventName, callbackOrRefId, scope) {
