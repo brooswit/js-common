@@ -1,4 +1,5 @@
 const Process = require('./Process')
+const promiseToEmit = require('./promiseToEmit')
 
 class EventListener extends Process {
     constructor(eventEmitter, eventName, callback, scope, once) {
