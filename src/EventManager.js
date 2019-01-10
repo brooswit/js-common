@@ -5,6 +5,7 @@ const promiseToEmit = require('./promiseToEmit')
 module.exports = class EventManager {
   constructor() {
     this._eventEmitter = new EventEmitter
+    this._eventEmitter.setMaxListeners(65535)
   }
 
   trigger(eventName, eventPayload) {
