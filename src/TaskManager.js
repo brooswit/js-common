@@ -44,6 +44,7 @@ module.exports = class TaskManager {
       while(process.active) {
         let consumeProcess = this._consume(taskName, subscriptionHandler, context, process)
         await consumeProcess.promiseToClose
+        console.log('subscription ready', taskName)
       }
       console.log('subscription end ', taskName)
     })
