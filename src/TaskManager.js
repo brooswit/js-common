@@ -19,6 +19,7 @@ module.exports = class TaskManager {
 
   request(taskName, payload, responseHandler, responseContext) {
     return new Process(async (process) => {
+      console.log(taskName, 'started')
       let taskData = {
         closed: false,
         payload, responseHandler, responseContext
@@ -27,6 +28,7 @@ module.exports = class TaskManager {
       this._getTaskList(taskName).push(taskData)
 
       await process.promiseToClose
+      console.log(taskName, 'closed')
       taskData.closed = true
     })
   }
