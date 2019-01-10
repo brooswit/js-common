@@ -6,15 +6,10 @@ module.exports = class Process  {
 
     this.active = true
     this.closed = false
-    this.promiseToClose = promiseToEmit(this, 'close')
-    
-    if (parentProcess) {
-      this._parentProcess = parentProcess
-      this._parentProcess.on('close', this.close, this)
-    }
+    this.promiseToClose = new Resolver()
 
     setTimeout(async () => {
-      await method(this)
+      await Promise.race([parentProcess.promiseToClose, this.promiseToClose, method(this)])
       this.close()
     })
   }
@@ -26,6 +21,6 @@ module.exports = class Process  {
     }
     this.active = false
     this.closed = true
-    this.emit('close')
+    promiseToClose.resolve()
   }
 }
