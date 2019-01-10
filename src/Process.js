@@ -7,7 +7,7 @@ module.exports = class Process  {
     this.promiseToClose = new Resolver()
 
     setTimeout(async () => {
-      await (Promise.race([parentProcess.promiseToClose, this.promiseToClose, method(this)]))
+      await (Promise.race([parentProcess.promiseToClose || undefined, this.promiseToClose, method(this)]))
       this.close()
     })
   }
