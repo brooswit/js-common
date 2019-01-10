@@ -1,9 +1,8 @@
 const EventEmitter = require('events')
 const promiseToEmit = require('./promiseToEmit')
-module.exports = class Process extends EventEmitter  {
+module.exports = class Process  {
   constructor(method, parentProcess) {
     super()
-    this.setMaxListeners(65535)
 
     this.active = true
     this.closed = false
