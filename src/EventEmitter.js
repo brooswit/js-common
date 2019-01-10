@@ -5,7 +5,7 @@ class EventListener extends Process {
 
         let refId = eventEmitter._nextRefId ++
         eventEmitter._eventListeners[eventName] = eventEmitter._eventListeners[eventName] || {}
-        eventEmitter._eventListeners[eventName][refId] = {process, callback, scope, once}
+        eventEmitter._eventListeners[eventName][refId] = this
         await eventEmitter.promiseToClose
         delete eventEmitter._eventListeners[eventName][refId]
     }
@@ -30,10 +30,10 @@ module.exports = class EventEmitter extends Process {
 
     off(eventName, callbackOrRefId, scope) {
         let callback = refId = callbackOrRefId
-        for(let contextIndex in this._eventListeners[eventName]) {
-            let context = this._eventListeners[contextIndex]
-            if (!(context.callback === callback && context.scope === scope) && !(context.refId === refId)) continue;
-            context.process.close()
+        for(let eventListenerIndex in this._eventListeners[eventName]) {
+            let eventListener = this._eventListeners[eventListenerIndex]
+            if (!(eventListener.callback === callback && eventListener.scope === scope) && !(eventListener.refId === refId)) continue;
+            eventListener.process.close()
             break
         }
     }
