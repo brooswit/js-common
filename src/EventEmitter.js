@@ -3,17 +3,19 @@ const promiseToEmit = require('./promiseToEmit')
 
 class EventListener extends Process {
     constructor(eventEmitter, eventName, callback, scope, once) {
-        this.callback = callback
-        this.scope = scope
-        this._once = once
-
-        let refId = eventEmitter._nextRefId ++
-        eventEmitter._eventListeners[eventName] = eventEmitter._eventListeners[eventName] || {}
-        eventEmitter._eventListeners[eventName][refId] = this
-
-        await (Promise.race([this.promiseToClose, eventEmitter.promiseToClose]))
-
-        delete eventEmitter._eventListeners[eventName][refId]
+        super(async ()=>{
+            this.callback = callback
+            this.scope = scope
+            this._once = once
+            
+            let refId = eventEmitter._nextRefId ++
+            eventEmitter._eventListeners[eventName] = eventEmitter._eventListeners[eventName] || {}
+            eventEmitter._eventListeners[eventName][refId] = this
+            
+            await (Promise.race([this.promiseToClose, eventEmitter.promiseToClose]))
+            
+            delete eventEmitter._eventListeners[eventName][refId]
+        })
     }
 
     emit(payload) {
