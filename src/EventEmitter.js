@@ -2,6 +2,7 @@ class EventListener extends Process {
     constructor(eventEmitter, eventName, callback, scope, once) {
         this.callback = callback
         this.scope = scope
+        this._once = once
 
         let refId = eventEmitter._nextRefId ++
         eventEmitter._eventListeners[eventName] = eventEmitter._eventListeners[eventName] || {}
