@@ -5,6 +5,7 @@ module.exports = class Stream {
         this._name = name
         this._data = [];
         this._events = new EventEmitter();
+        this._events.setMaxListeners(65535)
 
         this.isDone = false;
     }
