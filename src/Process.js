@@ -1,5 +1,5 @@
 const EventEmitter = require('events')
-const promiseToEmit = require('./promiseToEmit')
+const Resolver = require('./Resolver')
 module.exports = class Process  {
   constructor(method, parentProcess) {
     super()
@@ -16,9 +16,6 @@ module.exports = class Process  {
   
   close() {
     if (this.closed) return
-    if (this._parentProcess) {
-      this._parentProcess.off('close', this.close, this)
-    }
     this.active = false
     this.closed = true
     promiseToClose.resolve()
