@@ -6,6 +6,7 @@ module.exports = {
   'calculateMemoryFootprint': require('./src/calculateMemoryFootprint'),
   'delay': require('./src/delay'),
   'getArgNames': require('./src/getArgNames'),
+  'EventEmitter': require('./src/EventEmitter'),
   'EventManager': require('./src/EventManager'),
   'JSONparseSafe': require('./src/JSONparseSafe'),
   'Klazz': require('./src/Klazz'),
