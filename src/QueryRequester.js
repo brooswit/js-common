@@ -3,6 +3,7 @@ const EventEmitter = require('events')
 module.exports = class QueryRequester {
   constructor () {
     this._events = new EventEmitter()
+    this._events.setMaxListeners(65535)
     this._lookupHandlerByPromise = {}
   }
 
