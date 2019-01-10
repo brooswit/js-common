@@ -26,10 +26,10 @@ module.exports = class EventEmitter extends Process {
     }
     off(eventName, callbackOrRefId, scope) {
         let callback = refId = callbackOrRefId
-        for(let contextIndex in this._contexts) {
+        for(let contextIndex in this._contexts[eventName]) {
             let context = this._contexts[contextIndex]
             if (!(context.callback === callback && context.scope === scope) && !(context.refId === refId)) continue;
-            if ()
+            context.process.close()
         }
     }
     emit(eventName, payload) {
