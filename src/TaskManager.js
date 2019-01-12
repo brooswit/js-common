@@ -18,7 +18,7 @@ module.exports = class TaskManager {
 
   request(taskName, payload, responseHandler, responseContext) {
     return new Process(async (process) => {
-      console.log(taskName, 'started')
+      console.log(taskName, 'requested')
       let taskData = {
         closed: false,
         payload, responseHandler, responseContext
