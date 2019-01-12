@@ -7,7 +7,6 @@ module.exports = class TaskManager {
   }
 
   feed(taskName, payload) {
-    // NOTE: SHOULD NOT HONOR PROCESS CLOSURE
     return new Process(async (process) => {
       let taskData = {
         closed: false,
@@ -63,8 +62,8 @@ module.exports = class TaskManager {
 
       if (responseHandler) {
         await responseHandler.call(responseContext, taskResult)
-        console.log('consume done', taskName, process.closed)
       }
+      console.log('consume done', taskName, process.closed)
     }, parentProcess)
   }
 
