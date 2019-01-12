@@ -62,17 +62,7 @@ module.exports = class TaskManager {
 
       if (responseHandler) {
         console.log('consume doing response handler', taskName, process.closed)
-        try {
-          await responseHandler.call(responseContext, taskResult)
-        } catch(e) {
-          console.log(e)
-          console.log(e)
-          console.log(e)
-          console.log(e)
-          console.log(e)
-          console.log(e)
-          console.log(e)
-        }
+        responseHandler.call(responseContext, taskResult)
         console.log('response handler complete', taskName, process.closed)
       } else {
         console.log('consume no_response_handler', taskName, process.closed)
