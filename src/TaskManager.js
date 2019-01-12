@@ -57,7 +57,7 @@ module.exports = class TaskManager {
       console.log('consume got it', taskName, process.closed)
       if (process.closed) return
       let taskResult = await taskHandler.call(taskContext, payload)
-      console.log('consume doin it', taskName, process.closed)
+      console.log('consume doin it', taskName, process.closed, responseHandler)
       if (process.closed) return
 
       if (responseHandler) {
