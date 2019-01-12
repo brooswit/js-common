@@ -52,9 +52,8 @@ module.exports = class TaskManager {
   _consume(taskName, taskHandler, taskContext, parentProcess) {
     return new Process(async (process) => {
       console.log('consume start', taskName, process.closed)
-      process.promiseToClose.then(()=>{console.log('consume closed', taskName, process.closed)})
       let {payload, responseHandler, responseContext} = await this._getTaskList(taskName).shift()
-      console.log('consume got it', taskName, process.closed)
+      console.log('consume got it', taskName, process.closed, payload, responseHandler, responseContext)
       if (process.closed) return
       console.log('consume doin it', taskName, process.closed, responseHandler)
       let taskResult = await taskHandler.call(taskContext, payload)
@@ -66,7 +65,7 @@ module.exports = class TaskManager {
         console.log('consume no_response_handler', taskName, process.closed)
       }
       console.log('consume done', taskName, process.closed)
-    }, parentProcess)
+    }, undefined, parentProcess)
   }
 
   _getTaskList(taskName) {
