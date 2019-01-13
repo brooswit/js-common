@@ -25,8 +25,8 @@ class EventListener extends Process {
 }
 
 module.exports = class EventEmitter extends Process {
-    constructor() {
-        super(async() => { await (this.promiseToClose) })
+    constructor(parentProcess) {
+        super(async() => { await (this.promiseToClose) , parentProcess})
         this._nextRefId = 0
         this._eventListeners = {}
     }
