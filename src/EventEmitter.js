@@ -44,7 +44,9 @@ module.exports = class EventEmitter extends Process {
     off(eventName, callback, scope, parentProcess) {
         for(let eventListenerIndex in this._eventListeners[eventName]) {
             let eventListener = this._eventListeners[eventName][eventListenerIndex]
-            if (eventListener.callback !== callback || eventListener.scope !== scope) continue;
+            if (eventListener.callback !== callback
+                || eventListener.scope !== scope
+                || eventListener.parentProcess !== parentProcess) continue;
             eventListener.close()
             break
         }
