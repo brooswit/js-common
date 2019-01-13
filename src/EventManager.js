@@ -18,6 +18,6 @@ module.exports = class EventManager {
       this._eventEmitter.on(eventName, eventHandler, eventContext, parentProcess)
       await process.promiseToClose
       this._eventEmitter.off(eventName, eventHandler, eventContext, parentProcess)
-  })
+    })
   }
 }
