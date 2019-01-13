@@ -27,13 +27,13 @@ module.exports = class TaskManager {
 
       await process.promiseToClose
       taskData.closed = true
-    })
+    }, parentProcess)
   }
 
-  consume(taskName, taskHandler, taskContext) {
+  consume(taskName, taskHandler, taskContext, parentProcess) {
     return new Process(async (process) => {
       this._consume(taskName, taskHandler, taskContext, process)
-    })
+    }, parentProcess)
   }
 
   subscribe(taskName, subscriptionHandler, context) {
