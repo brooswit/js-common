@@ -31,17 +31,17 @@ module.exports = class EventEmitter extends Process {
         this._eventListeners = {}
     }
 
-    on(eventName, callback, scope) {
+    on(eventName, callback, scope, parentProcess) {
         if(!callback) return promiseToEmit(this, eventName)
-        return new EventListener(this, eventName, callback, scope)
+        return new EventListener(this, eventName, callback, scope, false, parentProcess)
     }
 
-    once(eventName, callback, scope) {
+    once(eventName, callback, scope, parentProcess) {
         if(!callback) return promiseToEmit(this, eventName, true)
-        return new EventListener(this, eventName, callback, scope, true)
+        return new EventListener(this, eventName, callback, scope, true, parentProcess)
     }
 
-    off(eventName, callback, scope) {
+    off(eventName, callback, scope, parentProcess) {
         for(let eventListenerIndex in this._eventListeners[eventName]) {
             let eventListener = this._eventListeners[eventName][eventListenerIndex]
             if (eventListener.callback !== callback || eventListener.scope !== scope) continue;
