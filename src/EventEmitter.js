@@ -15,7 +15,7 @@ class EventListener extends Process {
             await (Promise.race([eventEmitter.promiseToClose, this.promiseToClose]))
             
             delete eventEmitter._eventListeners[eventName][refId]
-        })
+        }, parentProcess)
     }
 
     async emit(payload) {
