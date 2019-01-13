@@ -6,17 +6,17 @@ module.exports = class TaskManager {
     this._taskLists = {}
   }
 
-  feed(taskName, payload) {
+  feed(taskName, payload, parentProcess) {
     return new Process(async (process) => {
       let taskData = {
         closed: false,
         payload
       }
       this._getTaskList(taskName).push(taskData)
-    })
+    }, parentProcess)
   }
 
-  request(taskName, payload, responseHandler, responseContext) {
+  request(taskName, payload, responseHandler, responseContext, parentProcess) {
     return new Process(async (process) => {
       let taskData = {
         closed: false,
