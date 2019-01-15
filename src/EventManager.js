@@ -7,10 +7,10 @@ module.exports = class EventManager {
     this._eventEmitter = new EventEmitter()
   }
 
-  trigger(eventName, eventPayload, parentProcess) {
+  trigger(eventName, eventPayload) {
     return new Process(async (process)=>{
       this._eventEmitter.emit(eventName, eventPayload)
-    }, parentProcess)
+    })
   }
 
   hook(eventName, eventHandler, eventContext, parentProcess) {
@@ -18,6 +18,6 @@ module.exports = class EventManager {
       this._eventEmitter.on(eventName, eventHandler, eventContext, parentProcess)
       await process.promiseToClose
       this._eventEmitter.off(eventName, eventHandler, eventContext, parentProcess)
-    })
+  })
   }
 }
