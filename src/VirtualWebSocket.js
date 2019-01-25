@@ -1,6 +1,8 @@
-import { fromEvent } from 'rxjs';
+const fromEvent from 'rxjs';
 
-module.exports = class VirtualWebSocket extends process {
+const Process = require('./Process')
+
+module.exports = class VirtualWebSocket extends Process {
     constructor(ws, parent) {
         super(async ()=>{
             this._ws = ws;
