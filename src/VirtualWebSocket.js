@@ -8,7 +8,7 @@ const NO_OP = require('./NO_OP')
 module.exports = class VirtualWebSocket extends Process {
     constructor(ws, optionalChannel) {
         super(async () => {
-            this.binaryType = "SOME STRING"
+            this.binaryType = "STRING"
             this.bufferedAmount = 1234
             this.extensions = {}
             this.onclose = NO_OP
@@ -16,6 +16,8 @@ module.exports = class VirtualWebSocket extends Process {
             this.onmessage = NO_OP
             this.onopen = NO_OP
             this.protocol = "STRING"
+            this.readyState = 1234
+            this.url = "STRING"
 
             this._ws = ws;
 
@@ -71,6 +73,10 @@ module.exports = class VirtualWebSocket extends Process {
 
     // websocket.addEventListener(type, listener)
     // websocket.close([code[, reason]])
+    // websocket.removeEventListener(type, listener)
+    // websocket.send(data[, options][, callback])
+    // websocket.terminate()
+
 }
 
 VirtualWebSocket._nextVirtualWebSocketChannel = 0
