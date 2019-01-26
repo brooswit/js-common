@@ -1,11 +1,13 @@
 // Intended to be used with https://github.com/websockets/ws
+const {fromEvent} = require('rxjs');
 const VirtualWebSocket = require('./VirtualWebSocket')
 const Process = require('./Process')
 
 module.exports = class VirtualWebSocketServer extends Process {
     constructor(wss) {
         super(async () => {
-            VirtualWebSocket
+            const connectionObserver = fromEvent(wss,'connection')
+            this.subscribe(connectionObserver, )
             await this.promiseTo('destroy')
         })
     }

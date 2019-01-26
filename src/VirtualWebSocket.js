@@ -1,5 +1,4 @@
 // Intended to be used with https://github.com/websockets/ws
-
 const {fromEvent} = require('rxjs');
 
 const Process = require('./Process')
