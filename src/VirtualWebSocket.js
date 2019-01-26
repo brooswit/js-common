@@ -8,16 +8,16 @@ const NO_OP = require('./NO_OP')
 module.exports = class VirtualWebSocket extends Process {
     constructor(ws, optionalChannel) {
         super(async () => {
-            this.binaryType = "STRING"
-            this.bufferedAmount = 1234
-            this.extensions = {}
-            this.onclose = NO_OP
-            this.onerror = NO_OP
-            this.onmessage = NO_OP
-            this.onopen = NO_OP
-            this.protocol = "STRING"
-            this.readyState = 1234
-            this.url = "STRING"
+            // this.binaryType = "STRING"
+            // this.bufferedAmount = 1234
+            // this.extensions = {}
+            // this.onclose = NO_OP
+            // this.onerror = NO_OP
+            // this.onmessage = NO_OP
+            // this.onopen = NO_OP
+            // this.protocol = "STRING"
+            // this.readyState = 1234
+            // this.url = "STRING"
 
             this._ws = ws;
 
