@@ -15,6 +15,7 @@ module.exports = class VirtualWebSocket extends Process {
             this.onerror = NO_OP
             this.onmessage = NO_OP
             this.onopen = NO_OP
+            this.protocol = "STRING"
 
             this._ws = ws;
 
