@@ -14,11 +14,17 @@ module.exports = class VirtualWebSocket extends Process {
             } else {
                 this.channel = VirtualWebSocket._nextVirtualWebSocketChannel ++
             }
-            
-            this._observable = fromEvent(ws, "message")
-            this._subscription = this._observable.subscribe(this._handleMessage)
 
-            await this.promiseTo('close')
+            this.subscribe(fromEvent(ws, "message"), this._handleMessage)
+            this.subscribe(fromEvent(ws, "open"), this._handleOpen)
+            this.subscribe(fromEvent(ws, "close"), this._handleClose)
+            this.subscribe(fromEvent(ws, "upgrade"), this._handleUpgrade)
+            this.subscribe(fromEvent(ws, "ping"), this._handlePing)
+            this.subscribe(fromEvent(ws, "pong"), this._handlePong)
+            this.subscribe(fromEvent(ws, "error"), this._handleError)
+            this.subscribe(fromEvent(ws, "unexpected-response"), this._handleUnexpectedResponse)
+
+            await this.promiseTo('destroy')
             this.send('close')
             this._subscription.unsubscribe()
         })
