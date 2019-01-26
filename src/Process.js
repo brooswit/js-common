@@ -9,9 +9,11 @@ module.exports = class Process extends ExtendedEvents {
       const promiseThisWillClose = this.promiseTo('close')
       const promiseThisWIllComplete = processHandler(this)
       const promiseParentWillClose = optionalParent && optionalParent.promiseTo('close')
+      
       const allPromises = [promiseThisWillClose, promiseThisWIllComplete]
       if (promiseParentWillClose) { allPromises.push(promiseParentWillClose) }
       const anyPromise = Promise.race(allPromises)
+
       await anyPromise
       this.destroy()
     })
