@@ -3,7 +3,7 @@
 const {fromEvent} = require('rxjs');
 
 const Process = require('./Process')
-const NO_OP = require('./NO_OP')
+// const NO_OP = require('./NO_OP')
 
 module.exports = class VirtualWebSocket extends Process {
     constructor(ws, optionalChannel) {
