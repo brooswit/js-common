@@ -12,12 +12,13 @@ module.exports = class VirtualWebSocket extends Process {
             this._subscription = this._observable.subscribe(this._handleMessage)
 
             await this.promiseTo('close')
+            this._subscription.unsubscribe()
             ws.close()
         })
     }
 
-    _handleMessage(message) {
-        const paylaod = JSONparseSafe(message)
-        paylaod
+    _handleMessage(rawMsg) {
+        const msg = JSONparseSafe(rawMsg)
+        if (msg.vwsid === this._id) this.emit('message', )
     }
 }
