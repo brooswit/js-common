@@ -2,13 +2,15 @@ const {fromEvent} = require('rxjs');
 
 const Process = require('./Process')
 
-const nextVirtualWebSocketId = 0
+const nextVirtualWebSocketChannel = 0
+const nextPingId = 0
+
 module.exports = class VirtualWebSocket extends Process {
     constructor(ws, channel) {
         super(async () => {
             this._ws = ws;
 
-            this._channel = channel || nextVirtualWebSocketId++
+            this._channel = channel || nextVirtualWebSocketChannel++
             
             this._observable = fromEvent(ws, "message")
             this._subscription = this._observable.subscribe(this._handleMessage)
@@ -17,6 +19,10 @@ module.exports = class VirtualWebSocket extends Process {
             this.send('close')
             this._subscription.unsubscribe()
         })
+    }
+
+    ping() {
+
     }
 
     _handleMessage(rawMsg) {
