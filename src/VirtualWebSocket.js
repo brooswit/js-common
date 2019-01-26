@@ -9,8 +9,8 @@ module.exports = class VirtualWebSocket extends Process {
         super(async () => {
             this._ws = ws;
 
-            this.subscribe(fromEvent(ws, "message"), this._handleMessage)
-            this.subscribe(fromEvent(ws, "close"), this._handleClose)
+            this.subscribe(fromEvent(ws, 'message'), this._handleMessage)
+            this.subscribe(fromEvent(ws, 'close'), this.close)
 
             const mainChannel = this.withChannel('main')
             if (channel) {
@@ -20,12 +20,12 @@ module.exports = class VirtualWebSocket extends Process {
             }
             this.emit('open')
 
-            // this.subscribe(fromEvent(ws, "open"), this._handleOpen)
-            // this.subscribe(fromEvent(ws, "upgrade"), this._handleUpgrade)
-            // this.subscribe(fromEvent(ws, "ping"), this._handlePing)
-            // this.subscribe(fromEvent(ws, "pong"), this._handlePong)
-            // this.subscribe(fromEvent(ws, "error"), this._handleError)
-            // this.subscribe(fromEvent(ws, "unexpected-response"), this._handleUnexpectedResponse)
+            // this.subscribe(fromEvent(ws, 'open'), this._handleOpen)
+            // this.subscribe(fromEvent(ws, 'upgrade'), this._handleUpgrade)
+            // this.subscribe(fromEvent(ws, 'ping'), this._handlePing)
+            // this.subscribe(fromEvent(ws, 'pong'), this._handlePong)
+            // this.subscribe(fromEvent(ws, 'error'), this._handleError)
+            // this.subscribe(fromEvent(ws, 'unexpected-response'), this._handleUnexpectedResponse)
 
             await this.promiseTo('destroy')
             this.message('close')
