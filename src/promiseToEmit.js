@@ -13,7 +13,7 @@ module.exports = function promiseToEmit(emitter, resolveEventName, rejectEventNa
 
         function rejecter(error) {
             cleanup()
-            callback(reject(error))
+            reject(error)
         }
 
         function cleanup() {
