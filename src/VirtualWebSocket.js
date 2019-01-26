@@ -28,7 +28,7 @@ module.exports = class VirtualWebSocket extends Process {
     }
     
     send(event, optionalPayload) {
-        
+        this._ws.send({ channel, event, payload })
     }
 
     _handleMessage(rawMsg) {
