@@ -19,6 +19,8 @@ module.exports = class Process extends ExtendedEvents {
     })
   }
 
+  //emit (eventName, payload, callback)
+
   subscribe(observable, handler) {
     if (this.isDestroyed()) return
     const subscription = observable.subscribe(handler)
