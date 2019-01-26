@@ -17,6 +17,11 @@ module.exports = class Process extends ExtendedEvents {
       this.close()
     })
   }
+
+  isClosed() {
+    return !!this.closed
+  }
+
   
   close() {
     if (this.closed) return
