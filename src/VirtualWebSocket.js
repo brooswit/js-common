@@ -17,6 +17,7 @@ module.exports = class VirtualWebSocket extends Process {
                 this.channel = channel
             } else if (serverMode) {
                 this.channel = Date.now()
+                this.message('set-channel', this.channel)
             } else {
                 this.channel = await this.promiseTo('set-channel')
             }
