@@ -42,17 +42,16 @@ module.exports = class VirtualWebSocket extends Process {
     get readyState() { return this._ws.readyState }
     get url() { return this._ws.url }
 
-    // websocket.ping([data[, mask]][, callback])
     ping() {
         const pingId = VirtualWebSocket._nextPingId ++
         this.send('ping', {pingId})
     }
-    // websocket.pong([data[, mask]][, callback])
 
     
     send(event, optionalPayload, optionalChannel) {
         const channel = optionalChannel || this._channel
         const payload = optionalPayload
+        const id = VirtualWebSocket._nextMessageId ++
         this._ws.send({ channel, event, payload })
     }
 
@@ -71,6 +70,8 @@ module.exports = class VirtualWebSocket extends Process {
         }
     }
 
+    // websocket.ping([data[, mask]][, callback])
+    // websocket.pong([data[, mask]][, callback])
     // websocket.addEventListener(type, listener)
     // websocket.close([code[, reason]])
     // websocket.removeEventListener(type, listener)
