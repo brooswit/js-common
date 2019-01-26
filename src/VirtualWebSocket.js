@@ -7,7 +7,11 @@ module.exports = class VirtualWebSocket extends Process {
         super(async () => {
             this._ws = ws;
 
-            this._channel = optionalChannel || (VirtualWebSocket._nextVirtualWebSocketChannel ++)
+            if (optionalChannel) {
+                this.channel = optionalChannel
+            } else {
+                this.channel = VirtualWebSocket._nextVirtualWebSocketChannel ++
+            }
             
             this._observable = fromEvent(ws, "message")
             this._subscription = this._observable.subscribe(this._handleMessage)
