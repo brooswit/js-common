@@ -7,6 +7,10 @@ const Process = require('./Process')
 module.exports = class VirtualWebSocket extends Process {
     constructor(ws, optionalChannel) {
         super(async () => {
+            this.binaryType = "SOME STRING"
+            this.bufferedAmount = 1234
+            this.extensions = {}
+
             this._ws = ws;
 
             if (optionalChannel) {
@@ -55,6 +59,9 @@ module.exports = class VirtualWebSocket extends Process {
             }
         }
     }
+
+    addEventListener(type, listener) {}
+    close(optionalCode, optionalReason) {}
 }
 
 VirtualWebSocket._nextVirtualWebSocketChannel = 0
