@@ -71,16 +71,15 @@ module.exports = class VirtualWebSocket extends Process {
             if (operation === 'close') {
                 this.close()
             } else if (operation === 'message') {
-
-                this.emit('message', payload)
+                const {event} = data
+                this.emit(event, payload)
             } else if (operation === 'request') {
+                const {method, requestId} = data
                 new Process((process) => {
-                    const resolver = new resolver()
-                    this.emit('request', payload, resolver.resolve)
+                    const resolver = new Resolver()
+                    this.emit(method, payload, resolver.resolve)
                     const response = await resolver
                     this.respond(requestId, response)
-                    this.emit(`respone-${requestId}`, response)
-                    
                 })
             } else if (operation === 'ping') {
                 this.send('pong', payload)
