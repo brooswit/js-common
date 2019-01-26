@@ -2,9 +2,6 @@ const {fromEvent} = require('rxjs');
 
 const Process = require('./Process')
 
-const nextVirtualWebSocketChannel = 0
-const nextPingId = 0
-
 module.exports = class VirtualWebSocket extends Process {
     constructor(ws, channel) {
         super(async () => {
@@ -22,7 +19,7 @@ module.exports = class VirtualWebSocket extends Process {
     }
 
     ping() {
-        const pingId = nextPingId ++
+        const pingId = VirtualWebSocket._nextPingId ++
         this.send('ping', {pingId})
     }
 
@@ -41,3 +38,6 @@ module.exports = class VirtualWebSocket extends Process {
         }
     }
 }
+
+VirtualWebSocket._nextVirtualWebSocketChannel = 0
+VirtualWebSocket._nextPingId = 0
