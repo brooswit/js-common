@@ -37,7 +37,10 @@ module.exports = class VirtualWebSocket extends Process {
     async request(method, optionalPayload) {
         const requestId = VirtualWebSocket._nextRequestId ++
         this._send('request', {method, requestId}, optionalPayload)
-        const response = await this.promiseTo(`_respone-${requestId}`)
+        const response = await Promise.race([
+            this.promiseTo(`_respone-${requestId}`),
+            this.promiseTo('destroy')
+        ])
         if (this.isClosed()) return
 
         return response
