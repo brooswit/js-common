@@ -10,7 +10,7 @@ module.exports = class VirtualWebSocket extends Process {
             this._ws = ws;
 
             this.subscribe(fromEvent(ws, "message"), this._handleMessage)
-            const mainChannel = this.channel('main')
+            const mainChannel = this.withChannel('main')
             if (channel) {
                 this.channel = channel
             } else {
@@ -32,13 +32,8 @@ module.exports = class VirtualWebSocket extends Process {
         }, parent)
     }
 
-    channel(channel) {
+    withChannel(channel) {
         new VirtualWebSocket(this._ws, {channel, parent: this})
-    }
-
-    ping() {
-        const pingId = VirtualWebSocket._nextPingId ++
-        this.send('ping', {pingId})
     }
 
     message(event, optionalPayload) {
