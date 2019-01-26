@@ -9,7 +9,7 @@ module.exports = class Process extends ExtendedEvents {
 
     setTimeout(async () => {
       let promises = []
-      promises.push(this.promiseToClose)
+      promises.push(this.promiseTo('close'))
       promises.push(method(this))
       optionalParentProcess && promises.push(optionalParentProcess.promiseToClose)
       await Promise.race(promises)
