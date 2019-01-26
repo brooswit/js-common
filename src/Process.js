@@ -20,9 +20,9 @@ module.exports = class Process extends ExtendedEvents {
   }
 
   subscribe(observable, handler) {
+    if (this.isDestroyed()) return
     const subscription = observable.subscribe(handler)
     new Process((process) => {
-      if (this.isDestroyed()) return false
       await this.promiseTo('destroy')
     }, this)
     return subscription
