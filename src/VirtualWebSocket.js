@@ -40,27 +40,22 @@ module.exports = class VirtualWebSocket extends Process {
         const pingId = VirtualWebSocket._nextPingId ++
         this.send('ping', {pingId})
     }
+
+    message(event, optionalPayload) {
+        this._send('message', event, optionalPayload)
+    }
     
-    send(operation, event, optionalPayload) {
-        const operation = 'message'
+    async request(event, optionalPayload) {
+        const requestId = VirtualWebSocket._nextRequestId ++
+        this._send('request', event, optionalPayload, {requestId})
+        await this.promiseTo('respone-${requestId}')
+    }
+    
+    _send(operation, event, optionalPayload) {
         const channel = this._channel
         const payload = optionalPayload
         const messageId = VirtualWebSocket._nextMessageId ++
         this._ws.send({ messageId, channel, operation, event, payload })
-    }
-
-    message(event, optionalPayload) {
-        send('message', event, optionalPayload)
-    }
-    
-    async request(event, optionalPayload) {
-        const operation = 'request'
-        const channel = this._channel
-        const payload = optionalPayload
-        const messageId = VirtualWebSocket._nextMessageId ++
-        const requestId = VirtualWebSocket._nextRequestId ++
-        this._ws.send({ messageId, requestId, channel, operation, event, payload })
-        await this.promiseTo('respone-${requestId}')
     }
 
     _handleMessage(body) {
