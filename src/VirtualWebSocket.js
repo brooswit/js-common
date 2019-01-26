@@ -9,24 +9,28 @@ module.exports = class VirtualWebSocket extends Process {
         super(async () => {
             this._ws = ws;
 
+            this.subscribe(fromEvent(ws, "message"), this._handleMessage)
+
             if (optionalChannel) {
                 this.channel = optionalChannel
             } else {
+                this.request('requestChannel', undefined, 'server')
                 this.channel = VirtualWebSocket._nextVirtualWebSocketChannel ++
             }
 
-            this.subscribe(fromEvent(ws, "message"), this._handleMessage)
-            this.subscribe(fromEvent(ws, "open"), this._handleOpen)
-            this.subscribe(fromEvent(ws, "close"), this._handleClose)
-            this.subscribe(fromEvent(ws, "upgrade"), this._handleUpgrade)
-            this.subscribe(fromEvent(ws, "ping"), this._handlePing)
-            this.subscribe(fromEvent(ws, "pong"), this._handlePong)
-            this.subscribe(fromEvent(ws, "error"), this._handleError)
-            this.subscribe(fromEvent(ws, "unexpected-response"), this._handleUnexpectedResponse)
+
+            // Negotiate channel
+            
+            // this.subscribe(fromEvent(ws, "open"), this._handleOpen)
+            // this.subscribe(fromEvent(ws, "close"), this._handleClose)
+            // this.subscribe(fromEvent(ws, "upgrade"), this._handleUpgrade)
+            // this.subscribe(fromEvent(ws, "ping"), this._handlePing)
+            // this.subscribe(fromEvent(ws, "pong"), this._handlePong)
+            // this.subscribe(fromEvent(ws, "error"), this._handleError)
+            // this.subscribe(fromEvent(ws, "unexpected-response"), this._handleUnexpectedResponse)
 
             await this.promiseTo('destroy')
             this.send('close')
-            this._subscription.unsubscribe()
         })
     }
 
@@ -57,13 +61,13 @@ module.exports = class VirtualWebSocket extends Process {
         }
     }
 
-    _handleOpen() {}
-    _handleClose() {}
-    _handleUpgrade() {}
-    _handlePing() {}
-    _handlePong() {}
-    _handleError() {}
-    _handleUnexpectedResponse() {}
+    // _handleOpen() {}
+    // _handleClose() {}
+    // _handleUpgrade() {}
+    // _handlePing() {}
+    // _handlePong() {}
+    // _handleError() {}
+    // _handleUnexpectedResponse() {}
 
     // get binaryType() { return this._ws.binaryType }
     // get bufferedAmount() { return this._ws.bufferedAmount }
@@ -86,6 +90,5 @@ module.exports = class VirtualWebSocket extends Process {
 
 }
 
-VirtualWebSocket._nextVirtualWebSocketChannel = 0
 VirtualWebSocket._nextPingId = 0
 VirtualWebSocket._nextMessageId = 0
