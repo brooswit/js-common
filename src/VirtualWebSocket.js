@@ -29,7 +29,7 @@ module.exports = class VirtualWebSocket extends Process {
     
     send(event, optionalPayload, optionalChannel) {
         const channel = optionalChannel || this._channel
-        const payload = optionalPayload || {}
+        const payload = optionalPayload
         this._ws.send({ channel, event, payload })
     }
 
