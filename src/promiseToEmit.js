@@ -1,6 +1,6 @@
-module.exports = function promiseToEmit(emitter, eventName, rejectEventName) {
+module.exports = function promiseToEmit(emitter, resolveEventName, rejectEventName) {
     return new Promise((resolve, reject) => {
-        emitter.on(eventName, resolver)
+        emitter.on(resolveEventName, resolver)
         if (rejectEventName) {
             emitter.on(rejectEventName, rejecter)
         }
@@ -16,7 +16,7 @@ module.exports = function promiseToEmit(emitter, eventName, rejectEventName) {
         }
 
         function cleanup() {
-            emitter.off(eventName, resolver)
+            emitter.off(resolveEventName, resolver)
             if (rejectEventName) {
                 emitter.off(rejectEventName, rejecter)
             }
