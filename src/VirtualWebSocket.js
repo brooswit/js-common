@@ -73,6 +73,8 @@ module.exports = class VirtualWebSocket extends Process {
     _handleMessage(body) {
         const data = JSONparseSafe(body)
         const { messageId, channel, operation, payload } = data
+        this._nextMessageId = Math.max(this._nextMessageId, messageId) + 1
+
         if (channel === this._channel) {
             if (operation === 'close') {
                 this.destroy()
