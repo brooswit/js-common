@@ -21,6 +21,9 @@ module.exports = class VirtualWebSocket extends Process {
 
     _handleMessage(rawMsg) {
         const msg = JSONparseSafe(rawMsg)
-        if (msg.vwsid === this._id) this.emit('message', msg.payload)
+        const {vwsid, event, payload} = msg.event
+        if (vwsid === this._id) {
+            this.emit('message', msg.payload)
+        }
     }
 }
