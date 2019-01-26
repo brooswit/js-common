@@ -1,9 +1,10 @@
+// Intended to be used with https://github.com/websockets/ws
 const {fromEvent} = require('rxjs');
 
 const VirtualWebSocket = require('./VirtualWebSocket')
 const Process = require('./Process')
 
-module.exports = class VirtualWebSocket extends Process {
+module.exports = class VirtualWebSocketServer extends Process {
     constructor(ws, optionalChannel) {
         super(async () => {
             this._ws = ws;
