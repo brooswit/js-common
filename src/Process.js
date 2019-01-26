@@ -9,7 +9,7 @@ module.exports = class Process extends ExtendedEvents {
       const promiseThisWillClose = this.promiseTo('close')
       const promiseThisWIllComplete = processHandler(this)
       const promiseParentWillClose = optionalParent && optionalParent.promiseTo('close')
-      
+
       const allPromises = [promiseThisWillClose, promiseThisWIllComplete]
       if (promiseParentWillClose) { allPromises.push(promiseParentWillClose) }
       const anyPromise = Promise.race(allPromises)
@@ -17,6 +17,12 @@ module.exports = class Process extends ExtendedEvents {
       await anyPromise
       this.destroy()
     })
+  }
+
+  subscribe(observable, handler) {
+    if (this.isDestroyed()) return false
+    const subscription = observable.subscribe(handler)
+    await this.promiseTo('close')
   }
 
   isDestroyed() {
