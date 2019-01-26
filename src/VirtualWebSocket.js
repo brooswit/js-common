@@ -50,6 +50,7 @@ module.exports = class VirtualWebSocket extends Process {
     }
     
     async request(event, optionalPayload) {
+        const operation = 'request'
         const channel = this._channel
         const payload = optionalPayload
         const messageId = VirtualWebSocket._nextMessageId ++
@@ -60,7 +61,7 @@ module.exports = class VirtualWebSocket extends Process {
 
     _handleMessage(rawMsg) {
         const msg = JSONparseSafe(rawMsg)
-        const { messageId, requestId, channel, event, payload } = msg.event
+        const { messageId, requestId, channel, operation, event, payload } = msg
         if (channel === this._channel) {
             if (event === 'close') {
                 this.close()
