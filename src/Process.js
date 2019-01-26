@@ -8,8 +8,8 @@ module.exports = class Process extends ExtendedEvents {
     setTimeout(async () => {
       const promiseThisWillClose = this.promiseTo('close')
       const promiseThisWIllComplete = processHandler(this)
-      const promiseParentWillClose = optionalParent && optionalParent.promiseTo('close') || 
-      let allPromises = [promiseThisWillClose, promiseThisWIllComplete]
+      const promiseParentWillClose = optionalParent && optionalParent.promiseTo('close')
+      const allPromises = [promiseThisWillClose, promiseThisWIllComplete]
       if (promiseParentWillClose) { allPromises.push(promiseParentWillClose) }
       const anyPromise = Promise.race(allPromises)
       await anyPromise
