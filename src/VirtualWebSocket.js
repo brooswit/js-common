@@ -15,7 +15,6 @@ module.exports = class VirtualWebSocket extends Process {
 
             await this.promiseTo('close')
             this._subscription.unsubscribe()
-            ws.close()
         })
     }
 
@@ -23,6 +22,9 @@ module.exports = class VirtualWebSocket extends Process {
         const msg = JSONparseSafe(rawMsg)
         const {vwsid, event, payload} = msg.event
         if (vwsid === this._id) {
+            if (event === 'close') {
+                this.close()
+            }
             this.emit('message', msg.payload)
         }
     }
