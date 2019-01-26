@@ -12,6 +12,10 @@ module.exports = class VirtualWebSocketServer extends Process {
         })
     }
 
+    _handleConnection(ws) {
+        new VirtualWebSocket(ws, {serverMode: true, parent: this})
+    }
+
     ping() {
         const pingId = VirtualWebSocket._nextPingId ++
         this.send('ping', {pingId})
