@@ -14,6 +14,7 @@ module.exports = class VirtualWebSocket extends Process {
             this._subscription = this._observable.subscribe(this._handleMessage)
 
             await this.promiseTo('close')
+            this.send('close')
             this._subscription.unsubscribe()
         })
     }
@@ -27,8 +28,8 @@ module.exports = class VirtualWebSocket extends Process {
             } else if (event === 'message') {
                 this.emit('message', payload)
             } else if (event === 'ping') {
-                this.send('pong')
-                this.emit('ping')
+                this.send('pong', payload)
+                this.emit('ping', payload)
             }
         }
     }
