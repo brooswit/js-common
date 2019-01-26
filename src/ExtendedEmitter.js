@@ -3,6 +3,7 @@ const promiseToEmit = require('./promiseToEmit')
 
 module.exports = class ExtendedEmitter extends EventEmitter {
   async promiseTo(resolveEventName, rejectEventName) {
+      return promiseToEmit(this, resolveEventName, rejectEventName)
     return new Promise((resolve, reject) => {
         this.on(rejectEventName, resolve)
         this.on(rejectEventName, resolve)
