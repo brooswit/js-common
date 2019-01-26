@@ -24,6 +24,7 @@ module.exports = class Process extends ExtendedEvents {
     const subscription = observable.subscribe(handler)
     new Process((process) => {
       await this.promiseTo('destroy')
+      subscription.unsubscribe()
     }, this)
     return subscription
   }
