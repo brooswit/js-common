@@ -10,11 +10,11 @@ module.exports = class VirtualWebSocket extends Process {
             this._ws = ws;
 
             this.subscribe(fromEvent(ws, "message"), this._handleMessage)
-
+            mainChannel = this.channel('main')
             if (optionalChannel) {
                 this.channel = channel
             } else {
-                this.requestChannel('requestChannel', 'server'undefined, 'server')
+                this.requestChannel('requestChannel', 'server')
                 this.channel = VirtualWebSocket._nextVirtualWebSocketChannel ++
             }
 
@@ -31,6 +31,10 @@ module.exports = class VirtualWebSocket extends Process {
             await this.promiseTo('destroy')
             this.send('close')
         }, parent)
+    }
+
+    channel(channel) {
+        new VirtualWebSocket(this._ws, {channel, parent: this})
     }
 
     ping() {
