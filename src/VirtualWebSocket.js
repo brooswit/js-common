@@ -4,7 +4,7 @@ const {fromEvent} = require('rxjs');
 const Process = require('./Process')
 
 module.exports = class VirtualWebSocket extends Process {
-    constructor(ws, {channel, parent}) {
+    constructor(ws, {channel, parent, serverMode}) {
         super(async () => {
             this._ws = ws;
 
