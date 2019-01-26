@@ -1,6 +1,6 @@
 const {fromEvent} = require('rxjs');
 
-const VirtualWebSocketServer = require('./VirtualWebSocketServer')
+const VirtualWebSocket = require('./VirtualWebSocket')
 const Process = require('./Process')
 
 module.exports = class VirtualWebSocket extends Process {
