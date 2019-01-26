@@ -9,7 +9,8 @@ module.exports = class VirtualWebSocket extends Process {
             this._ws = ws;
 
             this.subscribe(fromEvent(ws, 'message'), this._handleMessage)
-            this.subscribe(fromEvent(ws, 'close'), this.close)
+            this.subscribe(fromEvent(ws, 'close'), this.destroy)
+            this.subscribe(fromEvent(ws, 'error'), this.destroy)
 
             if (serverMode) {
                 this.channel = Date.now()
@@ -29,7 +30,6 @@ module.exports = class VirtualWebSocket extends Process {
     // this.subscribe(fromEvent(ws, 'upgrade'), this._handleUpgrade)
     // this.subscribe(fromEvent(ws, 'ping'), this._handlePing)
     // this.subscribe(fromEvent(ws, 'pong'), this._handlePong)
-    // this.subscribe(fromEvent(ws, 'error'), this._handleError)
     // this.subscribe(fromEvent(ws, 'unexpected-response'), this._handleUnexpectedResponse)
 
     close() {
