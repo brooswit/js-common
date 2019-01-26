@@ -1,4 +1,5 @@
 const Resolver = require('./Resolver')
+const ExtendedEvents = require('./ExtendedEvents')
 
 module.exports = class Process extends ExtendedEvents {
   constructor(method, optionalParentProcess) {
