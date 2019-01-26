@@ -72,6 +72,7 @@ module.exports = class VirtualWebSocket extends Process {
         const data = JSONparseSafe(body)
         const { _vws, channel, operation, payload } = data
         if (!_vws) return
+
         if (channel === this._channel) {
             if (operation === 'close') {
                 this.destroy()
