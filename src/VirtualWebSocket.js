@@ -10,6 +10,7 @@ module.exports = class VirtualWebSocket extends Process {
             this._ws = ws;
 
             this.subscribe(fromEvent(ws, "message"), this._handleMessage)
+
             const mainChannel = this.withChannel('main')
             if (channel) {
                 this.channel = channel
