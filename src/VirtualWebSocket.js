@@ -26,6 +26,10 @@ module.exports = class VirtualWebSocket extends Process {
         const pingId = VirtualWebSocket._nextPingId ++
         this.send('ping', {pingId})
     }
+    
+    send(event, optionalPayload) {
+        
+    }
 
     _handleMessage(rawMsg) {
         const msg = JSONparseSafe(rawMsg)
@@ -45,3 +49,4 @@ module.exports = class VirtualWebSocket extends Process {
 
 VirtualWebSocket._nextVirtualWebSocketChannel = 0
 VirtualWebSocket._nextPingId = 0
+VirtualWebSocket._nextMessageId = 0
