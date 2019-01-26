@@ -59,8 +59,8 @@ module.exports = class VirtualWebSocket extends Process {
         await this.promiseTo('respone-${requestId}')
     }
 
-    _handleMessage(rawMsg) {
-        const { messageId, requestId, channel, operation, event, payload } = JSONparseSafe(rawMsg)
+    _handleMessage(body) {
+        const { messageId, requestId, channel, operation, event, payload } = JSONparseSafe(body)
         if (channel === this._channel) {
             if (event === 'close') {
                 this.close()
