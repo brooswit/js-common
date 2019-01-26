@@ -6,11 +6,12 @@ module.exports = class Process extends ExtendedEvents {
     this._destroyed = false
 
     setTimeout(async () => {
-      let promises = []
-      promises.push(this.promiseTo('close'))
-      promises.push(processHandler(this))
-      if (!!optionalParent) { promises.push(optionalParent.promiseTo('close')) }
-      await Promise.race(promises)
+      const promiseThisWillClose = this.promiseTo('close')
+      const promiseThisWIllComplete = processHandler(this)
+      const promiseParentWillClose = optionalParent && optionalParent.promiseTo('close') || 
+      let allPromises = [promiseThisWillClose, promiseThisWIllComplete]
+      if (promiseParentWillClose) { allPromises.push(promiseParentWillClose) }
+      await Promise.race(allClosures)
       this.close()
     })
   }
