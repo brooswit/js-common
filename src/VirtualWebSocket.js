@@ -17,7 +17,7 @@ module.exports = class VirtualWebSocket extends Process {
             } else {
                 this.channel = await mainChannel.request('new-channel')
             }
-
+            this.emit('open')
             // this.subscribe(fromEvent(ws, "open"), this._handleOpen)
             // this.subscribe(fromEvent(ws, "close"), this._handleClose)
             // this.subscribe(fromEvent(ws, "upgrade"), this._handleUpgrade)
