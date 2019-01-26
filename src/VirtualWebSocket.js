@@ -10,6 +10,7 @@ module.exports = class VirtualWebSocket extends Process {
             this._ws = ws;
 
             this.subscribe(fromEvent(ws, "message"), this._handleMessage)
+            this.subscribe(fromEvent(ws, "close"), this._handleClose)
 
             const mainChannel = this.withChannel('main')
             if (channel) {
@@ -17,9 +18,9 @@ module.exports = class VirtualWebSocket extends Process {
             } else {
                 this.channel = await mainChannel.request('new-channel')
             }
-            this.emit('ready')
+            this.emit('open')
+
             // this.subscribe(fromEvent(ws, "open"), this._handleOpen)
-            // this.subscribe(fromEvent(ws, "close"), this._handleClose)
             // this.subscribe(fromEvent(ws, "upgrade"), this._handleUpgrade)
             // this.subscribe(fromEvent(ws, "ping"), this._handlePing)
             // this.subscribe(fromEvent(ws, "pong"), this._handlePong)
@@ -61,6 +62,9 @@ module.exports = class VirtualWebSocket extends Process {
         this._ws.send(Object.assign({ messageId, channel, operation, payload }, attributes))
     }
 
+    _handleClose() {
+        this.destroy()
+    }
     _handleMessage(body) {
         const data = JSONparseSafe(body)
         const { messageId, channel, operation, payload } = data
