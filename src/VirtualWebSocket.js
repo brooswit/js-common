@@ -46,6 +46,7 @@ module.exports = class VirtualWebSocket extends Process {
         this._send('request', {method, requestId}, optionalPayload)
         const response = await this.promiseTo(`_respone-${requestId}`)
         if (this.isClosed()) return
+
         return response
     }
 
@@ -73,7 +74,7 @@ module.exports = class VirtualWebSocket extends Process {
                 this.emit(event, payload)
             } else if (operation === 'request') {
                 const {method, requestId} = data
-                new Process((process) => {
+                new Process(async (process) => {
                     const resolver = new Resolver()
                     this.emit(method, payload, resolver.resolve)
                     const response = await resolver
