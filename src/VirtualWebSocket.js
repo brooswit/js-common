@@ -66,7 +66,7 @@ module.exports = class VirtualWebSocket extends Process {
         const { messageId, channel, operation, payload } = data
         if (channel === this._channel) {
             if (operation === 'close') {
-                this.close()
+                this.destroy()
             } else if (operation === 'message') {
                 const {event} = data
                 this.emit(event, payload)
