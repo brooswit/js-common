@@ -26,12 +26,6 @@ module.exports = class VirtualWebSocket extends Process {
         }, parent)
     }
 
-    // this.subscribe(fromEvent(ws, 'open'), this._handleOpen)
-    // this.subscribe(fromEvent(ws, 'upgrade'), this._handleUpgrade)
-    // this.subscribe(fromEvent(ws, 'ping'), this._handlePing)
-    // this.subscribe(fromEvent(ws, 'pong'), this._handlePong)
-    // this.subscribe(fromEvent(ws, 'unexpected-response'), this._handleUnexpectedResponse)
-
     close() {
         this.destroy()
     }
@@ -88,6 +82,12 @@ module.exports = class VirtualWebSocket extends Process {
             }
         }
     }
+
+    // this.subscribe(fromEvent(ws, 'open'), this._handleOpen)
+    // this.subscribe(fromEvent(ws, 'upgrade'), this._handleUpgrade)
+    // this.subscribe(fromEvent(ws, 'ping'), this._handlePing)
+    // this.subscribe(fromEvent(ws, 'pong'), this._handlePong)
+    // this.subscribe(fromEvent(ws, 'unexpected-response'), this._handleUnexpectedResponse)
 
     // _handleOpen() {}
     // _handleClose() {}
