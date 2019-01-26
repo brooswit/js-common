@@ -17,6 +17,7 @@ module.exports = class VirtualWebSocket extends Process {
     }
 
     _handleMessage(message) {
-        
+        const paylaod = JSONparseSafe(message)
+        paylaod
     }
 }
