@@ -1,8 +1,9 @@
-const Resolver = require('./Resolver')
+const NO_OP = require('./NO_OP')
 const ExtendedEvents = require('./ExtendedEvents')
 
 module.exports = class Process extends ExtendedEvents {
-  constructor(method, optionalParentProcess) {
+  constructor(methods, optionalParentProcess) {
+    this._initialize = methods._initialize || NO_OP
     this._closed = false
 
     setTimeout(async () => {
