@@ -11,7 +11,8 @@ module.exports = class Process extends ExtendedEvents {
       let promises = []
       promises.push(this.promiseTo('close'))
       promises.push(method(this))
-      optionalParentProcess && promises.push(optionalParentProcess.promiseToClose)
+      optionalParentProcess && promises.push(optionalParentProcess.promiseTo('close'))
+
       await Promise.race(promises)
       this.close()
     })
@@ -21,6 +22,6 @@ module.exports = class Process extends ExtendedEvents {
     if (this.closed) return
     this.active = false
     this.closed = true
-    this.promiseToClose.resolve()
+    this.emit('close')
   }
 }
