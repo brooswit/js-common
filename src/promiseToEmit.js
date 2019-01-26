@@ -1,4 +1,4 @@
-module.exports = function promiseToEmit(emitter, eventName, errorEventName, label) {
+module.exports = function promiseToEmit(emitter, eventName, errorEventName) {
     return new Promise((resolve, reject) => {
         emitter.on(eventName, resolver)
         if (errorEventName) {
