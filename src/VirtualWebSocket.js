@@ -8,6 +8,8 @@ module.exports = class VirtualWebSocket extends Process {
     constructor(ws, {channel, parent}) {
         super(async () => {
             this._ws = ws;
+            
+            this._nextMessageId = 0
 
             this.subscribe(fromEvent(ws, 'message'), this._handleMessage)
             this.subscribe(fromEvent(ws, 'close'), this.close)
