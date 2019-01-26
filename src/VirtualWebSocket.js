@@ -1,4 +1,4 @@
-const fromEvent from 'rxjs';
+const {fromEvent} = require('rxjs');
 
 const Process = require('./Process')
 
@@ -17,6 +17,6 @@ module.exports = class VirtualWebSocket extends Process {
     }
 
     _handleMessage(message) {
-
+        
     }
 }
