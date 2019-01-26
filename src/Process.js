@@ -4,15 +4,14 @@ const ExtendedEvents = require('./ExtendedEvents')
 module.exports = class Process extends ExtendedEvents {
   constructor(method, optionalParentProcess) {
     this._closed = false
-    this.promiseToClose = new Resolver()
 
     setTimeout(async () => {
       let promises = []
       promises.push(this.promiseTo('close'))
       promises.push(method(this))
       optionalParentProcess && promises.push(optionalParentProcess.promiseTo('close'))
-
       await Promise.race(promises)
+
       this.close()
     })
   }
