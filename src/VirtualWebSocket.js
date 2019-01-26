@@ -22,7 +22,7 @@ module.exports = class VirtualWebSocket extends Process {
     }
 
     ping() {
-
+        const pingId = nextPingId ++
     }
 
     _handleMessage(rawMsg) {
