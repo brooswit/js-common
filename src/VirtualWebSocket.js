@@ -18,7 +18,6 @@ module.exports = class VirtualWebSocket extends Process {
                 this.channel = VirtualWebSocket._nextVirtualWebSocketChannel ++
             }
 
-
             // Negotiate channel
             
             // this.subscribe(fromEvent(ws, "open"), this._handleOpen)
