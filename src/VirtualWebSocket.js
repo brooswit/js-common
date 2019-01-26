@@ -12,6 +12,9 @@ module.exports = class VirtualWebSocket extends Process {
             this.bufferedAmount = 1234
             this.extensions = {}
             this.onclose = NO_OP
+            this.onerror = NO_OP
+            this.onmessage = NO_OP
+            this.onopen = NO_OP
 
             this._ws = ws;
 
@@ -36,10 +39,13 @@ module.exports = class VirtualWebSocket extends Process {
         })
     }
 
+    // websocket.ping([data[, mask]][, callback])
     ping() {
         const pingId = VirtualWebSocket._nextPingId ++
         this.send('ping', {pingId})
     }
+    // websocket.pong([data[, mask]][, callback])
+
     
     send(event, optionalPayload, optionalChannel) {
         const channel = optionalChannel || this._channel
@@ -62,8 +68,8 @@ module.exports = class VirtualWebSocket extends Process {
         }
     }
 
-    addEventListener(type, listener) {}
-    close(optionalCode, optionalReason) {}
+    // websocket.addEventListener(type, listener)
+    // websocket.close([code[, reason]])
 }
 
 VirtualWebSocket._nextVirtualWebSocketChannel = 0
