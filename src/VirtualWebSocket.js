@@ -80,8 +80,7 @@ module.exports = class VirtualWebSocket extends Process {
                 }, this)
             } else if (operation === 'response') {
                 const {requestId} = data
-                this.emit(`_response-${requestId}`)
-
+                this.emit(`_response-${requestId}`, payload)
             }
         }
     }
