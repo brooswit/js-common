@@ -11,9 +11,7 @@ module.exports = class VirtualWebSocket extends Process {
             this.subscribe(fromEvent(ws, 'message'), this._handleMessage)
             this.subscribe(fromEvent(ws, 'close'), this.close)
 
-            if (channel) {
-                this.channel = channel
-            } else if (serverMode) {
+            if (serverMode) {
                 this.channel = Date.now()
                 this.message('set-channel', this.channel)
             } else {
