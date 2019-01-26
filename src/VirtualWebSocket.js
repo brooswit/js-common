@@ -31,17 +31,6 @@ module.exports = class VirtualWebSocket extends Process {
         })
     }
 
-    get binaryType() { return this._ws.binaryType }
-    get bufferedAmount() { return this._ws.bufferedAmount }
-    get extensions() { return this._ws.extensions }
-    get onclose() { return this._ws.onclose }
-    get onerror() { return this._ws.onerror }
-    get onmessage() { return this._ws.onmessage }
-    get onopen() { return this._ws.onopen }
-    get protocol() { return this._ws.protocol }
-    get readyState() { return this._ws.readyState }
-    get url() { return this._ws.url }
-
     ping() {
         const pingId = VirtualWebSocket._nextPingId ++
         this.send('ping', {pingId})
@@ -68,6 +57,17 @@ module.exports = class VirtualWebSocket extends Process {
             }
         }
     }
+
+    // get binaryType() { return this._ws.binaryType }
+    // get bufferedAmount() { return this._ws.bufferedAmount }
+    // get extensions() { return this._ws.extensions }
+    // get onclose() { return this._ws.onclose }
+    // get onerror() { return this._ws.onerror }
+    // get onmessage() { return this._ws.onmessage }
+    // get onopen() { return this._ws.onopen }
+    // get protocol() { return this._ws.protocol }
+    // get readyState() { return this._ws.readyState }
+    // get url() { return this._ws.url }
 
     // websocket.ping([data[, mask]][, callback])
     // websocket.pong([data[, mask]][, callback])
