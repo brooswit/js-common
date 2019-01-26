@@ -53,12 +53,12 @@ module.exports = class VirtualWebSocket extends Process {
         const payload = optionalPayload
         const messageId = VirtualWebSocket._nextMessageId ++
         const requestId = VirtualWebSocket._nextRequestId ++
-        this._ws.send({ messageId, channel, event, payload })
+        this._ws.send({ messageId, requestId, channel, event, payload })
     }
 
     _handleMessage(rawMsg) {
         const msg = JSONparseSafe(rawMsg)
-        const {channel, event, payload} = msg.event
+        const { messageId, requestId, channel, event, payload } = msg.event
         if (channel === this._channel) {
             if (event === 'close') {
                 this.close()
@@ -69,6 +69,7 @@ module.exports = class VirtualWebSocket extends Process {
                     const resolver = new resolver()
                     this.emit('request', payload, resolver.resolve)
                     const result = await resolver
+                    this.emit(`respone-${}`)
                     
                 })
             } else if (event === 'ping') {
