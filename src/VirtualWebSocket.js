@@ -14,7 +14,7 @@ module.exports = class VirtualWebSocket extends Process {
             if (channel) {
                 this.channel = channel
             } else {
-                this.channel = await mainChannel.requestChannel('requestNewChannel')
+                this.channel = await mainChannel.request('requestNewChannel')
             }
 
             // Negotiate channel
