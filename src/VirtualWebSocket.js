@@ -24,8 +24,9 @@ module.exports = class VirtualWebSocket extends Process {
         if (vwsid === this._id) {
             if (event === 'close') {
                 this.close()
+            } else if (event === 'message') {
+                this.emit('message', payload)
             }
-            this.emit('message', msg.payload)
         }
     }
 }
