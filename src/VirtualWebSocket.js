@@ -51,7 +51,7 @@ module.exports = class VirtualWebSocket extends Process {
         await this.promiseTo('respone-${requestId}')
     }
     
-    _send(operation, event, optionalPayload, additionalAttributes = {}) {
+    _send(operation, event, optionalPayload, optionalAdditionalAttributes) {
         const channel = this._channel
         const payload = optionalPayload
         const messageId = VirtualWebSocket._nextMessageId ++
