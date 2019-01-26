@@ -34,6 +34,10 @@ module.exports = class VirtualWebSocket extends Process {
     // this.subscribe(fromEvent(ws, 'error'), this._handleError)
     // this.subscribe(fromEvent(ws, 'unexpected-response'), this._handleUnexpectedResponse)
 
+    close() {
+        this.destroy()
+    }
+
     withChannel(channel) {
         new VirtualWebSocket(this._ws, {channel, parent: this})
     }
@@ -42,9 +46,6 @@ module.exports = class VirtualWebSocket extends Process {
         this._send('message', {event}, optionalPayload)
     }
     
-    close() {
-        this.destroy()
-    }
 
     async request(method, optionalPayload) {
         const requestId = VirtualWebSocket._nextRequestId ++
