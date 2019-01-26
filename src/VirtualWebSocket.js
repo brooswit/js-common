@@ -11,6 +11,7 @@ module.exports = class VirtualWebSocket extends Process {
 
             })
             await this.promiseTo('close')
+            ws.close()
         })
     }
 }
