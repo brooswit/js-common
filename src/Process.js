@@ -2,14 +2,13 @@ const NO_OP = require('./NO_OP')
 const ExtendedEvents = require('./ExtendedEvents')
 
 module.exports = class Process extends ExtendedEvents {
-  constructor(handler, optionalParentProcess) {
+  constructor(processHandler, optionalParentProcess) {
     this._closed = false
 
     setTimeout(async () => {
       let promises = []
       promises.push(this.promiseTo('close'))
-      
-      promises.push(handler(this))
+      promises.push(processHandler(this))
       optionalParentProcess && promises.push(optionalParentProcess.promiseTo('close'))
       await Promise.race(promises)
 
