@@ -54,10 +54,6 @@ module.exports = class VirtualWebSocket extends Process {
 
         return response
     }
-
-    _respond(requestId, optionalPayload) {
-        this._send('response', {requestId}, optionalPayload)
-    }
     
     _send(operation, optionalAttributes, optionalPayload) {
         const channel = this._channel
@@ -66,6 +62,10 @@ module.exports = class VirtualWebSocket extends Process {
         const messageId = VirtualWebSocket._nextMessageId ++
 
         this._ws.send(Object.assign({ messageId, channel, operation, payload }, attributes))
+    }
+
+    _respond(requestId, optionalPayload) {
+        this._send('response', {requestId}, optionalPayload)
     }
 
     _handleMessage(body) {
