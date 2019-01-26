@@ -8,7 +8,7 @@ module.exports = class VirtualWebSocket extends Process {
     constructor(ws, {channel, parent}) {
         super(async () => {
             this._ws = ws;
-            
+
             this.subscribe(fromEvent(ws, 'message'), this._handleMessage)
             this.subscribe(fromEvent(ws, 'close'), this.close)
 
@@ -69,7 +69,7 @@ module.exports = class VirtualWebSocket extends Process {
 
     _handleMessage(body) {
         const data = JSONparseSafe(body)
-        const { messageId, channel, operation, payload } = data
+        const { channel, operation, payload } = data
 
         if (channel === this._channel) {
             if (operation === 'close') {
