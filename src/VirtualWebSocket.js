@@ -45,7 +45,7 @@ module.exports = class VirtualWebSocket extends Process {
         const requestId = VirtualWebSocket._nextRequestId ++
         const resolver = new Resolver()
         const resolve = resolver.resolve
-        this._send('request', {method, requestId}, optionalPayload)
+        this._send('request', {method, requestId, resolve}, optionalPayload)
         await this.promiseTo('respone-${requestId}')
     }
 
@@ -72,7 +72,7 @@ module.exports = class VirtualWebSocket extends Process {
                 const {event} = data
                 this.emit(event, payload)
             } else if (operation === 'request') {
-                const {method, requestId} = data
+                const {method, requestId, resolve} = data
                 new Process((process) => {
                     const resolver = new Resolver()
                     this.emit(method, payload, resolver.resolve)
