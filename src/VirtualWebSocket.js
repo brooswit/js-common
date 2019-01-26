@@ -54,6 +54,7 @@ module.exports = class VirtualWebSocket extends Process {
         const messageId = VirtualWebSocket._nextMessageId ++
         const requestId = VirtualWebSocket._nextRequestId ++
         this._ws.send({ messageId, requestId, channel, event, payload })
+        await this.promiseTo('respone-${requestId}')
     }
 
     _handleMessage(rawMsg) {
@@ -68,8 +69,8 @@ module.exports = class VirtualWebSocket extends Process {
                 new Process((process) => {
                     const resolver = new resolver()
                     this.emit('request', payload, resolver.resolve)
-                    const result = await resolver
-                    this.emit(`respone-${}`)
+                    const response = await resolver
+                    this.emit(`respone-${requestId}`, response)
                     
                 })
             } else if (event === 'ping') {
