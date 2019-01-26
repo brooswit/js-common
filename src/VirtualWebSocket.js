@@ -13,11 +13,13 @@ module.exports = class VirtualWebSocket extends Process {
             this.subscribe(fromEvent(ws, 'close'), this.close)
 
             const mainChannel = this.withChannel('main')
+
             if (channel) {
                 this.channel = channel
             } else {
                 this.channel = await mainChannel.request('new-channel')
             }
+
             this.emit('open')
 
             // this.subscribe(fromEvent(ws, 'open'), this._handleOpen)
