@@ -3,13 +3,10 @@ const ExtendedEvents = require('./ExtendedEvents')
 
 module.exports = class Process extends ExtendedEvents {
   constructor(methods, optionalParentProcess) {
-    this._init = methods.init
-    this._main = methods.main || NO_OP
-    this._close = methods.close || NO_OP
     this._closed = false
 
     setTimeout(async () => {
-      await (methods.init || NO_OP)()
+      await (methods.init || NO_OP)(this)
 
       let promises = []
       promises.push(this.promiseTo('close'))
@@ -30,7 +27,7 @@ module.exports = class Process extends ExtendedEvents {
   async close() {
     if (this.isClosed()) return false
     this._closed = true
-    await this._close()
+    await this._close(this)
     this.emit('close')
     return true
   }
