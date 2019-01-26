@@ -56,6 +56,8 @@ module.exports = class VirtualWebSocket extends Process {
                 this.close()
             } else if (event === 'message') {
                 this.emit('message', payload)
+            } else if (event === 'request') {
+                this.emit('request', payload)
             } else if (event === 'ping') {
                 this.send('pong', payload)
                 this.emit('ping', payload)
