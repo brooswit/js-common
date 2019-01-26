@@ -47,7 +47,6 @@ module.exports = class VirtualWebSocket extends Process {
         this.send('ping', {pingId})
     }
 
-    
     send(event, optionalPayload, optionalChannel) {
         const channel = optionalChannel || this._channel
         const payload = optionalPayload
