@@ -3,8 +3,7 @@ const ExtendedEvents = require('./ExtendedEvents')
 
 module.exports = class Process extends ExtendedEvents {
   constructor(method, optionalParentProcess) {
-    this.active = true
-    this.closed = false
+    this._closed = false
     this.promiseToClose = new Resolver()
 
     setTimeout(async () => {
@@ -19,14 +18,14 @@ module.exports = class Process extends ExtendedEvents {
   }
 
   isClosed() {
-    return !!this.closed
+    return !!this._closed
   }
 
   
   close() {
-    if (this.closed) return
+    if (this._closed) return
     this.active = false
-    this.closed = true
+    this._closed = true
     this.emit('close')
   }
 }
