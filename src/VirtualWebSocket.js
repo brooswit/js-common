@@ -122,5 +122,4 @@ module.exports = class VirtualWebSocket extends Process {
 
 }
 
-VirtualWebSocket._nextPingId = 0
 VirtualWebSocket._nextMessageId = 0
