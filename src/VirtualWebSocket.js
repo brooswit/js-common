@@ -50,17 +50,21 @@ module.exports = class VirtualWebSocket extends Process {
         this._send('request', event, optionalPayload, {requestId})
         await this.promiseTo('respone-${requestId}')
     }
+
+    respond(requestId, optionalPayload) {
+        this._send('response', requestId, optionalPayload)
+    }
     
-    _send(operation, event, optionalPayload, optionalAdditionalAttributes) {
+    _send(operation, attributes, optionalPayload) {
         const channel = this._channel
         const payload = optionalPayload
         const messageId = VirtualWebSocket._nextMessageId ++
         const additionalAttributes = optionalAdditionalAttributes || {}
-        this._ws.send(Object.assign({ messageId, channel, operation, event, payload }, additionalAttributes))
+        this._ws.send(Object.assign({ messageId, channel, operation, method, payload }, additionalAttributes))
     }
 
     _handleMessage(body) {
-        const { messageId, requestId, channel, operation, event, payload } = JSONparseSafe(body)
+        const { messageId, requestId, channel, operation, method, payload } = JSONparseSafe(body)
         if (channel === this._channel) {
             if (operation === 'close') {
                 this.close()
@@ -71,6 +75,7 @@ module.exports = class VirtualWebSocket extends Process {
                     const resolver = new resolver()
                     this.emit('request', payload, resolver.resolve)
                     const response = await resolver
+                    this.respond(requestId, response)
                     this.emit(`respone-${requestId}`, response)
                     
                 })
