@@ -1,26 +1,12 @@
 // Intended to be used with https://github.com/websockets/ws
-const {fromEvent} = require('rxjs');
-
 const VirtualWebSocket = require('./VirtualWebSocket')
 const Process = require('./Process')
 
 module.exports = class VirtualWebSocketServer extends Process {
-    constructor(ws, optionalChannel) {
+    constructor(wss) {
         super(async () => {
-            this._ws = ws;
-
-            if (optionalChannel) {
-                this.channel = optionalChannel
-            } else {
-                this.channel = VirtualWebSocket._nextVirtualWebSocketChannel ++
-            }
-            
-            this._observable = fromEvent(ws, "message")
-            this._subscription = this._observable.subscribe(this._handleMessage)
-
-            await this.promiseTo('close')
-            this.send('close')
-            this._subscription.unsubscribe()
+            VirtualWebSocket
+            await this.promiseTo('destroy')
         })
     }
 
