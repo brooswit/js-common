@@ -27,7 +27,7 @@ module.exports = class VirtualWebSocket extends Process {
             // this.subscribe(fromEvent(ws, "unexpected-response"), this._handleUnexpectedResponse)
 
             await this.promiseTo('destroy')
-            this.send('close')
+            this.message('close')
         }, parent)
     }
 
