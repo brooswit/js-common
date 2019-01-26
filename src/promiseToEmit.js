@@ -5,14 +5,15 @@ module.exports = function promiseToEmit(emitter, resolveEventName, rejectEventNa
             emitter.on(rejectEventName, rejecter)
         }
       
-        function resolver(payload) {
+        function resolver(payload, callback) {
             cleanup()
-            resolve(payload)
+            callback(resolve(payload))
+            
         }
 
         function rejecter(error) {
             cleanup()
-            reject(error)
+            callback(reject(error))
         }
 
         function cleanup() {
