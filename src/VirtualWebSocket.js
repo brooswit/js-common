@@ -58,6 +58,14 @@ module.exports = class VirtualWebSocket extends Process {
         }
     }
 
+    _handleOpen() {}
+    _handleClose() {}
+    _handleUpgrade() {}
+    _handlePing() {}
+    _handlePong() {}
+    _handleError() {}
+    _handleUnexpectedResponse() {}
+
     // get binaryType() { return this._ws.binaryType }
     // get bufferedAmount() { return this._ws.bufferedAmount }
     // get extensions() { return this._ws.extensions }
