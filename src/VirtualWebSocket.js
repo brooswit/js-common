@@ -42,7 +42,7 @@ module.exports = class VirtualWebSocket extends Process {
     }
 
     message(event, optionalPayload) {
-        this._send('message', event, optionalPayload)
+        this._send('message', {event}, optionalPayload)
     }
     
     async request(method, optionalPayload) {
