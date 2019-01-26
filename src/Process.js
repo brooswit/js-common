@@ -27,7 +27,7 @@ module.exports = class Process extends ExtendedEvents {
 
   
   async close() {
-    if (this._closed) return false
+    if (this.isClosed()) return false
     this._closed = true
     await this._close()
     this.emit('close')
