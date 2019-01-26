@@ -51,8 +51,8 @@ module.exports = class VirtualWebSocket extends Process {
     send(event, optionalPayload, optionalChannel) {
         const channel = optionalChannel || this._channel
         const payload = optionalPayload
-        const id = VirtualWebSocket._nextMessageId ++
-        this._ws.send({ channel, event, payload })
+        const messageId = VirtualWebSocket._nextMessageId ++
+        this._ws.send({ messageId, channel, event, payload })
     }
 
     _handleMessage(rawMsg) {
