@@ -52,7 +52,7 @@ module.exports = class VirtualWebSocket extends Process {
     }
 
     respond(requestId, optionalPayload) {
-        this._send('response', requestId, optionalPayload)
+        this._send('response', {requestId}, optionalPayload)
     }
     
     _send(operation, attributes, optionalPayload) {
