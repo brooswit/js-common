@@ -8,7 +8,6 @@ module.exports = function promiseToEmit(emitter, resolveEventName, rejectEventNa
         function resolver(payload, callback) {
             cleanup()
             callback(resolve(payload))
-            
         }
 
         function rejecter(error) {
