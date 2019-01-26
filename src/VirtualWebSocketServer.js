@@ -6,8 +6,8 @@ const Process = require('./Process')
 module.exports = class VirtualWebSocketServer extends Process {
     constructor(wss) {
         super(async () => {
-            const connectionObserver = fromEvent(wss,'connection')
-            this.subscribe(connectionObserver, )
+            const connectionObserver = fromEvent(wss, 'connection')
+            this.subscribe(connectionObserver, this._handleConnection)
             await this.promiseTo('destroy')
         })
     }
