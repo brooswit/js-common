@@ -60,16 +60,18 @@ module.exports = class VirtualWebSocket extends Process {
         const attributes = optionalAttributes || {}
         const payload = optionalPayload
         const messageId = VirtualWebSocket._nextMessageId ++
-        
+
         this._ws.send(Object.assign({ messageId, channel, operation, payload }, attributes))
     }
 
     _handleMessage(body) {
-        const { messageId, requestId, channel, operation, method, payload } = JSONparseSafe(body)
+        const data = JSONparseSafe(body)
+        const { messageId, channel, operation, payload } = data
         if (channel === this._channel) {
             if (operation === 'close') {
                 this.close()
             } else if (operation === 'message') {
+
                 this.emit('message', payload)
             } else if (operation === 'request') {
                 new Process((process) => {
