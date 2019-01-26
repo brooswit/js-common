@@ -11,8 +11,9 @@ module.exports = class Process extends ExtendedEvents {
       const promiseParentWillClose = optionalParent && optionalParent.promiseTo('close') || 
       let allPromises = [promiseThisWillClose, promiseThisWIllComplete]
       if (promiseParentWillClose) { allPromises.push(promiseParentWillClose) }
-      await Promise.race(allClosures)
-      this.close()
+      const anyPromise = Promise.race(allPromises)
+      await anyPromise
+      this.destroy()
     })
   }
 
@@ -21,10 +22,10 @@ module.exports = class Process extends ExtendedEvents {
   }
 
   
-  async close() {
+  async destroy() {
     if (this.isDestroyed()) return false
-    await this._close(this)
-    this.emit('close')
+    await this._destroy(this)
+    this.emit('destroy')
     return true
   }
 }
