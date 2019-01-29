@@ -25,7 +25,7 @@ module.exports = class Process extends ExtendedEvents {
   subscribeTo(observable, handler) {
     if (this.isActive()) {
       const subscription = observable.subscribe(handler)
-      new Process((process) => {
+      new Process(async (process) => {
         await process.untilEnd
         subscription.unsubscribe()
       }, this)
