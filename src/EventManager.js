@@ -16,7 +16,7 @@ module.exports = class EventManager {
   hook(eventName, eventHandler, eventContext, parentProcess) {
     return new Process(async (process) => {
       this._eventEmitter.on(eventName, eventHandler, eventContext, parentProcess)
-      await process.promiseToClose
+      await process.untilEnd
       this._eventEmitter.off(eventName, eventHandler, eventContext, parentProcess)
   })
   }

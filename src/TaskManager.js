@@ -2,12 +2,12 @@ const AsyncArray = require('./AsyncArray')
 const Process = require('./Process')
 
 module.exports = class TaskManager {
-  constructor () {
-    this._taskLists = {}
+  constructor (optionalData = {}) {
+    this._taskLists = optionalData
   }
 
   feed(taskName, payload, parentProcess) {
-    return new Process(async (process) => {
+    return new Process(async () => {
       let taskData = {
         closed: false,
         payload
@@ -16,47 +16,44 @@ module.exports = class TaskManager {
     }, parentProcess)
   }
 
-  request(taskName, payload, responseHandler, responseContext, parentProcess) {
+  request(taskName, payload, responseHandler, parentProcess) {
     return new Process(async (process) => {
       let taskData = {
         closed: false,
-        payload, responseHandler, responseContext
+        payload, responseHandler
       }
 
       this._getTaskList(taskName).push(taskData)
 
-      await process.promiseToClose
+      await process.untilEnd
       taskData.closed = true
     }, parentProcess)
   }
 
-  consume(taskName, taskHandler, taskContext, parentProcess) {
+  consume(taskName, taskHandler, parentProcess) {
     return new Process(async (process) => {
-      this._consume(taskName, taskHandler, taskContext, process)
+      this._consume(taskName, taskHandler, process)
     }, parentProcess)
   }
 
-  subscribe(taskName, subscriptionHandler, context, parentProcess) {
+  subscribe(taskName, subscriptionHandler, parentProcess) {
     return new Process(async (process) => {
       while(process.active) {
-        let consumeProcess = this._consume(taskName, subscriptionHandler, context, process)
-        await consumeProcess.promiseToClose
+        let consumeProcess = this._consume(taskName, subscriptionHandler, process)
+        await consumeProcess.untilEnd
       }
     }, parentProcess)
   }
 
-  _consume(taskName, taskHandler, taskContext, parentProcess) {
+  _consume(taskName, taskHandler, parentProcess) {
     return new Process(async (process) => {
-      let {payload, responseHandler, responseContext} = await this._getTaskList(taskName).shift()
-      if (process.closed) return
-      let taskResult = await taskHandler.call(taskContext, payload)
-      if (process.closed) return
+      let {payload, responseHandler} = await this._getTaskList(taskName).shift()
+      if (process.closed) { return }
+      let taskResult = await taskHandler(payload)
+      if (process.closed) { return }
 
-      if (responseHandler) {
-        responseHandler.call(responseContext, taskResult)
-      } else {
-      }
-    }, undefined, parentProcess)
+      if (responseHandler) { responseHandler(taskResult) }
+    }, parentProcess)
   }
 
   _getTaskList(taskName) {

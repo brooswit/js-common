@@ -1,122 +1,88 @@
 // Intended to be used with https://github.com/websockets/ws
+
 const {fromEvent} = require('rxjs');
+const generateHashCode = require('./generateHashCode')
 
 const Process = require('./Process')
 
-module.exports = class VirtualWebSocket extends Process {
-    constructor(ws, {parent, serverMode}) {
+class VirtualWebSocketChannel extends Process {
+    constructor(vws, handlerOrChannel) {
         super(async () => {
-            this._ws = ws;
+            this.untilOpen = this.promiseTo('open')
 
-            this.subscribe(fromEvent(ws, 'message'), this._handleMessage)
-            this.subscribe(fromEvent(ws, 'close'), this.destroy)
-            this.subscribe(fromEvent(ws, 'error'), this.destroy)
-
-            if (serverMode) {
-                this.channel = Date.now()
-                this.message('set-channel', this.channel)
+            this.subscribeTo(vws.observe('event'), (data) => this._handleEvent(data))
+            this.subscribeTo(vws.observe('close'), () => this.end)
+            if (typeof handlerOrChannel === 'string') {
+                const channel = handlerOrChannel
+                this._channel = channel
+                // ... 'open' allready recieved ... //
+                this.send('open/complete')
+                this.emit('open', this)
+                await this.untilEnd
+            } else if (typeof handlerOrChannel === 'function') {
+                const handler = handlerOrChannel
+                this._channel = generateHashCode()
+                this.send('open')
+                await Promise.race([ this.unitlEnd(), this.promiseTo('open/complete') ])
+                this.emit('open', this)
+                await Promise.race([ this.unitlEnd(), await handler(this) ])
+                this.close()
             } else {
-                this.channel = await this.promiseTo('set-channel')
+                // ... this should never happen ... //
             }
+        }, vws)
+    }
 
-            this.emit('open')
+    _handleEvent(data) {
+        const { channel, eventName, payload } = data
+        if (channel !== this._channel) { return }
+        this.emit(eventName, {channel: this, operation, payload})
+    }
 
-            await this.promiseTo('destroy')
-            this.message('close')
-        }, parent)
+    send(eventName, payload) {
+        vws.send(channel, eventName, payload)
     }
 
     close() {
-        this.destroy()
+        this.send('close')
+        this.end()
+    }
+}
+
+module.exports = class VirtualWebSocket extends Process {
+    constructor(ws, incomingOpenHandler, parent) {
+        super(async () => {
+            this._ws = ws;
+            if (incomingOpenHandler) { this.subscribe(this.observe('open'), incomingOpenHandler) }
+
+            this.subscribe(fromEvent(ws, 'message'), (message) => this._handleMessage(message))
+            this.subscribe(fromEvent(ws, 'close'), () => this.end)
+            this.subscribe(fromEvent(ws, 'error'), () => this.end)
+
+            await this.untilEnd
+        }, parent)
     }
 
-    message(event, optionalPayload) {
-        this._send('message', {event}, optionalPayload)
+    _handleMessage(message) {
+        const data = JSONparseSafe(message)
+        if (!data) { return }
+
+        const { _vws } = data
+        if (!_vws) { return }
+
+        const { channel, eventName, payload } = data
+        this.emit('event', {channel, eventName, payload})
+
+        if(eventName !== 'open') { return }
+        const vwsc = new VirtualWebSocketChannel(this, channel)
+        this.emit('open', vwsc)
     }
 
-    async request(method, optionalPayload) {
-        const requestId = VirtualWebSocket._nextRequestId ++
-        this._send('request', {method, requestId}, optionalPayload)
-        const response = await Promise.race([
-            this.promiseTo(`_respone-${requestId}`),
-            this.promiseTo('destroy')
-        ])
-        if (this.isClosed()) return
-
-        return response
+    open(handler) {
+        return new VirtualWebSocketChannel(this, handler)
     }
 
-    _respond(requestId, optionalPayload) {
-        this._send('response', {requestId}, optionalPayload)
+    send(channel, eventName, payload) {
+        ws.send({ _vws: true, channel, eventName, payload})
     }
-    
-    _send(operation, optionalAttributes, optionalPayload) {
-        const _vws = true
-        const channel = this._channel
-        const attributes = optionalAttributes || {}
-        const payload = optionalPayload
-
-        this._ws.send(Object.assign({ _vws, channel, operation, payload }, attributes))
-    }
-
-    _handleMessage(body) {
-        const data = JSONparseSafe(body)
-        const { _vws, channel, operation, payload } = data
-        if (!_vws) return
-
-        if (channel === this._channel) {
-            if (operation === 'close') {
-                this.destroy()
-            } else if (operation === 'message') {
-                const {event} = data
-                this.emit(event, payload)
-            } else if (operation === 'request') {
-                const {method, requestId} = data
-                new Process(async (process) => {
-                    const resolver = new Resolver()
-                    this.emit(method, payload, resolver.resolve)
-                    const response = await resolver
-                    if (process.isClosed()) return
-                    this._respond(requestId, response)
-                }, this)
-            } else if (operation === 'response') {
-                const {requestId} = data
-                this.emit(`_response-${requestId}`, payload)
-            }
-        }
-    }
-
-    // this.subscribe(fromEvent(ws, 'open'), this._handleOpen)
-    // this.subscribe(fromEvent(ws, 'upgrade'), this._handleUpgrade)
-    // this.subscribe(fromEvent(ws, 'ping'), this._handlePing)
-    // this.subscribe(fromEvent(ws, 'pong'), this._handlePong)
-    // this.subscribe(fromEvent(ws, 'unexpected-response'), this._handleUnexpectedResponse)
-
-    // _handleOpen() {}
-    // _handleClose() {}
-    // _handleUpgrade() {}
-    // _handlePing() {}
-    // _handlePong() {}
-    // _handleError() {}
-    // _handleUnexpectedResponse() {}
-
-    // get binaryType() { return this._ws.binaryType }
-    // get bufferedAmount() { return this._ws.bufferedAmount }
-    // get extensions() { return this._ws.extensions }
-    // get onclose() { return this._ws.onclose }
-    // get onerror() { return this._ws.onerror }
-    // get onmessage() { return this._ws.onmessage }
-    // get onopen() { return this._ws.onopen }
-    // get protocol() { return this._ws.protocol }
-    // get readyState() { return this._ws.readyState }
-    // get url() { return this._ws.url }
-
-    // websocket.ping([data[, mask]][, callback])
-    // websocket.pong([data[, mask]][, callback])
-    // websocket.addEventListener(type, listener)
-    // websocket.close([code[, reason]])
-    // websocket.removeEventListener(type, listener)
-    // websocket.send(data[, options][, callback])
-    // websocket.terminate()
-
 }

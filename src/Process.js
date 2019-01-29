@@ -1,45 +1,47 @@
 const NO_OP = require('./NO_OP')
+const run = require('./run')
 const ExtendedEvents = require('./ExtendedEvents')
 
 module.exports = class Process extends ExtendedEvents {
   constructor(processHandler, optionalParent) {
-    this._destroyed = false
+    run(async () => {
+      this._active = true
 
-    setTimeout(async () => {
-      const promiseThisWillClose = this.promiseTo('close')
+      this.untilEnd = this.promiseTo('end')
+
+      const promiseThisWillEnd = this.untilEnd
       const promiseThisWIllComplete = processHandler(this)
-      const promiseParentWillClose = optionalParent && optionalParent.promiseTo('close')
+      const promiseParentWillClose = optionalParent && optionalParent.untilEnd
 
-      const allPromises = [promiseThisWillClose, promiseThisWIllComplete]
-      if (promiseParentWillClose) { allPromises.push(promiseParentWillClose) }
-      const anyPromise = Promise.race(allPromises)
+      const allPromises = [promiseThisWillEnd, promiseThisWIllComplete]
+      if (optionalParent) { allPromises.push(promiseParentWillClose) }
 
-      await anyPromise
-      this.destroy()
+      await Promise.race(allPromises)
+
+      this.end()
     })
   }
 
-  //emit (eventName, payload, callback)
-
-  subscribe(observable, handler) {
-    if (this.isDestroyed()) return
-    const subscription = observable.subscribe(handler)
-    new Process((process) => {
-      await process.promiseTo('destroy')
-      subscription.unsubscribe()
-    }, this)
-    return subscription
+  subscribeTo(observable, handler) {
+    if (this.isActive()) {
+      const subscription = observable.subscribe(handler)
+      new Process((process) => {
+        await process.untilEnd
+        subscription.unsubscribe()
+      }, this)
+      return subscription
+    }
   }
 
-  isDestroyed() {
-    return !!this._destroyed
+  isActive() {
+    return !!this._active
   }
 
   
-  async destroy() {
-    if (this.isDestroyed()) return false
-    await this._destroy(this)
-    this.emit('destroy')
+  end() {
+    if (!this.isActive()) return false
+    this._active = false
+    this.emit('end')
     return true
   }
 }
