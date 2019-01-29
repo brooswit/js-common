@@ -1,4 +1,3 @@
-const NO_OP = require('./NO_OP')
 const run = require('./run')
 const ExtendedEmitter = require('./ExtendedEmitter')
 
