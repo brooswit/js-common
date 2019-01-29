@@ -4,6 +4,7 @@ const ExtendedEmitter = require('./ExtendedEmitter')
 
 module.exports = class Process extends ExtendedEmitter {
   constructor(processHandler, optionalParent) {
+    super()
     run(async () => {
       this._active = true
 
