@@ -1,8 +1,8 @@
 const NO_OP = require('./NO_OP')
 const run = require('./run')
-const ExtendedEvents = require('./ExtendedEvents')
+const ExtendedEmitter = require('./ExtendedEmitter')
 
-module.exports = class Process extends ExtendedEvents {
+module.exports = class Process extends ExtendedEmitter {
   constructor(processHandler, optionalParent) {
     run(async () => {
       this._active = true
