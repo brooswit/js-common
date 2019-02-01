@@ -1,4 +1,5 @@
-const { ExtendedEmitter, Job } = require('../common')
+const Job = require('../classes/Job')
+const ExtendedEmitter = require('../classes/ExtendedEmitter')
 
 module.exports = class EventManager {
   constructor() {
