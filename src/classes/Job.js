@@ -7,8 +7,6 @@ module.exports = class Job extends ExtendedEmitter {
     constructor(mainHandler, optionalParent) {
         super()
         run(async () => {
-            console.log(this.constructor)
-            console.log(this.constructor.name)
             if (optionalParent) {
                 this._church = optionalParent._church.create(this.constructor.name)
             } else {
