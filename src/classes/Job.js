@@ -14,7 +14,7 @@ module.exports = class Job extends ExtendedEmitter {
             }
 
             this.log = this._church.log
-            this.log('hi')
+            this.log('info', 'hi')
 
 
             this._active = true
