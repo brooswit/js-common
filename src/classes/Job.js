@@ -6,7 +6,7 @@ const church = require('../services/church')
 module.exports = class Job extends ExtendedEmitter {
     constructor(mainHandler, optionalParent) {
         super()
-            run(async () => {
+        run(async () => {
             this._active = true
 
             this._promiseToEnd = this.promiseTo('end')
