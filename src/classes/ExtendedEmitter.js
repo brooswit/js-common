@@ -1,7 +1,7 @@
 const EventEmitter = require('events')
 
 const {fromEvent} = require('rxjs');
-const promiseToEmit = require('./promiseToEmit')
+const { promiseToEmit } = require('../common')
 
 module.exports = class ExtendedEmitter extends EventEmitter {
   async promiseTo(resolveEventName, rejectEventName) {

@@ -1,4 +1,4 @@
-const hashCode = require('./hashCode')
+const {hashCode} = require('../common')
 const seed = 0
 
 module.exports = function generateHashCode() {

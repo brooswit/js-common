@@ -1,4 +1,4 @@
-function hashCode(str) {
+module.exports = function hashCode(str) {
     var hash = 0, index, character;
     if (str.length === 0) return hash;
     for (index = 0; index < str.length; index++) {

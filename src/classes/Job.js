@@ -1,19 +1,18 @@
-const run = require('./run')
-const ExtendedEmitter = require('./ExtendedEmitter')
+const { run, ExtendedEmitter } = require('../common')
 
-module.exports = class Process extends ExtendedEmitter {
-  constructor(processHandler, optionalParent) {
+module.exports = class Job extends ExtendedEmitter {
+  constructor(mainHandler, optionalParent) {
     super()
     run(async () => {
       this._active = true
 
-      this.untilEnd = this.promiseTo('end')
+      this._promiseToEnd = this.promiseTo('end')
 
       const promiseThisWillEnd = this.untilEnd
-      const promiseThisWIllComplete = processHandler(this)
+      const promiseThisWillComplete = mainHandler(this)
       const promiseParentWillClose = optionalParent && optionalParent.untilEnd
 
-      const allPromises = [promiseThisWillEnd, promiseThisWIllComplete]
+      const allPromises = [promiseThisWillEnd, promiseThisWillComplete]
       if (optionalParent) { allPromises.push(promiseParentWillClose) }
 
       await Promise.race(allPromises)
@@ -22,24 +21,27 @@ module.exports = class Process extends ExtendedEmitter {
     })
   }
 
+  get untilEnd() {
+    return this._promiseToEnd
+  }
+
+  get isActive() {
+    return !!this._active
+  }
+
   subscribeTo(observable, handler) {
-    if (this.isActive()) {
+    if (this.isActive) {
       const subscription = observable.subscribe(handler)
-      new Process(async (process) => {
-        await process.untilEnd
+      new Job(async (job) => {
+        await job.untilEnd
         subscription.unsubscribe()
       }, this)
       return subscription
     }
   }
 
-  isActive() {
-    return !!this._active
-  }
-
-  
   end() {
-    if (!this.isActive()) return false
+    if (!this.isActive) return false
     this._active = false
     this.emit('end')
     return true

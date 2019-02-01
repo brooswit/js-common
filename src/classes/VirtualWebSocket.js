@@ -1,11 +1,8 @@
 // Intended to be used with https://github.com/websockets/ws
-
 const {fromEvent} = require('rxjs');
-const generateHashCode = require('./generateHashCode')
+const { Job, generateHashCode } = require('../common')
 
-const Process = require('./Process')
-
-class VirtualWebSocketChannel extends Process {
+class VirtualWebSocketChannel extends Job {
     constructor(vws, handlerOrChannel) {
         super(async () => {
             this.untilOpen = this.promiseTo('open')
@@ -49,7 +46,7 @@ class VirtualWebSocketChannel extends Process {
     }
 }
 
-module.exports = class VirtualWebSocket extends Process {
+module.exports = class VirtualWebSocket extends Job {
     constructor(ws, incomingOpenHandler, parent) {
         super(async () => {
             this._ws = ws;
