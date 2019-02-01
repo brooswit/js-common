@@ -1,4 +1,5 @@
-const { run, ExtendedEmitter } = require('../common')
+const run = require('../functions/run')
+const ExtendedEmitter = require('../classes/ExtendedEmitter')
 
 module.exports = class Job extends ExtendedEmitter {
   constructor(mainHandler, optionalParent) {
