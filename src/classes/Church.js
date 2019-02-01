@@ -7,6 +7,9 @@ module.exports = class Church {
     get level() {
         return winston.level
     }
+    set level(value) {
+        winston.level = value
+    }
     error() {
         winston.log()
     }
