@@ -1,6 +1,7 @@
 // Intended to be used with https://github.com/websockets/ws
 const {fromEvent} = require('rxjs');
-const { Job, generateHashCode } = require('../common')
+const Job = require('../classes/Job')
+const generateHashCode = require('../function/generateHashCode')
 
 class VirtualWebSocketChannel extends Job {
     constructor(vws, handlerOrChannel) {
