@@ -1,6 +1,6 @@
 const winston = require('winston')
 
-module.exports = class Church {
+class Church {
     constructor(namespace) {
         this._namespace = namespace
     }
@@ -48,3 +48,5 @@ module.exports = class Church {
         winston.log.apply(winston, args)
     }
 }
+
+module.exports = new Church(':')
