@@ -1,4 +1,12 @@
 const winston = require('winston')
+const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.json(),
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: 'logfile.log' })
+    ]
+})
 
 class Church {
     constructor(namespace) {
@@ -10,15 +18,15 @@ class Church {
     }
 
     get level() {
-        return winston.level
+        return logger.level
     }
 
     set level(value) {
-        winston.level = value
+        logger.level = value
     }
 
     log() {
-        winston.log.apply(arguments)
+        logger.log.apply(arguments)
     }
 }
 
