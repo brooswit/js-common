@@ -7,9 +7,9 @@ module.exports = function promiseToEmit(emitter, resolveEventName, rejectEventNa
             emitter.on(rejectEventName, rejecter)
         }
       
-        function resolver(payload, callback=NO_OP) {
+        async function resolver(payload, callback=NO_OP) {
             cleanup()
-            callback(resolve(payload))
+            callback(await resolve(payload))
         }
 
         function rejecter(error) {
