@@ -1,3 +1,4 @@
+const run = require('../functions/run')
 const NO_OP = require('../functions/NO_OP')
 
 module.exports = function promiseToEmit(emitter, resolveEventName, rejectEventName) {
