@@ -8,14 +8,14 @@ module.exports = class Job extends ExtendedEmitter {
         super()
         run(async () => {
             if (optionalParent) {
-                this._church = optionalParent._church.create(this.prototype.name)
+                this._church = optionalParent._church.create(this.constructor.name)
             } else {
-                this._church = church.create(this.prototype.name)
+                this._church = church.create(this.constructor.name)
             }
 
             this.log = this._church.log
             this.log('hi')
-            
+
 
             this._active = true
 
