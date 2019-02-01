@@ -1,3 +1,5 @@
+const NO_OP = require('../functions/NO_OP')
+
 module.exports = function promiseToEmit(emitter, resolveEventName, rejectEventName) {
     return new Promise((resolve, reject) => {
         emitter.on(resolveEventName, resolver)
@@ -5,7 +7,7 @@ module.exports = function promiseToEmit(emitter, resolveEventName, rejectEventNa
             emitter.on(rejectEventName, rejecter)
         }
       
-        function resolver(payload, callback) {
+        function resolver(payload, callback=NO_OP) {
             cleanup()
             callback(resolve(payload))
         }
