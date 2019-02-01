@@ -8,6 +8,7 @@ module.exports = class Job extends ExtendedEmitter {
         super()
         run(async () => {
             if (optionalParent) {
+                console.log(new.target.name)
                 this._church = optionalParent._church.create(new.target.name)
             } else {
                 this._church = church.create(new.target.name)
