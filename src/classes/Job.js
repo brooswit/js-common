@@ -9,9 +9,12 @@ module.exports = class Job extends ExtendedEmitter {
 
       this._promiseToEnd = this.promiseTo('end')
 
-      const promiseThisWillEnd = this.untilEnd
-      const promiseThisWillComplete = mainHandler(this)
       const promiseParentWillClose = optionalParent && optionalParent.untilEnd
+      const promiseThisWillEnd = this.untilEnd
+      const promiseThisWillComplete = async () => {
+        await chrono.delay()
+        return await mainHandler(this)
+      }
 
       const allPromises = [promiseThisWillEnd, promiseThisWillComplete]
       if (optionalParent) { allPromises.push(promiseParentWillClose) }
