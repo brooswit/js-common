@@ -1,4 +1,4 @@
-const Job = require('../classes/Job')
+const Routine = require('../classes/Routine')
 const ExtendedEmitter = require('../classes/ExtendedEmitter')
 
 module.exports = class EventManager {
@@ -7,16 +7,16 @@ module.exports = class EventManager {
   }
 
   trigger(eventName, eventPayload) {
-    return new Job(async (job)=>{
+    return new Routine(async (routine)=>{
       this._eventEmitter.emit(eventName, eventPayload)
     })
   }
 
-  hook(eventName, eventHandler, eventContext, parentJob) {
-    return new Job(async (job) => {
-      this._eventEmitter.on(eventName, eventHandler, eventContext, parentJob)
-      await job.untilEnd
-      this._eventEmitter.off(eventName, eventHandler, eventContext, parentJob)
+  hook(eventName, eventHandler, eventContext, parentRoutine) {
+    return new Routine(async (routine) => {
+      this._eventEmitter.on(eventName, eventHandler, eventContext, parentRoutine)
+      await routine.untilEnd
+      this._eventEmitter.off(eventName, eventHandler, eventContext, parentRoutine)
   })
   }
 }
