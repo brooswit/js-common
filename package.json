@@ -1,6 +1,6 @@
 {
     "name": "brooswit-common",
-    "version": "0.0.604",
+    "version": "0.0.605",
     "description": "",
     "main": "src/common.js",
     "directories": {
@@ -20,6 +20,7 @@
     },
     "homepage": "https://github.com/brooswit/js-common#readme",
     "dependencies": {
+        "debug": "4.1.1",
         "grunt": "1.0.3",
         "grunt-contrib-watch": "1.1.0",
         "grunt-shell": "2.1.0",

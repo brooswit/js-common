@@ -5,7 +5,9 @@ const chrono = require('../services/chrono')
 module.exports = class Job extends ExtendedEmitter {
   constructor(mainHandler, optionalParent) {
     super()
-    run(async () => {
+      console.log('jobby')
+      run(async () => {
+      console.log('new job')
       this._active = true
 
       this._promiseToEnd = this.promiseTo('end')
