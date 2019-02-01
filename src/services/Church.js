@@ -26,7 +26,7 @@ class Church {
     }
 
     log() {
-        logger.log.apply(arguments)
+        logger.log.apply(logger, arguments)
     }
 }
 
