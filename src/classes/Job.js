@@ -33,7 +33,9 @@ module.exports = class Job extends ExtendedEmitter {
             const allPromises = [promiseThisWillEnd, promiseThisWillComplete]
             if (optionalParent) { allPromises.push(promiseParentWillClose) }
 
+            this.log('info', 'waiting for races to complete...')
             await Promise.race(allPromises)
+            this.log('info', '...races complete!')
 
             this.end()
         })
