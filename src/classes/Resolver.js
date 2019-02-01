@@ -1,4 +1,4 @@
-const NO_OP = require('../functions/common')
+const NO_OP = require('../functions/NO_OP')
 
 module.exports = class Resolver {
   constructor (resolver = NO_OP) {

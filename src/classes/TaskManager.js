@@ -1,4 +1,5 @@
-const { AsyncArray, Job } = require('../common')
+const AsyncArray = require('../classes/AsyncArray')
+const Job = require('../classes/Job')
 
 module.exports = class TaskManager {
   constructor (optionalData = {}) {
