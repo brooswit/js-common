@@ -49,4 +49,4 @@ class Church {
     }
 }
 
-module.exports = new Church(':')
+module.exports = church = new Church(':')
