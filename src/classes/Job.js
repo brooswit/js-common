@@ -1,6 +1,7 @@
 const run = require('../functions/run')
 const ExtendedEmitter = require('../classes/ExtendedEmitter')
 const chrono = require('../services/chrono')
+const church = require('../services/church')
 
 module.exports = class Job extends ExtendedEmitter {
   constructor(mainHandler, optionalParent) {
