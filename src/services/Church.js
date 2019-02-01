@@ -9,6 +9,7 @@ const logger = winston.createLogger({
 
 class Church {
     constructor(namespace) {
+        console.log(namespace)
         this._namespace = namespace
     }
 
