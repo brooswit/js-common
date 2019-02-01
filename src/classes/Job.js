@@ -10,7 +10,7 @@ module.exports = class Job extends ExtendedEmitter {
             if (optionalParent) {
                 this._church = optionalParent._church.create(this.prototype.constructor.name)
             } else {
-                this._church = church.create(this.constructor.name)
+                this._church = church.create(this.prototype.constructor.name)
             }
             this.log = this._church.log
 
