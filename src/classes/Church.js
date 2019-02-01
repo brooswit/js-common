@@ -5,6 +5,10 @@ module.exports = class Church {
         this._namespace = namespace
     }
 
+    create(namespace) {
+        return new Church(`${this.namespace}:${namespace}`)
+    }
+
     get level() {
         return winston.level
     }
