@@ -26,7 +26,7 @@ class Church {
 
     log() {
         let args = Array.prototype.slice.call(arguments)
-        args.splice(1, 0, this._namespace);
+        args[1] = `${this.namespace}: ${args[1]}`
         console.log(args)
         logger.log.apply(logger, args)
     }
