@@ -27,6 +27,7 @@ class Church {
     log() {
         let args = Array.prototype.slice.call(arguments)
         args.splice(1, 0, this._namespace);
+        console.log(args)
         logger.log.apply(logger, args)
     }
 }
