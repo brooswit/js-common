@@ -8,9 +8,11 @@ module.exports = function promiseToEmit(emitter, resolveEventName, rejectEventNa
             emitter.on(rejectEventName, rejecter)
         }
       
-        async function resolver(payload, callback=NO_OP) {
-            cleanup()
-            callback(await resolve(payload))
+        function resolver(payload, callback=NO_OP) {
+            run(async () =>{
+                cleanup()
+                callback(await resolve(payload))
+            })
         }
 
         function rejecter(error) {
