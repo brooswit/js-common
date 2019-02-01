@@ -12,7 +12,9 @@ module.exports = class Job extends ExtendedEmitter {
             } else {
                 this._church = church.create(this.prototype.name)
             }
-            this.log = church.log
+
+
+            this.log = this._church.log
             this._active = true
 
             this._promiseToEnd = this.promiseTo('end')
