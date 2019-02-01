@@ -20,7 +20,7 @@ module.exports = class Job extends ExtendedEmitter {
 
             const promiseParentWillClose = optionalParent && optionalParent.untilEnd
             const promiseThisWillEnd = this.untilEnd
-            const promiseThisWillComplete = async () => {
+            const promiseThisWillComplete = run(async () => {
                 this.log('info', 'waiting for construction to complete...')
                 await chrono.delay()
                 this.log('info', '...construction complete!')
@@ -28,7 +28,7 @@ module.exports = class Job extends ExtendedEmitter {
                 const result = await mainHandler(this)
                 this.log('info', '...main handler!')
                 return result
-            }
+            })
 
             const allPromises = [promiseThisWillEnd, promiseThisWillComplete]
             if (optionalParent) { allPromises.push(promiseParentWillClose) }
