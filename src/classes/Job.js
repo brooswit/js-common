@@ -7,6 +7,10 @@ module.exports = class Job extends ExtendedEmitter {
     constructor(mainHandler, optionalParent) {
         super()
         run(async () => {
+            if (optionalParent) {
+                this._church = optionalParent._church.create(this.prototype.name)
+            }
+            this.log = church.log
             this._active = true
 
             this._promiseToEnd = this.promiseTo('end')
