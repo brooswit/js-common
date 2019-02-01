@@ -1,9 +1,9 @@
 const run = require('../functions/run')
-const ExtendedEmitter = require('../classes/ExtendedEmitter')
+const ExtendedEmitter = require('./ExtendedEmitter')
 const chrono = require('../services/chrono')
 const church = require('../services/church')
 
-module.exports = class Job extends ExtendedEmitter {
+module.exports = class Routine extends ExtendedEmitter {
     constructor(mainHandler, optionalParent) {
         super()
         run(async () => {
@@ -53,8 +53,8 @@ module.exports = class Job extends ExtendedEmitter {
     subscribeTo(observable, handler) {
         if (this.isActive) {
         const subscription = observable.subscribe(handler)
-        new Job(async (job) => {
-            await job.untilEnd
+        new Routine(async (routine) => {
+            await routine.untilEnd
             subscription.unsubscribe()
         }, this)
         return subscription
