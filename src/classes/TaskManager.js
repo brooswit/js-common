@@ -8,6 +8,7 @@ module.exports = class TaskManager {
 
   feed(taskName, payload, parentRoutine) {
     return new Routine(async (routine) => {
+      routine.log.info('start')
       let taskData = {
         closed: false,
         payload
@@ -18,6 +19,7 @@ module.exports = class TaskManager {
 
   request(taskName, payload, responseHandler, parentRoutine) {
     return new Routine(async (routine) => {
+      routine.log.info('start')
       let taskData = {
         closed: false,
         payload, responseHandler
@@ -32,12 +34,14 @@ module.exports = class TaskManager {
 
   consume(taskName, taskHandler, parentRoutine) {
     return new Routine(async (routine) => {
+      routine.log.info('start')
       this._consume(taskName, taskHandler, routine)
     }, parentRoutine, "task.consume")
   }
 
   subscribe(taskName, subscriptionHandler, parentRoutine) {
     return new Routine(async (routine) => {
+      routine.log.info('start')
       while(routine.active) {
         let consumeRoutine = this._consume(taskName, subscriptionHandler, routine)
         await consumeRoutine.untilEnd
