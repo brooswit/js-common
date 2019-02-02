@@ -7,7 +7,7 @@ module.exports = class Routine extends ExtendedEmitter {
     constructor(mainHandler, optionalParent) {
         super()
         run(async () => {
-            this.log = createLogger(typeof this)
+            this.log = createLogger(this.constructor.name)
             this.log.warn('STARTING')
             this._active = true
 
