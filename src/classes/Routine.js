@@ -1,3 +1,4 @@
+const namespace = require('winston-namespace')
 const run = require('../functions/run')
 const ExtendedEmitter = require('../classes/ExtendedEmitter')
 const chrono = require('../services/chrono')
@@ -7,11 +8,11 @@ module.exports = class Routine extends ExtendedEmitter {
         super()
         run(async () => {
             if (optionalParent) {
-const logger = require('winston-namespace')(this.constructor.name)
+            this._logger = namespace(this.constructor.name)
 console.log(new.target.name)
-                this._church = optionalParent._church.create(new.target.name)
+                this._logger = optionalParent._church.create(new.target.name)
             } else {
-                this._church = church.create(new.target.name)
+                this._logger = church.create(new.target.name)
             }
             this.log = this._church.log
 
