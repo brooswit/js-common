@@ -1,6 +1,6 @@
 {
     "name": "brooswit-common",
-    "version": "0.0.665",
+    "version": "0.0.666",
     "description": "",
     "main": "src/common.js",
     "directories": {
@@ -24,6 +24,7 @@
         "grunt": "1.0.3",
         "grunt-contrib-watch": "1.1.0",
         "grunt-shell": "2.1.0",
-        "rxjs": "6.3.3"
+        "rxjs": "6.3.3",
+        "winston-namespace": "1.0.0"
     }
 }
