@@ -1,6 +1,5 @@
 module.exports = {
   // services
-  'church': require('./services/church'),
   'chrono': require('./services/chrono'),
   'safeJSON': require('./services/safeJSON'),
 
