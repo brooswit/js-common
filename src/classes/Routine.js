@@ -7,14 +7,8 @@ module.exports = class Routine extends ExtendedEmitter {
     constructor(mainHandler, optionalParent) {
         super()
         run(async () => {
-            if (optionalParent) {
             this._logger = namespace(this.constructor.name)
-console.log(new.target.name)
-                this._logger = optionalParent._church.create(new.target.name)
-            } else {
-                this._logger = church.create(new.target.name)
-            }
-            this.log = this._church.log
+            this.log = this._logger.log
 
             this._active = true
 
