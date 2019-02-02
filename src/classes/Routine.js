@@ -40,7 +40,6 @@ module.exports = class Routine extends ExtendedEmitter {
     }
 
     get isActive() {
-        this.log.info(this._active)
         return !!this._active
     }
 
