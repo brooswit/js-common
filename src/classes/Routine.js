@@ -8,7 +8,6 @@ module.exports = class Routine extends ExtendedEmitter {
         super()
         run(async () => {
             this.log = createLogger(optionalName || this.constructor.name)
-            this.log.warn('STARTING')
             this._active = true
 
             this._promiseToEnd = this.promiseTo('end')
