@@ -4,10 +4,10 @@ const ExtendedEmitter = require('../classes/ExtendedEmitter')
 const chrono = require('../services/chrono')
 
 module.exports = class Routine extends ExtendedEmitter {
-    constructor(mainHandler, optionalParent) {
+    constructor(mainHandler, optionalParent, optionalName) {
         super()
         run(async () => {
-            this.log = createLogger(this.constructor.name)
+            this.log = createLogger(optionalName || this.constructor.name)
             this.log.warn('STARTING')
             this._active = true
 
