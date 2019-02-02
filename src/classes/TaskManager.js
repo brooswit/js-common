@@ -1,23 +1,23 @@
 const AsyncArray = require('../classes/AsyncArray')
-const Job = require('../classes/Job')
+const Routine = require('../classes/Routine')
 
 module.exports = class TaskManager {
   constructor (optionalData = {}) {
     this._taskLists = optionalData
   }
 
-  feed(taskName, payload, parentJob) {
-    return new Job(async () => {
+  feed(taskName, payload, parentRoutine) {
+    return new Routine(async () => {
       let taskData = {
         closed: false,
         payload
       }
       this._getTaskList(taskName).push(taskData)
-    }, parentJob)
+    }, parentRoutine)
   }
 
-  request(taskName, payload, responseHandler, parentJob) {
-    return new Job(async (job) => {
+  request(taskName, payload, responseHandler, parentRoutine) {
+    return new Routine(async (routine) => {
       let taskData = {
         closed: false,
         payload, responseHandler
@@ -25,35 +25,35 @@ module.exports = class TaskManager {
 
       this._getTaskList(taskName).push(taskData)
 
-      await job.untilEnd
+      await routine.untilEnd
       taskData.closed = true
-    }, parentJob)
+    }, parentRoutine)
   }
 
-  consume(taskName, taskHandler, parentJob) {
-    return new Job(async (job) => {
-      this._consume(taskName, taskHandler, job)
-    }, parentJob)
+  consume(taskName, taskHandler, parentRoutine) {
+    return new Routine(async (routine) => {
+      this._consume(taskName, taskHandler, routine)
+    }, parentRoutine)
   }
 
-  subscribe(taskName, subscriptionHandler, parentJob) {
-    return new Job(async (job) => {
-      while(job.active) {
-        let consumeJob = this._consume(taskName, subscriptionHandler, job)
-        await consumeJob.untilEnd
+  subscribe(taskName, subscriptionHandler, parentRoutine) {
+    return new Routine(async (routine) => {
+      while(routine.active) {
+        let consumeRoutine = this._consume(taskName, subscriptionHandler, routine)
+        await consumeRoutine.untilEnd
       }
-    }, parentJob)
+    }, parentRoutine)
   }
 
-  _consume(taskName, taskHandler, parentJob) {
-    return new Job(async (job) => {
+  _consume(taskName, taskHandler, parentRoutine) {
+    return new Routine(async (routine) => {
       let {payload, responseHandler} = await this._getTaskList(taskName).shift()
-      if (job.closed) { return }
+      if (routine.closed) { return }
       let taskResult = await taskHandler(payload)
-      if (job.closed) { return }
+      if (routine.closed) { return }
 
       if (responseHandler) { responseHandler(taskResult) }
-    }, parentJob)
+    }, parentRoutine)
   }
 
   _getTaskList(taskName) {
