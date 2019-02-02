@@ -26,6 +26,7 @@ module.exports = class TaskManager {
       }
 
       this._getTaskList(taskName).push(taskData)
+      routine.log.info('DOIN IT')
 
       await routine.untilEnd
       taskData.closed = true
