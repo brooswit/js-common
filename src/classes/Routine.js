@@ -56,6 +56,7 @@ module.exports = class Routine extends ExtendedEmitter {
 
     end() {
         if (!this.isActive) return false
+        this.log.info('end')
         this._active = false
         this.emit('end')
         return true
