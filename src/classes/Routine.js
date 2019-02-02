@@ -7,7 +7,8 @@ module.exports = class Routine extends ExtendedEmitter {
         super()
         run(async () => {
             if (optionalParent) {
-                console.log(new.target.name)
+const logger = require('winston-namespace')(this.constructor.name)
+console.log(new.target.name)
                 this._church = optionalParent._church.create(new.target.name)
             } else {
                 this._church = church.create(new.target.name)
