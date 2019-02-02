@@ -1,4 +1,4 @@
-const namespace = require('winston-namespace')
+const createLogger = require('winston-namespace')
 const run = require('../functions/run')
 const ExtendedEmitter = require('../classes/ExtendedEmitter')
 const chrono = require('../services/chrono')
@@ -7,7 +7,7 @@ module.exports = class Routine extends ExtendedEmitter {
     constructor(mainHandler, optionalParent) {
         super()
         run(async () => {
-            this.log = namespace(this.constructor.name)
+            this.log = createLogger(this.constructor.name)
             this.log.warn('test')
             this._active = true
 
