@@ -1,5 +1,5 @@
 const run = require('../functions/run')
-const ExtendedEmitter = require('./ExtendedEmitter')
+const ExtendedEmitter = require('../classes/ExtendedEmitter')
 const chrono = require('../services/chrono')
 const church = require('../services/church')
 
