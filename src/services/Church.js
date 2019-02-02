@@ -13,7 +13,7 @@ class Church {
     }
 
     create(namespace) {
-        return new Church(`${this.namespace}:${namespace}`)
+        return new Church(`${this._namespace}:${namespace}`)
     }
 
     get level() {
