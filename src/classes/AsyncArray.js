@@ -6,7 +6,7 @@ class AsyncArray extends Routine {
     super(async ()=>{
       await this.untilEnd
     })
-    this._callbackQueue = []
+    this._actionQueue = []
     this._payloadQueue = []
   }
 
@@ -22,7 +22,7 @@ class AsyncArray extends Routine {
 
   pop (callback) {
     if(!this.isActive) return
-    this._callbackQueue.push({action: 'pop', callback})
+    this._actionQueue.push({action: 'pop', callback})
   }
 
   async shift () {
