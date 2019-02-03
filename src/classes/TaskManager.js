@@ -3,7 +3,7 @@ const Routine = require('../classes/Routine')
 
 module.exports = class TaskManager extends Routine {
   constructor (optionalData = {}) {
-    this._taskLists = optionalData
+    this._asyncArrays = {}
   }
 
   feed(taskName, payload, parentRoutine) {
@@ -67,6 +67,6 @@ module.exports = class TaskManager extends Routine {
   }
 
   _getTaskList(taskName) {
-      return this._taskLists[taskName] = this._taskLists[taskName] || new AsyncArray()
+      return this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray()
   }
 }
