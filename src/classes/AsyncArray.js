@@ -34,6 +34,12 @@ class AsyncArray extends Routine {
     this._processQueues()
   }
 
+  _processQueues() {
+    while(this._actionQueue.length > 0 && (!this.isActive || this._payloadQueue > 0) ) {
+
+    }
+  }
+
   /* private methods */
 
   _resolveRequest () {
