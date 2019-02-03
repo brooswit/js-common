@@ -13,15 +13,11 @@ module.exports = class Routine extends ExtendedEmitter {
 
             this._promiseToEnd = this.promiseTo('end')
 
-            const promiseParentWillClose = optionalParent && optionalParent.untilEnd
-            const promiseThisWillEnd = this.untilEnd
             const allPromises = []
             allPromises.push(this.untilEnd)
             if (optionalParent) {
                 allPromises.push(optionalParent.untilEnd)
             }
-            promiseThisWillEnd, promiseThisWillComplete]
-            if (optionalParent) { allPromises.push(promiseParentWillClose) }
 
             const promiseThisWillComplete = run(async () => {
                 this.log.silly('waiting for construction to complete...')
