@@ -6,7 +6,7 @@ class AsyncArray extends Routine {
     super(async ()=>{
       await this.untilEnd
     })
-    this._actionQueue = []
+    this._requestQueue = []
     this._payloadQueue = []
   }
 
@@ -24,19 +24,19 @@ class AsyncArray extends Routine {
 
   pop (callback) {
     if(!this.isActive) return
-    this._actionQueue.push({action: 'pop', callback})
+    this._requestQueue.push({action: 'pop', callback})
     this._processQueues()
   }
 
   shift () {
     if(!this.isActive) return
-    this._actionQueue.push({action: 'shift', callback})
+    this._requestQueue.push({action: 'shift', callback})
     this._processQueues()
   }
 
   _processQueues() {
-    while(this._actionQueue.length > 0 && (!this.isActive || this._payloadQueue > 0) ) {
-
+    while(this._requestQueue.length > 0 && (!this.isActive || this._payloadQueue > 0) ) {
+      const {action, callback} = 
     }
   }
 
