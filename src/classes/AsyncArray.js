@@ -13,16 +13,15 @@ class AsyncArray extends Routine {
   push (payload) {
     if(!this.isActive) return
     this._payloadQueue.push(payload)
-    this._resolveRequest()
   }
 
   unshift (payload) {
     if(!this.isActive) return
     this._payloadQueue.unshift(payload)
-    this._resolveRequest()
   }
 
   pop (callback) {
+    if(!this.isActive) return
     this._callbackQueue.push({action: 'pop', callback})
   }
 
