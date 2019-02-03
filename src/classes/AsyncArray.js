@@ -36,7 +36,8 @@ class AsyncArray extends Routine {
 
   _processQueues() {
     while(this._requestQueue.length > 0 && (!this.isActive || this._payloadQueue > 0) ) {
-      const {action, callback} = 
+      const {action, callback} = this._requestQueue.shift()
+      callback(this._payloadQueue[action]())
     }
   }
 
