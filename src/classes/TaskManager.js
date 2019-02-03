@@ -60,10 +60,12 @@ module.exports = class TaskManager {
       if (!routine.isActive) { return }
       console.log('running ' + taskName)
       let taskResult = await taskHandler(payload)
-      console.log('done ' + taskName)
+      console.log('result ' + taskName)
       if (!routine.isvActive) { return }
 
+      console.log('handling ' + taskName)
       if (responseHandler) { responseHandler(taskResult) }
+      console.log('handled ' + taskName)
     }, parentRoutine)
   }
 
