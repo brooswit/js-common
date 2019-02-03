@@ -13,21 +13,25 @@ class AsyncArray extends Routine {
   push (payload) {
     if(!this.isActive) return
     this._payloadQueue.push(payload)
+    this._processQueues()
   }
 
   unshift (payload) {
     if(!this.isActive) return
     this._payloadQueue.unshift(payload)
+    this._processQueues()
   }
 
   pop (callback) {
     if(!this.isActive) return
     this._actionQueue.push({action: 'pop', callback})
+    this._processQueues()
   }
 
   shift () {
     if(!this.isActive) return
     this._actionQueue.push({action: 'shift', callback})
+    this._processQueues()
   }
 
   /* private methods */
