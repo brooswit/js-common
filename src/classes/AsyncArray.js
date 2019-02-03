@@ -42,6 +42,15 @@ class AsyncArray extends Routine {
     return payload
   }
 
+  async _request (action, callback) {
+    const resolver = new Resolver()
+    this._requestQueue.push({action, resolver})
+    this._processQueues()
+
+    const payload = await resolver
+    if (callback) { callback(payload) }
+    return payload}
+
   _processQueues() {
     while(this._requestQueue.length > 0 && (!this.isActive || this._payloadQueue > 0) ) {
       const {action, resolver} = this._requestQueue.shift()
