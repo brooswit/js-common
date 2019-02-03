@@ -28,7 +28,7 @@ class AsyncArray extends Routine {
     this._processQueues()
   }
 
-  shift () {
+  shift (callback) {
     if(!this.isActive) return
     this._requestQueue.push({action: 'shift', callback})
     this._processQueues()
