@@ -15,11 +15,20 @@ module.exports = class Routine extends ExtendedEmitter {
 
             const promiseParentWillClose = optionalParent && optionalParent.untilEnd
             const promiseThisWillEnd = this.untilEnd
+            const allPromises = []
+            allPromises.push(this.untilEnd)
+            if (optionalParent) {
+                allPromises.push(optionalParent.untilEnd)
+            }
+            promiseThisWillEnd, promiseThisWillComplete]
+            if (optionalParent) { allPromises.push(promiseParentWillClose) }
+
             const promiseThisWillComplete = run(async () => {
                 this.log.silly('waiting for construction to complete...')
                 await chrono.delay()
                 this.log.silly('...construction complete!')
                 this.log.silly('starting main handler...')
+                let promises = 
                 for (handlerIndex in mainHandlers) {
                     const handler = mainHandlers[handlerIndex]
                 }
@@ -28,8 +37,6 @@ module.exports = class Routine extends ExtendedEmitter {
                 return result
             })
 
-            const allPromises = [promiseThisWillEnd, promiseThisWillComplete]
-            if (optionalParent) { allPromises.push(promiseParentWillClose) }
 
             this.log.silly('waiting for races to complete...')
             await Promise.race(allPromises)
