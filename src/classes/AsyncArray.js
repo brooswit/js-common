@@ -10,22 +10,15 @@ class AsyncArray extends Routine {
     this._payloadQueue = []
   }
 
-  done () {
-    this._isDone = true
-    while (this._requests.length > 0) {
-      this._resolveRequest()
-    }
-  }
-
-  push (value) {
-    if (this._isDone) return
-    this._internalArray.push(value)
+  push (payload) {
+    if(!this.isActive) return
+    this._internalArray.push(payload)
     this._resolveRequest()
   }
 
-  unshift (value) {
+  unshift (payload) {
     if (this._isDone) return
-    this._internalArray.unshift(value)
+    this._internalArray.unshift(payload)
     this._resolveRequest()
   }
 
@@ -36,8 +29,8 @@ class AsyncArray extends Routine {
 
   async shift () {
     await this._waitForContent()
-    let value = this._internalArray.shift()
-    return value
+    let payload = this._internalArray.shift()
+    return payload
   }
 
   /* private methods */
