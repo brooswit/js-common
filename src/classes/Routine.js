@@ -20,6 +20,9 @@ module.exports = class Routine extends ExtendedEmitter {
                 await chrono.delay()
                 this.log.silly('...construction complete!')
                 this.log.silly('starting main handler...')
+                for (handlerIndex in mainHandlers) {
+                    const handler = mainHandlers[handlerIndex]
+                }
                 const result = await mainHandlers(this)
                 this.log.silly('...main handler!')
                 return result
