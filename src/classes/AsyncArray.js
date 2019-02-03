@@ -36,11 +36,13 @@ class AsyncArray extends Routine {
 
   async _get (action, callback) {
     const resolver = new Resolver()
-    this._requestQueue.push({action, resolver})
+    this._requestQueue.push({ action, resolver })
     this._processQueues()
 
     const payload = await resolver
-    if (callback) { callback(payload) }
+    if (callback) {
+      callback(payload)
+    }
     return payload
   }
 
