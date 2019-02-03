@@ -1,6 +1,7 @@
 const Resolver = require('../classes/Resolver')
+const Routine = require('../classes/Routine')
 
-class AsyncArray {
+class AsyncArray extends Routine {
   constructor () {
     this._isDone = false
     this._internalArray = []
