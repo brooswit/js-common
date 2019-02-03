@@ -41,7 +41,8 @@ class AsyncArray extends Routine {
 
     const payload = await resolver
     if (callback) { callback(payload) }
-    return payload}
+    return payload
+  }
 
   _processQueues() {
     while(this._requestQueue.length > 0 && (!this.isActive || this._payloadQueue > 0) ) {
