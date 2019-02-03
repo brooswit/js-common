@@ -1,6 +1,6 @@
 {
     "name": "brooswit-common",
-    "version": "0.0.717",
+    "version": "0.0.718",
     "description": "",
     "main": "src/common.js",
     "directories": {
