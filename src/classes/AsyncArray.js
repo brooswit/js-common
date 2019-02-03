@@ -8,7 +8,6 @@ class AsyncArray {
   }
 
   done () {
-    console.log("ASYNC ARRAY DONE")
     this._isDone = true
     while (this._requests.length > 0) {
       this._resolveRequest()
