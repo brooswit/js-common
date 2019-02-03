@@ -4,7 +4,7 @@ const ExtendedEmitter = require('../classes/ExtendedEmitter')
 const chrono = require('../services/chrono')
 
 module.exports = class Routine extends ExtendedEmitter {
-    constructor(mainHandler, optionalParent, optionalName) {
+    constructor(mainHandlers, optionalParent, optionalName) {
         super()
         run(async () => {
             this.log = createLogger(optionalName || this.constructor.name)
@@ -19,7 +19,7 @@ module.exports = class Routine extends ExtendedEmitter {
                 await chrono.delay()
                 this.log.silly('...construction complete!')
                 this.log.silly('starting main handler...')
-                const result = await mainHandler(this)
+                const result = await mainHandlers(this)
                 this.log.silly('...main handler!')
                 return result
             })
