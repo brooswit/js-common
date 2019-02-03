@@ -1,7 +1,7 @@
 const AsyncArray = require('../classes/AsyncArray')
 const Routine = require('../classes/Routine')
 
-module.exports = class TaskManager {
+module.exports = class TaskManager extends Routine {
   constructor (optionalData = {}) {
     this._taskLists = optionalData
   }
