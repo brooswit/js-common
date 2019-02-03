@@ -15,9 +15,7 @@ class AsyncArray extends Routine {
   }
 
   unshift (payload) {
-    if(!this.isActive) return
-    this._payloadQueue.unshift(payload)
-    this._processQueues()
+    return this._put('unshift', payload)
   }
 
   async pop (callback) {
@@ -29,9 +27,8 @@ class AsyncArray extends Routine {
   }
 
   _put (action, payload) {
-
     if(!this.isActive) return
-    this._payloadQueue['action'](payload)
+    this._payloadQueue[action](payload)
     this._processQueues()
   }
   async _get (action, callback) {
