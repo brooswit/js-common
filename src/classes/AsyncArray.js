@@ -20,8 +20,9 @@ class AsyncArray extends Routine {
     this._payloadQueue.unshift(payload)
   }
 
-  pop (callback) {
+  async pop (callback) {
     if(!this.isActive) return
+    const resolver = new Resolver()
     this._actionQueue.push({action: 'pop', callback})
   }
 
