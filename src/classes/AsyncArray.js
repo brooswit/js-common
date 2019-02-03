@@ -11,9 +11,7 @@ class AsyncArray extends Routine {
   }
 
   push (payload) {
-    if(!this.isActive) return
-    this._payloadQueue.push(payload)
-    this._processQueues()
+    return this._put('push', payload)
   }
 
   unshift (payload) {
@@ -27,10 +25,16 @@ class AsyncArray extends Routine {
   }
 
   async shift (callback) {
-    return await _request('shift', callback)
+    return await _get('shift', callback)
   }
 
-  async _request (action, callback) {
+  _put (action, payload) {
+
+    if(!this.isActive) return
+    this._payloadQueue['action'](payload)
+    this._processQueues()
+  }
+  async _get (action, callback) {
     const resolver = new Resolver()
     this._requestQueue.push({action, resolver})
     this._processQueues()
