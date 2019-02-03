@@ -3,6 +3,9 @@ const Routine = require('../classes/Routine')
 
 class AsyncArray extends Routine {
   constructor () {
+    super(()=>{
+      await this.untilEnd
+    })
     this._isDone = false
     this._internalArray = []
     this._requests = []
