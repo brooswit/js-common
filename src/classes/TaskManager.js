@@ -43,7 +43,7 @@ module.exports = class TaskManager {
   subscribe(taskName, subscriptionHandler, parentRoutine) {
     return new Routine(async (routine) => {
       routine.log.info('start')
-      while(routine.active) {
+      while(routine.isActive) {
         routine.log.info('active')
         let consumeRoutine = this._consume(taskName, subscriptionHandler, routine)
         routine.log.info('active')
