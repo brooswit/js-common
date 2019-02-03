@@ -18,16 +18,18 @@ module.exports = class Routine extends ExtendedEmitter {
             if (optionalParent) {
                 allPromises.push(optionalParent.untilEnd)
             }
+            
+            await chrono.delay()
 
+            for (handlerIndex in mainHandlers) {
+                const handler = mainHandlers[handlerIndex]
+                allPromises.push(handler(this))
+            }
+            
             const promiseThisWillComplete = run(async () => {
                 this.log.silly('waiting for construction to complete...')
-                await chrono.delay()
                 this.log.silly('...construction complete!')
                 this.log.silly('starting main handler...')
-                let promises = 
-                for (handlerIndex in mainHandlers) {
-                    const handler = mainHandlers[handlerIndex]
-                }
                 const result = await mainHandlers(this)
                 this.log.silly('...main handler!')
                 return result
