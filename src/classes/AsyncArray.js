@@ -26,7 +26,7 @@ class AsyncArray extends Routine {
   }
 
   shift () {
-    await this._waitForContent()
+    if(!this.isActive) return
     this._actionQueue.push({action: 'shift', callback})
   }
 
