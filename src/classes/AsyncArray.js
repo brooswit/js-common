@@ -20,11 +20,11 @@ class AsyncArray extends Routine {
   }
 
   async pop (callback) {
-    return await _request('pop', callback)
+    return await _take('pop', callback)
   }
 
   async shift (callback) {
-    return await _get('shift', callback)
+    return await _take('shift', callback)
   }
 
   _put (action, payload) {
@@ -34,7 +34,7 @@ class AsyncArray extends Routine {
     return true
   }
 
-  async _get (action, callback) {
+  async _take (action, callback) {
     const resolver = new Resolver()
     this._requestQueue.push({ action, resolver })
     this._processQueues()
