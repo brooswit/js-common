@@ -23,13 +23,7 @@ class AsyncArray extends Routine {
   }
 
   async pop (callback) {
-    const resolver = new Resolver()
-    this._requestQueue.push({action: 'pop', resolver})
-    this._processQueues()
-
-    const payload = await resolver
-    if (callback) { callback(payload) }
-    return payload
+    return await _request('pop', callback)
   }
 
   async shift (callback) {
