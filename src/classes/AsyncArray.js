@@ -48,21 +48,6 @@ class AsyncArray extends Routine {
       resolver.resolve(this._payloadQueue[action]())
     }
   }
-
-  /* private methods */
-
-  _resolveRequest () {
-    let request = this._requests.shift()
-    if (request) request.resolve()
-  }
-
-  async _waitForContent () {
-    if (!this._isDone && this._internalArray.length === 0) {
-      let resolver = new Resolver()
-      this._requests.push(resolver)
-      await resolver
-    }
-  }
 }
 
 module.exports = AsyncArray
