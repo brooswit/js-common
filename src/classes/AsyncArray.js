@@ -25,10 +25,9 @@ class AsyncArray extends Routine {
     this._actionQueue.push({action: 'pop', callback})
   }
 
-  async shift () {
+  shift () {
     await this._waitForContent()
-    let payload = this._internalArray.shift()
-    return payload
+    this._actionQueue.push({action: 'shift', callback})
   }
 
   /* private methods */
