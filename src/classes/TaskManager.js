@@ -42,11 +42,8 @@ module.exports = class TaskManager {
 
   subscribe(taskName, subscriptionHandler, parentRoutine) {
     return new Routine(async (routine) => {
-      routine.log.info('start')
       while(routine.isActive) {
-        routine.log.info('active')
         let consumeRoutine = this._consume(taskName, subscriptionHandler, routine)
-        routine.log.info('active')
         await consumeRoutine.untilEnd
       }
     }, parentRoutine, `task.subscribe.${taskName}`)
@@ -61,7 +58,7 @@ module.exports = class TaskManager {
       console.log('running ' + taskName)
       let taskResult = await taskHandler(payload)
       console.log('result ' + taskName)
-      if (!routine.isvActive) { return }
+      if (!routine.isActive) { return }
 
       console.log('handling ' + taskName)
       if (responseHandler) { responseHandler(taskResult) }
