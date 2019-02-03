@@ -27,10 +27,12 @@ class AsyncArray extends Routine {
   }
 
   _put (action, payload) {
-    if(!this.isActive) return
+    if(!this.isActive) return false
     this._payloadQueue[action](payload)
     this._processQueues()
+    return true
   }
+
   async _get (action, callback) {
     const resolver = new Resolver()
     this._requestQueue.push({action, resolver})
