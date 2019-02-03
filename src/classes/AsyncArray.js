@@ -33,13 +33,7 @@ class AsyncArray extends Routine {
   }
 
   async shift (callback) {
-    const resolver = new Resolver()
-    this._requestQueue.push({action: 'shift', resolver})
-    this._processQueues()
-
-    const payload = await resolver
-    if (callback) { callback(payload) }
-    return payload
+    return await _request('shift', callback)
   }
 
   async _request (action, callback) {
