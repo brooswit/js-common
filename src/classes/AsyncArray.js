@@ -50,8 +50,10 @@ class AsyncArray extends Routine {
   }
 
   _processQueues() {
+    this.log.info('processing')
     while(this._requestQueue.length > 0 && (!this.isActive || this._payloadQueue > 0) ) {
       const {action, resolver} = this._requestQueue.shift()
+      this.log.info('processing ' + action)
       resolver.resolve(this._payloadQueue[action]())
     }
   }
