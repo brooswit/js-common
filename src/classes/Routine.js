@@ -21,7 +21,7 @@ module.exports = class Routine extends ExtendedEmitter {
             
             await chrono.delay()
 
-            for (handlerIndex in mainHandlers) {
+            for (let handlerIndex in mainHandlers) {
                 const handler = mainHandlers[handlerIndex]
                 allPromises.push(handler(this))
             }
