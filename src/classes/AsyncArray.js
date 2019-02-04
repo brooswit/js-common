@@ -20,11 +20,11 @@ class AsyncArray extends Routine {
   }
 
   async pop (callback) {
-    return await _take('pop', callback)
+    return await this._take('pop', callback)
   }
 
   async shift (callback) {
-    return await _take('shift', callback)
+    return await this._take('shift', callback)
   }
 
   _put (action, payload) {
