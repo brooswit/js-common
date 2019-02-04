@@ -28,6 +28,7 @@ class AsyncArray extends Routine {
   }
 
   _put (action, payload) {
+    this.log.info('put ' + action)
     if(!this.isActive) return false
     this._payloadQueue[action](payload)
     this._processQueues()
@@ -35,7 +36,7 @@ class AsyncArray extends Routine {
   }
 
   async _take (action, callback) {
-    this.log.info(action)
+    this.log.info('take ' + action)
     const resolver = new Resolver()
     this._requestQueue.push({ action, resolver })
     this._processQueues()
