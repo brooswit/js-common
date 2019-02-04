@@ -42,6 +42,7 @@ class AsyncArray extends Routine {
     this._processQueues()
 
     const payload = await resolver
+    this.log.info('got ' + action)
     if (callback) {
       callback(payload)
     }
