@@ -35,6 +35,7 @@ class AsyncArray extends Routine {
   }
 
   async _take (action, callback) {
+    this.log.info(action)
     const resolver = new Resolver()
     this._requestQueue.push({ action, resolver })
     this._processQueues()
