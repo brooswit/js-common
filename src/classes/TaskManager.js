@@ -71,6 +71,6 @@ module.exports = class TaskManager extends Routine {
   }
 
   _getTaskList(taskName) {
-      return this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this)
+      return this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
   }
 }
