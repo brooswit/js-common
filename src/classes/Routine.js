@@ -8,7 +8,7 @@ module.exports = class Routine extends ExtendedEmitter {
         super()
         run(async () => {
             mainHandlers = Array.isArray(mainHandlers) ? mainHandlers : [mainHandlers]
-            this.log = createLogger(optionalName || this.constructor.name)
+            this.log = createLogger(optionalName ? `${this.constructor.name}:${optionalName}` : this.constructor.name)
             this._active = true
 
             this._promiseToEnd = this.promiseTo('end')
