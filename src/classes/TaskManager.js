@@ -3,6 +3,9 @@ const Routine = require('../classes/Routine')
 
 module.exports = class TaskManager extends Routine {
   constructor () {
+    super(async ()=>{
+      await this.untilEnd
+    })
     this._asyncArrays = {}
   }
 
