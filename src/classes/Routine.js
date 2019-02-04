@@ -25,20 +25,8 @@ module.exports = class Routine extends ExtendedEmitter {
                 const handler = mainHandlers[handlerIndex]
                 allPromises.push(handler(this))
             }
-            
-            const promiseThisWillComplete = run(async () => {
-                this.log.silly('waiting for construction to complete...')
-                this.log.silly('...construction complete!')
-                this.log.silly('starting main handler...')
-                const result = await mainHandlers(this)
-                this.log.silly('...main handler!')
-                return result
-            })
 
-
-            this.log.silly('waiting for races to complete...')
             await Promise.race(allPromises)
-            this.log.silly('...races complete!')
 
             this.end()
         })
