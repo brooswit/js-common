@@ -11,7 +11,6 @@ module.exports = class TaskManager extends Routine {
 
   feed(taskName, payload, parentRoutine) {
     return new Routine(async (routine) => {
-      routine.log.info('start')
       let taskData = {
         closed: false,
         payload
@@ -22,14 +21,12 @@ module.exports = class TaskManager extends Routine {
 
   request(taskName, payload, responseHandler, parentRoutine) {
     return new Routine(async (routine) => {
-      routine.log.info('start')
       let taskData = {
         closed: false,
         payload, responseHandler
       }
 
       this._getTaskList(taskName).push(taskData)
-      routine.log.info('DOIN IT')
 
       await routine.untilEnd
       taskData.closed = true
@@ -38,7 +35,6 @@ module.exports = class TaskManager extends Routine {
 
   consume(taskName, taskHandler, parentRoutine) {
     return new Routine(async (routine) => {
-      routine.log.info('start')
       this._consume(taskName, taskHandler, routine)
     }, parentRoutine, `task.consume.${taskName}`)
   }
