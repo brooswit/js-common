@@ -6,7 +6,7 @@ const ExtendedEmitter = require('../classes/ExtendedEmitter')
 const chrono = require('../services/chrono')
 
 function randomElement(arr) {
-    return Math.floor(Math.random() * arr.length)
+    return arr[Math.floor(Math.random() * arr.length)]
 }
 
 function randomChalk(str) {
