@@ -10,9 +10,7 @@ function randomElement(arr) {
 }
 
 function randomChalk(str) {
-    const color = randomElement([ 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan' ])
-    str = chalk[color](str)
-    return str
+    return chalk[randomElement([ 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan' ])](str)
 }
 
 module.exports = class Routine extends ExtendedEmitter {
