@@ -1,14 +1,30 @@
 const createLogger = require('winston-namespace')
+const chalk = require('chalk')
+
 const run = require('../functions/run')
 const ExtendedEmitter = require('../classes/ExtendedEmitter')
 const chrono = require('../services/chrono')
+
+function randomElement(arr) {
+    return Math.floor(Math.random() * arr.length)
+}
+
+function randomChalk(str) {
+    // styles = ['bold', 'dim', 'italic']
+    const color = randomElement(['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white'])
+    str = chalk[color](str)
+    if (Math.random()<0.5) { str = chalk.bold(str) }
+    if (Math.random()<0.5) { str = chalk.dim(str) }
+    if (Math.random()<0.5) { str = chalk.italic(str) }
+    return str
+}
 
 module.exports = class Routine extends ExtendedEmitter {
     constructor(mainHandlers, optionalParent, optionalName) {
         super()
         run(async () => {
             mainHandlers = Array.isArray(mainHandlers) ? mainHandlers : [mainHandlers]
-            this.log = createLogger(optionalName ? `${this.constructor.name}:${optionalName}` : this.constructor.name)
+            this.log = createLogger(randomChalk(optionalName ? `${this.constructor.name}:${optionalName}` : this.constructor.name))
             this._active = true
 
             this._promiseToEnd = this.promiseTo('end')
