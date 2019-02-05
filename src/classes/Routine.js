@@ -10,8 +10,7 @@ function randomElement(arr) {
 }
 
 function randomChalk(str) {
-    // styles = ['bold', 'dim', 'italic']
-    const color = randomElement(['red', 'green', 'yellow', 'blue', 'magenta', 'cyan'])
+    const color = randomElement([ 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan' ])
     str = chalk[color](str)
     if (Math.random()<0.5) { str = chalk.bold(str) }
     if (Math.random()<0.5) { str = chalk.dim(str) }
