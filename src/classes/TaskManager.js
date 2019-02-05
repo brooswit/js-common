@@ -50,19 +50,12 @@ module.exports = class TaskManager extends Routine {
 
   _consume(taskName, taskHandler, parentRoutine) {
     return new Routine(async (routine) => {
-      console.log('consuming ' + taskName)
       const taskList = this._getTaskList(taskName)
       let {payload, responseHandler} = await taskList.shift()
-      console.log('got ' + taskName)
       if (!routine.isActive) { return }
-      console.log('running ' + taskName)
       let taskResult = await taskHandler(payload)
-      console.log('result ' + taskName)
       if (!routine.isActive) { return }
-
-      console.log('handling ' + taskName)
       if (responseHandler) { responseHandler(taskResult) }
-      console.log('handled ' + taskName)
     }, parentRoutine)
   }
 
