@@ -55,6 +55,7 @@ module.exports = class TaskManager extends Routine {
       if (!routine.isActive) { return }
       let taskResult = await taskHandler(payload)
       if (!routine.isActive) { return }
+      console.warn(responseHandler)
       if (responseHandler) { responseHandler(taskResult) }
     }, parentRoutine)
   }
