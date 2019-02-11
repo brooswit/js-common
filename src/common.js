@@ -11,6 +11,7 @@ module.exports = {
   'NO_OP': require('./functions/NO_OP'),
   'promiseToEmit': require('./functions/promiseToEmit'),
   'run': require('./functions/run'),
+  'promiseCallback': require('./functions/promiseCallback'),
 
   // classes
   'AsyncArray': require('./classes/AsyncArray'),
