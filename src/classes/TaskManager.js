@@ -9,18 +9,16 @@ module.exports = class TaskManager extends Routine {
     this._asyncArrays = {}
   }
 
-  feed(taskName, payload, parentRoutine) {
-    return new Routine(async (routine) => {
-      let taskData = {
-        closed: false,
-        payload
-      }
-      this._getTaskList(taskName).push(taskData)
-    }, parentRoutine, `task.feed.${taskName}`)
+  feed(taskName, payload) {
+    let taskData = {
+      closed: false,
+      payload
+    }
+    this._getTaskList(taskName).push(taskData)
   }
 
-  request(taskName, payload, responseHandler, parentRoutine) {
-    return new Routine(async (routine) => {
+  async request(taskName, payload, parentRoutine) {
+    new Routine(async (routine) => {
       let taskData = {
         closed: false,
         payload, responseHandler
