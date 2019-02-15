@@ -1,12 +1,7 @@
 const Resolver = require('../classes/Resolver')
 const Routine = require('../classes/Routine')
 
-class AsyncArray extends Routine {
-  constructor (optionalParent, optionalName) {
-    super(async ()=>{
-      await this.untilEnd
-    }, optionalParent, optionalName)
-
+class AsyncArray {
     this._requestQueue = []
     this._payloadQueue = []
   }
