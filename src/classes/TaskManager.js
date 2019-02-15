@@ -28,13 +28,12 @@ module.exports = class TaskManager extends Routine {
     return await this._consume(taskName)
   }
 
-  subscribe(taskName, subscriptionHandler, parentRoutine) {
+  subscribe(taskName, subscriptionHandler) {
     return new Routine(async (routine) => {
       while(routine.isActive) {
-        let consumeRoutine = this._consume(taskName, subscriptionHandler, routine)
-        await consumeRoutine.untilEnd
+        subscriptionHandler(await this._consume(taskName))
       }
-    }, parentRoutine, `task.subscribe.${taskName}`)
+    }, this, `${taskName} Subscription`)
   }
 
   _consume(taskName, taskHandler, parentRoutine) {
