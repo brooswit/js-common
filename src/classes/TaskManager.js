@@ -11,10 +11,10 @@ module.exports = class TaskManager extends Routine {
 
   feed(taskName, payload) {
     const task = new Task(payload)
-    this._getTaskList(taskName).push(task)
+    return this._getTaskList(taskName).push(task)
   }
 
-  async request(taskName, payload, callback) {
+  async request(taskName, payload) {
     const task = new Task(payload)
 
     this._getTaskList(taskName).push(task)
@@ -24,10 +24,8 @@ module.exports = class TaskManager extends Routine {
     return result
   }
 
-  consume(taskName, taskHandler, parentRoutine) {
-    return new Routine(async (routine) => {
-      this._consume(taskName, taskHandler, routine)
-    }, parentRoutine, `task.consume.${taskName}`)
+  async consume(taskName) {
+    return await this._consume(taskName)
   }
 
   subscribe(taskName, subscriptionHandler, parentRoutine) {
