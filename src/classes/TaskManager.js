@@ -10,11 +10,8 @@ module.exports = class TaskManager extends Routine {
   }
 
   feed(taskName, payload) {
-    let taskData = {
-      closed: false,
-      payload
-    }
-    this._getTaskList(taskName).push(taskData)
+    const task = new Task(payload)
+    this._getTaskList(taskName).push(task)
   }
 
   async request(taskName, payload, callback) {
