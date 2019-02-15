@@ -21,7 +21,10 @@ module.exports = class TaskManager extends Routine {
     const task = new Task(payload)
 
     this._getTaskList(taskName).push(task)
-    const result = await task.untilDone
+    
+    const result = await task.futureResult
+
+    return result
   }
 
   consume(taskName, taskHandler, parentRoutine) {
