@@ -25,7 +25,7 @@ module.exports = class TaskManager extends Routine {
 
     this._getTaskList(taskName).push(task)
     
-    const result = await task.futureResult
+    const result = await task.getResult()
 
     return result
   }
@@ -45,7 +45,8 @@ module.exports = class TaskManager extends Routine {
 
   async _consume(taskName) {
     const taskList = this._getTaskList(taskName)
-    return await taskList.shift()
+    const task = await taskList.shift()
+    return await task.run()
   }
 
   _getTaskList(taskName) {
