@@ -1,3 +1,5 @@
+const ExtendedEmitter = require('./ExtendedEmitter')
+
 module.exports = class Future extends ExtendedEmitter {
     constructor() {
         this.untilSet = this.promiseTo('set')
