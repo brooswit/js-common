@@ -17,6 +17,7 @@ module.exports = {
   'AsyncArray': require('./classes/AsyncArray'),
   'EventManager': require('./classes/EventManager'),
   'ExtendedEmitter': require('./classes/ExtendedEmitter'),
+  'Future': require('./classes/Future'),
   'Routine': require('./classes/Routine'),
   'Resolver': require('./classes/Resolver'),
   'TaskManager': require('./classes/TaskManager'),
