@@ -1,15 +1,6 @@
 const AsyncArray = require('../classes/AsyncArray')
 const Routine = require('../classes/Routine')
 
-class Task {
-  constructor(payload) {
-    this._payload = payload
-  }
-
-  async getResult() {
-    
-  }
-}
 module.exports = class TaskManager extends Routine {
   constructor () {
     super(async ()=>{
@@ -25,7 +16,7 @@ module.exports = class TaskManager extends Routine {
 
   async request(taskName, payload) {
     if (!this.isActive) return null
-    payload.resolver = new Resolver()
+    payload.future = new Future()
 
     this._getTaskList(taskName).push(payload)
     
