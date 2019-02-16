@@ -1,6 +1,11 @@
 const AsyncArray = require('../classes/AsyncArray')
 const Routine = require('../classes/Routine')
 
+class Task {
+  constructor(payload) {
+    this._payload = payload
+  }
+}
 module.exports = class TaskManager extends Routine {
   constructor () {
     super(async ()=>{
