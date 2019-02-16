@@ -2,21 +2,17 @@ const Resolver = require('../classes/Resolver')
 const Routine = require('../classes/Routine')
 
 class AsyncArray extends Routine {
-  constructor (optionalParent, optionalName) {
-    super(async ()=>{
-      await this.untilEnd
-    }, optionalParent, optionalName)
-
+  constructor () {
     this._requestQueue = []
-    this._payloadQueue = []
+    this._elementQueue = []
   }
 
-  push (payload) {
-    return this._put('push', payload)
+  push (element) {
+    return this._put('push', element)
   }
 
-  unshift (payload) {
-    return this._put('unshift', payload)
+  unshift (element) {
+    return this._put('unshift', element)
   }
 
   async pop (callback) {
@@ -27,9 +23,9 @@ class AsyncArray extends Routine {
     return await this._take('shift', callback)
   }
 
-  _put (action, payload) {
+  _put (action, element) {
     if(!this.isActive) return false
-    this._payloadQueue[action](payload)
+    this._elementQueue[action](element)
     this._processQueues()
     return true
   }
@@ -39,17 +35,17 @@ class AsyncArray extends Routine {
     this._requestQueue.push({ action, resolver })
     this._processQueues()
 
-    const payload = await resolver
+    const element = await resolver
     if (callback) {
-      callback(payload)
+      callback(element)
     }
-    return payload
+    return element
   }
 
   _processQueues() {
-    while(this._requestQueue.length > 0 && (!this.isActive || this._payloadQueue.length > 0) ) {
+    while(this._requestQueue.length > 0 && (!this.isActive || this._elementQueue.length > 0) ) {
       const {action, resolver} = this._requestQueue.shift()
-      resolver.resolve(this._payloadQueue[action]())
+      resolver.resolve(this._elementQueue[action]())
     }
   }
 }
