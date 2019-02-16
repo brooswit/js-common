@@ -36,7 +36,7 @@ module.exports = class TaskManager extends Routine {
 
   async consume(taskName) {
     if (!this.isActive) return undefined
-    const taskList = this._getTaskList(taskName)
+    const taskList = this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
     return await taskList.shift()
   }
 
@@ -46,9 +46,5 @@ module.exports = class TaskManager extends Routine {
         subscriptionHandler(await this.consume(taskName))
       }
     }, this, `${taskName} Subscription`)
-  }
-
-  _getTaskList(taskName) {
-      return this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
   }
 }
