@@ -5,6 +5,10 @@ class Task {
   constructor(payload) {
     this._payload = payload
   }
+
+  async getResult() {
+    
+  }
 }
 module.exports = class TaskManager extends Routine {
   constructor () {
@@ -35,9 +39,14 @@ module.exports = class TaskManager extends Routine {
     return result
   }
 
-  async consume(taskName) {
+  consume(taskName, handler) {
     if (!this.isActive) return null
-    return await this._consume(taskName)
+    const consumePromise = this._consume(taskName)
+    if (handler) {
+      consumePromise.then(handler)
+    } else {
+      return consumePromise
+    }
   }
 
   subscribe(taskName, subscriptionHandler) {
