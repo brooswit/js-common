@@ -1,7 +1,8 @@
 module.exports = class Future extends EventEmitter {
     constructor() {
-
+        
     }
+
     async get() {
         await this.promise
     }
