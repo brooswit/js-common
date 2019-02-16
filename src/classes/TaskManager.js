@@ -39,11 +39,11 @@ module.exports = class TaskManager extends Routine {
     return result
   }
 
-  consume(taskName, handler) {
+  consume(taskName, optionalHandler) {
     if (!this.isActive) return null
     const consumePromise = this._consume(taskName)
-    if (handler) {
-      consumePromise.then(handler)
+    if (optionalHandler) {
+      consumePromise.then(optionalHandler)
     } else {
       return consumePromise
     }
@@ -59,8 +59,8 @@ module.exports = class TaskManager extends Routine {
 
   async _consume(taskName) {
     const taskList = this._getTaskList(taskName)
-    const task = await taskList.shift()
-    return await task.run()
+    const payload = await taskList.shift()
+    return payload
   }
 
   _getTaskList(taskName) {
