@@ -23,7 +23,7 @@ module.exports = class TaskManager extends Routine {
     
     this._getTaskList(taskName).push(payload)
 
-    return payload
+    return null
   }
 
   async request(taskName, payload) {
