@@ -1,7 +1,6 @@
 const Resolver = require('../classes/Resolver')
-const Routine = require('../classes/Routine')
 
-class AsyncArray extends Routine {
+class AsyncArray {
   constructor () {
     this.isStopped = false
     this._requestQueue = []
