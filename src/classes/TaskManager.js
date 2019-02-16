@@ -26,9 +26,8 @@ module.exports = class TaskManager extends Routine {
 
   async request(taskName, payload) {
     if (!this.isActive) return null
-    const task = new Task(payload)
 
-    this._getTaskList(taskName).push(task)
+    this._getTaskList(taskName).push(payload)
     
     const result = await task.getResult()
 
