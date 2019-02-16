@@ -39,9 +39,7 @@ class AsyncArray extends Routine {
     const resolver = new Resolver()
     this._requestQueue.push({ action, resolver })
     this._processQueues()
-
-    const element = await resolver
-    return element
+    return await resolver
   }
 
   _processQueues() {
