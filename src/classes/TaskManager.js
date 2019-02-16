@@ -36,6 +36,7 @@ module.exports = class TaskManager extends Routine {
 
   async consume(taskName) {
     if (!this.isActive) return undefined
+    const taskList = this._getTaskList(taskName)
     return await taskList.shift()
   }
 
