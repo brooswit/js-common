@@ -7,7 +7,7 @@ module.exports = class Future extends ExtendedEmitter {
     }
 
     async get() {
-        return await untilSet
+        return await this.untilSet
     }
 
     set(value) {
