@@ -35,9 +35,9 @@ module.exports = class TaskManager extends Routine {
   }
 
   async consume(taskName) {
+    if (!this.isActive) return undefined
     const future = new Future()
-    if (!this.isActive) return null
-    const consumePromise = this._consume(taskName, future)
+    this._consume(taskName, future)
     if (optionalHandler) {
       consumePromise.then(optionalHandler)
     } else {
