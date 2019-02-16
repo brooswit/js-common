@@ -19,11 +19,9 @@ module.exports = class TaskManager extends Routine {
   }
 
   feed(taskName, payload) {
-    if (!this.isActive) return null
+    if (!this.isActive) return
     
     this._getTaskList(taskName).push(payload)
-
-    return null
   }
 
   async request(taskName, payload) {
