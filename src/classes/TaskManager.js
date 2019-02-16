@@ -1,6 +1,13 @@
 const AsyncArray = require('../classes/AsyncArray')
 const Routine = require('../classes/Routine')
 
+class Task extends Future {
+  constructor(payload) {
+    for(key in payload) {
+      this[key] = this[key] || payload[key]
+    }
+  }
+}
 module.exports = class TaskManager extends Routine {
   constructor () {
     super(async ()=>{
@@ -32,7 +39,9 @@ module.exports = class TaskManager extends Routine {
   subscribe(taskName, subscriptionHandler) {
     return new Routine(async (routine) => {
       while(routine.isActive) {
+        const task = await this.consume(taskName)
         subscriptionHandler(await this.consume(taskName))
+        await task.get()
       }
     }, this, `${taskName} Subscription`)
   }
