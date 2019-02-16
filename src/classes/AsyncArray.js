@@ -45,7 +45,8 @@ class AsyncArray extends Routine {
   _processQueues() {
     while(this._requestQueue.length > 0 && (this.isStopped || this._elementQueue.length > 0) ) {
       const {action, resolver} = this._requestQueue.shift()
-      resolver.resolve(this._elementQueue[action]())
+      element = this._elementQueue[action]()
+      resolver.resolve(element)
     }
   }
 }
