@@ -19,9 +19,7 @@ module.exports = class TaskManager extends Routine {
   async request(taskName, payload) {
     if (!this.isActive) return null
     let future = new Future()
-
     this._getTaskList(taskName).push({future, payload})
-
     return await future.get()
   }
 
