@@ -13,6 +13,7 @@ module.exports = class TaskManager extends Routine {
     if (!this.isActive) return
     let future = new Future()
     this._getTaskList(taskName).push({future, payload})
+    future.set(undefined)
   }
 
   async request(taskName, payload) {
@@ -26,8 +27,8 @@ module.exports = class TaskManager extends Routine {
 
   async consume(taskName) {
     if (!this.isActive) return undefined
-    const taskList = this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
-    return await taskList.shift()
+    this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
+    return await this._asyncArrays[taskName].shift()
   }
 
   subscribe(taskName, subscriptionHandler) {
