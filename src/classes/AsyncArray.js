@@ -29,10 +29,10 @@ class AsyncArray extends Routine {
   }
 
   _put (action, element) {
-    if(!this.isActive) return false
+    if(this.isStopped) return null
     this._elementQueue[action](element)
     this._processQueues()
-    return true
+    return element
   }
 
   async _get (action) {
