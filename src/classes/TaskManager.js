@@ -36,9 +36,7 @@ module.exports = class TaskManager extends Routine {
 
   async consume(taskName) {
     if (!this.isActive) return undefined
-    const future = new Future()
-    this._consume(taskName, future)
-    return await future.get()
+    return await taskList.shift()
   }
 
   subscribe(taskName, subscriptionHandler) {
@@ -47,12 +45,6 @@ module.exports = class TaskManager extends Routine {
         subscriptionHandler(await this.consume(taskName))
       }
     }, this, `${taskName} Subscription`)
-  }
-
-  async _asyncConsume(taskName) {
-    const taskList = this._getTaskList(taskName)
-    const payload = await taskList.shift()
-    return payload
   }
 
   _getTaskList(taskName) {
