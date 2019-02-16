@@ -29,7 +29,7 @@ module.exports = class TaskManager extends Routine {
 
     this._getTaskList(taskName).push(payload)
     
-    const result = await task.getResult()
+    const result = await payload.resolver
 
     return result
   }
