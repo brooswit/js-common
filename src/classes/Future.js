@@ -1,6 +1,6 @@
 module.exports = class Future extends ExtendedEmitter {
     constructor() {
-        this.untilSet = this.promiseTo
+        this.untilSet = this.promiseTo('set')
     }
 
     async get() {
