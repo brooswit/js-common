@@ -8,6 +8,7 @@ class Task extends Future {
     }
   }
 }
+
 module.exports = class TaskManager extends Routine {
   constructor () {
     super(async ()=>{
@@ -18,9 +19,9 @@ module.exports = class TaskManager extends Routine {
 
   feed(taskName, payload) {
     if (!this.isActive) return
-    let future = new Future()
-    this._getTaskList(taskName).push({future, payload})
-    future.set(undefined)
+    let task = new Task()
+    this._getTaskList(taskName).push(task)
+    task.set(undefined)
   }
 
   async request(taskName, payload) {
