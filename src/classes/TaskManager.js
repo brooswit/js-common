@@ -4,9 +4,9 @@ const Future = require('../classes/Future')
 
 class Task {
   constructor(taskData) {
-    this._future = new Future()
+    this._taskFuture = new Future()
     this._taskData = taskData
-    this._promise = null
+    this._handlerPromise = null
   }
   
   async getData() {
@@ -19,23 +19,23 @@ class Task {
   }
   
   async getResult() {
-    return await this._future.get()
+    return await this._taskFuture.get()
   }
   
   async run(handler) {
-    if (this._promise !== null) return
-    this._promise = handler(this._taskData)
-    this.resolve(await this._promise)
+    if (this._handlerPromise !== null) return
+    this._handlerPromise = handler(this._taskData)
+    this.resolve(await this._handlerPromise)
   }
   
   resolve(value) {
-    if (this._future.isSet === true) return
-    this._future.set(value)
+    if (this._taskFuture.isSet === true) return
+    this._taskFuture.set(value)
   }
   
   cancel() {
-    if (this._future.isSet === true) return
-    this._future.set(null)
+    if (this._taskFuture.isSet === true) return
+    this._taskFuture.set(null)
   }
 }
 
