@@ -59,7 +59,7 @@ module.exports = class TaskManager extends Routine {
     const task = new Task(data)
     this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
     this._asyncArrays[taskName].push(task)
-    return await task.get()
+    return await task.getResult()
   }
 
   async consume(taskName) {
