@@ -22,14 +22,15 @@ module.exports = class TaskManager extends Routine {
   feed(taskName, payload) {
     if (!this.isActive) return
     const task = new Task(payload)
-    this._getTaskList(taskName).push(task)
+    this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
+    this._asyncArrays[taskName].push(task)
     task.set(undefined)
   }
 
   async request(taskName, payload) {
     if (!this.isActive) return null
     const task = new Task(payload)
-    this._getTaskList(taskName).push(task)
+    this._asyncArrays[taskName].push(task)
     return await task.get()
   }
 
