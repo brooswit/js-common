@@ -2,38 +2,35 @@ const AsyncArray = require('../classes/AsyncArray')
 const Routine = require('../classes/Routine')
 const Future = require('../classes/Future')
 
-class Request {
-
-}
-class Task extends Request {
+class Task {
   constructor(data) {
     this._future = new Future()
     this._data = data
   }
-
+  
   async getData() {
     return this._data
   }
-
+  
   async tilResult() {
     await this.result()
     return
   }
-
+  
   async getResult() {
     return await this._future.get()
   }
-
+  
   async run(handler) {
     if (this._future.isSet === true) return
     this.resolve(await handler(this._data))
   }
-
+  
   resolve(value) {
     if (this._future.isSet === true) return
     this._future.set(value)
   }
-
+  
   cancel() {
     if (this._future.isSet === true) return
     this._future.set(null)
