@@ -45,38 +45,38 @@ module.exports = class TaskManager extends Routine {
     this._taskQueues = {}
   }
 
-  feed(taskName, data) {
+  feed(taskQueueName, data) {
     if (!this.isActive) return
     const task = new Task(data)
-    this._ensureTaskQueue(taskName).push(task)
+    this._ensureTaskQueue(taskQueueName).push(task)
     task.cancel(undefined)
     return task
   }
 
-  async request(taskName, data) {
+  async request(taskQueueName, data) {
     if (!this.isActive) return null
     const task = new Task(data)
-    this._ensureTaskQueue(taskName).push(task)
+    this._ensureTaskQueue(taskQueueName).push(task)
     return await task.getResult()
   }
 
-  async consume(taskName) {
+  async consume(taskQueueName) {
     if (!this.isActive) return undefined
-    const task = await this._ensureTaskQueue(taskName).shift()
+    const task = await this._ensureTaskQueue(taskQueueName).shift()
     return task
   }
 
-  subscribe(taskName, subscriptionHandler) {
+  subscribe(taskQueueName, subscriptionHandler) {
     return new Routine(async (routine) => {
       while(routine.isActive) {
-        const task = await this.consume(taskName)
+        const task = await this.consume(taskQueueName)
         task.run(subscriptionHandler)
         await task.getResult()
       }
-    }, this, `${taskName} Subscription`)
+    }, this, `${taskQueueName} Subscription`)
   }
 
-  _ensureTaskQueue(taskName) {
-    return this._taskQueues[taskName] = this._taskQueues[taskName] || new AsyncArray(this, taskName)
+  _ensureTaskQueue(taskQueueName) {
+    return this._taskQueues[taskQueueName] = this._taskQueues[taskQueueName] || new AsyncArray(this, taskQueueName)
   }
 }
