@@ -4,13 +4,15 @@ const Future = require('../classes/Future')
 
 class Task {
   constructor(data) {
-    this.future = new Future()
-    this.data = data
+    this._future = new Future()
+    this._data = data
   }
 
   async run(handler) {
     this.end(await this.handler(data))
   }
+
+  async wait()
 }
 
 module.exports = class TaskManager extends Routine {
