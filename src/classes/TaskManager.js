@@ -7,6 +7,10 @@ class Task {
     this.future = new Future()
     this.data = data
   }
+
+  async run(handler) {
+    this.end(await this.handler(data))
+  }
 }
 
 module.exports = class TaskManager extends Routine {
