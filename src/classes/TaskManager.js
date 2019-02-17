@@ -48,8 +48,7 @@ module.exports = class TaskManager extends Routine {
   feed(taskName, data) {
     if (!this.isActive) return
     const task = new Task(data)
-    const taskQueue = this._ensureTaskQueue(taskName)
-    taskQueue.push(task)
+    this._ensureTaskQueue(taskName).push(task)
     task.cancel(undefined)
     return task
   }
@@ -57,15 +56,13 @@ module.exports = class TaskManager extends Routine {
   async request(taskName, data) {
     if (!this.isActive) return null
     const task = new Task(data)
-    const taskQueue = this._ensureTaskQueue(taskName)
-    taskQueue.push(task)
+    this._ensureTaskQueue(taskName).push(task)
     return await task.getResult()
   }
 
   async consume(taskName) {
     if (!this.isActive) return undefined
-    const taskQueue = this._ensureTaskQueue(taskName)
-    const task = await taskQueue.shift()
+    const task = await this._ensureTaskQueue(taskName).shift()
     return task
   }
 
@@ -80,6 +77,6 @@ module.exports = class TaskManager extends Routine {
   }
 
   _ensureTaskQueue(taskName) {
-    this._taskQueues[taskName] = this._taskQueues[taskName] || new AsyncArray(this, taskName)
+    return this._taskQueues[taskName] = this._taskQueues[taskName] || new AsyncArray(this, taskName)
   }
 }
