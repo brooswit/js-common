@@ -8,6 +8,10 @@ class Task {
     this._data = data
   }
 
+  async getData() {
+    return this._data
+  }
+
   async run(handler) {
     this.resolve(await handler(this._data))
   }
@@ -26,8 +30,9 @@ class Task {
     this._future.set(value)
   }
 
-  async getData() {
-    return this._data
+  cancel() {
+    if (this._future.isSet === true) return
+    this._future.set(null)
   }
 }
 
