@@ -9,7 +9,7 @@ class Task {
   }
 
   async run(handler) {
-    this.end(await this.handler(data))
+    this.end(await this.handler(this._data))
   }
 
   async wait() {
