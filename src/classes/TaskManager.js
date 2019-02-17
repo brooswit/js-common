@@ -25,6 +25,10 @@ class Task {
     if (this._future.isSet === true) return
     this._future.set(value)
   }
+
+  async getData() {
+    return this._data
+  }
 }
 
 module.exports = class TaskManager extends Routine {
