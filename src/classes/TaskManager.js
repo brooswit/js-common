@@ -2,9 +2,10 @@ const AsyncArray = require('../classes/AsyncArray')
 const Routine = require('../classes/Routine')
 const Future = require('../classes/Future')
 
-class Task extends Future {
-  constructor(payload) {
-    super()
+class Task {
+  constructor(data) {
+    this.future = new Future()
+    this.data = data
     for(key in payload) {
       this[key] = this[key] || payload[key]
     }
@@ -47,7 +48,7 @@ module.exports = class TaskManager extends Routine {
     return new Routine(async (routine) => {
       while(routine.isActive) {
         const task = await this.consume(taskName)
-        await subscriptionHandler(task)
+        task.run(subscriptionHandler)
         await task.get()
       }
     }, this, `${taskName} Subscription`)
