@@ -3,14 +3,14 @@ const Routine = require('../classes/Routine')
 const Future = require('../classes/Future')
 
 class Task {
-  constructor(data) {
+  constructor(taskData) {
     this._future = new Future()
-    this._data = data
+    this._taskData = taskData
     this._promise = null
   }
   
   async getData() {
-    return this._data
+    return this._taskData
   }
   
   async tilResult() {
@@ -24,7 +24,7 @@ class Task {
   
   async run(handler) {
     if (this._promise !== null) return
-    this._promise = handler(this._data)
+    this._promise = handler(this._taskData)
     this.resolve(await this._promise)
   }
   
@@ -47,17 +47,17 @@ module.exports = class TaskManager extends Routine {
     this._taskQueues = {}
   }
 
-  feed(taskQueueName, data) {
+  feed(taskQueueName, taskData) {
     if (!this.isActive) return
-    const task = new Task(data, true)
-    this._ensureTaskQueue(taskQueueName).push(task)
+    const task = new Task(taskData)
     task.resolve()
+    this._ensureTaskQueue(taskQueueName).push(task)
     return task
   }
 
-  async request(taskQueueName, data) {
+  async request(taskQueueName, taskData) {
     if (!this.isActive) return null
-    const task = new Task(data)
+    const task = new Task(taskData)
     this._ensureTaskQueue(taskQueueName).push(task)
     return await task.getResult()
   }
