@@ -23,7 +23,6 @@ class Task {
   }
   
   async run(handler) {
-
     if (this._promise !== null) return
     this._promise = handler(this._data)
     this.resolve(await this._promise)
@@ -52,7 +51,7 @@ module.exports = class TaskManager extends Routine {
     if (!this.isActive) return
     const task = new Task(data, true)
     this._ensureTaskQueue(taskQueueName).push(task)
-    task.sync(undefined)
+    task.resolve()
     return task
   }
 
