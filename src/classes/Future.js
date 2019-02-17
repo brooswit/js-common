@@ -2,6 +2,7 @@ const ExtendedEmitter = require('./ExtendedEmitter')
 
 module.exports = class Future extends ExtendedEmitter {
     constructor() {
+        super()
         this.untilSet = this.promiseTo('set')
         this.on('set', ()=>{
             this.untilSet = this.promiseTo('set')
