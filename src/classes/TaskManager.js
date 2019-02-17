@@ -6,9 +6,6 @@ class Task {
   constructor(data) {
     this.future = new Future()
     this.data = data
-    for(key in payload) {
-      this[key] = this[key] || payload[key]
-    }
   }
 }
 
@@ -20,18 +17,18 @@ module.exports = class TaskManager extends Routine {
     this._asyncArrays = {}
   }
 
-  feed(taskName, payload) {
+  feed(taskName, data) {
     if (!this.isActive) return
-    const task = new Task(payload)
+    const task = new Task(data)
     this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
     this._asyncArrays[taskName].push(task)
     task.set(undefined)
     return task
   }
 
-  async request(taskName, payload) {
+  async request(taskName, data) {
     if (!this.isActive) return null
-    const task = new Task(payload)
+    const task = new Task(data)
     this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
     this._asyncArrays[taskName].push(task)
     return await task.get()
