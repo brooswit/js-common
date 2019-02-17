@@ -12,12 +12,12 @@ class Task {
     this.resolve(await handler(this._data))
   }
 
-  async wait() {
+  async tilResult() {
     await this.result()
     return
   }
 
-  async result() {
+  async getResult() {
     return await this._future.get()
   }
 
