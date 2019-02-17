@@ -12,7 +12,10 @@ class Task {
     this.end(await this.handler(data))
   }
 
-  async wait()
+  async wait() {
+    await this._future.get()
+    return
+  }
 }
 
 module.exports = class TaskManager extends Routine {
