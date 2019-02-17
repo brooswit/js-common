@@ -39,16 +39,12 @@ class Task {
   }
 }
 
-module.exports = class TaskManager extends Routine {
+module.exports = class TaskManager {
   constructor () {
-    super(async ()=>{
-      await this.untilEnd
-    })
     this._taskQueues = {}
   }
 
   feed(taskQueueName, taskData) {
-    if (!this.isActive) return
     const task = new Task(taskData)
     task.resolve()
     this._ensureTaskQueue(taskQueueName).push(task)
@@ -56,14 +52,12 @@ module.exports = class TaskManager extends Routine {
   }
 
   async request(taskQueueName, taskData) {
-    if (!this.isActive) return null
     const task = new Task(taskData)
     this._ensureTaskQueue(taskQueueName).push(task)
     return await task.getResult()
   }
 
   async consume(taskQueueName) {
-    if (!this.isActive) return undefined
     const task = await this._ensureTaskQueue(taskQueueName).shift()
     return task
   }
