@@ -9,12 +9,21 @@ class Task {
   }
 
   async run(handler) {
-    this.end(await this.handler(this._data))
+    this.resolve(await handler(this._data))
   }
 
   async wait() {
-    await this._future.get()
+    await this.result()
     return
+  }
+
+  async result() {
+    return await this._future.get()
+  }
+
+  resolve(value) {
+    if (this._future.isSet === true) return
+    this._future.set(value)
   }
 }
 
