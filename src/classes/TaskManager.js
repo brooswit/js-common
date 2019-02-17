@@ -2,7 +2,10 @@ const AsyncArray = require('../classes/AsyncArray')
 const Routine = require('../classes/Routine')
 const Future = require('../classes/Future')
 
-class Task {
+class Request {
+
+}
+class Task extends Request {
   constructor(data) {
     this._future = new Future()
     this._data = data
@@ -47,9 +50,9 @@ module.exports = class TaskManager extends Routine {
 
   feed(taskQueueName, data) {
     if (!this.isActive) return
-    const task = new Task(data)
+    const task = new Task(data, true)
     this._ensureTaskQueue(taskQueueName).push(task)
-    task.unblock(undefined)
+    task.sync(undefined)
     return task
   }
 
