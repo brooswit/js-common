@@ -25,6 +25,7 @@ module.exports = class TaskManager extends Routine {
     this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
     this._asyncArrays[taskName].push(task)
     task.set(undefined)
+    return task
   }
 
   async request(taskName, payload) {
