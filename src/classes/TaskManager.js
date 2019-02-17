@@ -1,5 +1,6 @@
 const AsyncArray = require('../classes/AsyncArray')
 const Routine = require('../classes/Routine')
+const Future = require('../classes/Future')
 
 class Task extends Future {
   constructor(payload) {
