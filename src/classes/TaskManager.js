@@ -4,6 +4,7 @@ const Future = require('../classes/Future')
 
 class Task extends Future {
   constructor(payload) {
+    super()
     for(key in payload) {
       this[key] = this[key] || payload[key]
     }
