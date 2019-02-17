@@ -49,7 +49,7 @@ module.exports = class TaskManager extends Routine {
     if (!this.isActive) return
     const task = new Task(data)
     this._ensureTaskQueue(taskQueueName).push(task)
-    task.cancel(undefined)
+    task.unblock(undefined)
     return task
   }
 
