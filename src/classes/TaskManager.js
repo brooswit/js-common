@@ -47,7 +47,7 @@ module.exports = class TaskManager extends Routine {
     return new Routine(async (routine) => {
       while(routine.isActive) {
         const task = await this.consume(taskName)
-        task.set(await subscriptionHandler(task))
+        await subscriptionHandler(task)
         await task.get()
       }
     }, this, `${taskName} Subscription`)
