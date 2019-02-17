@@ -42,7 +42,7 @@ module.exports = class TaskManager extends Routine {
     super(async ()=>{
       await this.untilEnd
     })
-    this._asyncArrays = {}
+    this._taskQueues = {}
   }
 
   feed(taskName, data) {
@@ -80,6 +80,6 @@ module.exports = class TaskManager extends Routine {
   }
 
   _ensureTaskQueue(taskName) {
-    this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
+    this._taskQueues[taskName] = this._taskQueues[taskName] || new AsyncArray(this, taskName)
   }
 }
