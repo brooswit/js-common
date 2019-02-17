@@ -12,10 +12,6 @@ class Task {
     return this._data
   }
 
-  async run(handler) {
-    this.resolve(await handler(this._data))
-  }
-
   async tilResult() {
     await this.result()
     return
@@ -23,6 +19,11 @@ class Task {
 
   async getResult() {
     return await this._future.get()
+  }
+
+  async run(handler) {
+    if (this._future.isSet === true) return
+    this.resolve(await handler(this._data))
   }
 
   resolve(value) {
@@ -49,7 +50,7 @@ module.exports = class TaskManager extends Routine {
     const task = new Task(data)
     this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
     this._asyncArrays[taskName].push(task)
-    task.set(undefined)
+    task.cancel(undefined)
     return task
   }
 
