@@ -30,6 +30,7 @@ module.exports = class TaskManager extends Routine {
   async request(taskName, payload) {
     if (!this.isActive) return null
     const task = new Task(payload)
+    this._asyncArrays[taskName] = this._asyncArrays[taskName] || new AsyncArray(this, taskName)
     this._asyncArrays[taskName].push(task)
     return await task.get()
   }
