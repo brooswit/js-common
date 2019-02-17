@@ -6,6 +6,7 @@ class Task {
   constructor(data) {
     this._future = new Future()
     this._data = data
+    this._promise = null
   }
   
   async getData() {
@@ -22,8 +23,10 @@ class Task {
   }
   
   async run(handler) {
-    if (this._future.isSet === true) return
-    this.resolve(await handler(this._data))
+
+    if (this._promise !== null) return
+    this._promise = handler(this._data)
+    this.resolve(await this._promise)
   }
   
   resolve(value) {
