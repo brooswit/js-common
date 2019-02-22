@@ -65,6 +65,7 @@ module.exports = class TaskManager {
   subscribe(taskQueueName, subscriptionHandler) {
     console.log('subing')
     return new Routine(async (routine) => {
+      routine.log.info('ALIVE')
       while(routine.isActive) {
         routine.log.info('waiting')
         const task = await this.consume(taskQueueName)
@@ -73,7 +74,7 @@ module.exports = class TaskManager {
         await task.getResult()
         routine.log.info('result')
       }
-      routine.log.info('dead')
+      routine.log.info('DEAD')
     }, this, `${taskQueueName} Subscription`)
   }
 
