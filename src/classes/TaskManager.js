@@ -73,6 +73,7 @@ module.exports = class TaskManager {
         await task.getResult()
         routine.log.info('result')
       }
+      routine.log.info('dead')
     }, this, `${taskQueueName} Subscription`)
   }
 
