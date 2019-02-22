@@ -63,7 +63,7 @@ module.exports = class TaskManager {
   }
 
   subscribe(taskQueueName, subscriptionHandler) {
-    this.log.info('subing')
+    console.log('subing')
     return new Routine(async (routine) => {
       while(routine.isActive) {
         routine.log.info('waiting')
