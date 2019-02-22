@@ -75,7 +75,7 @@ module.exports = class TaskManager {
         routine.log.info('result')
       }
       routine.log.info('DEAD')
-    }, this, `${taskQueueName} Subscription`)
+    }, null, `${taskQueueName} Subscription`)
   }
 
   _ensureTaskQueue(taskQueueName) {
