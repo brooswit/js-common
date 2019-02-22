@@ -66,12 +66,12 @@ module.exports = class TaskManager {
     this.log.info('subing')
     return new Routine(async (routine) => {
       while(routine.isActive) {
-        this.log.info('waiting')
+        routine.log.info('waiting')
         const task = await this.consume(taskQueueName)
-        this.log.info('running')
+        routine.log.info('running')
         task.run(subscriptionHandler)
         await task.getResult()
-        this.log.info('result')
+        routine.log.info('result')
       }
     }, this, `${taskQueueName} Subscription`)
   }
