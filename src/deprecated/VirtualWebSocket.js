@@ -1,6 +1,6 @@
 // Intended to be used with https://github.com/websockets/ws
 const {fromEvent} = require('rxjs');
-const Routine = require('./Routine')
+const Routine = require('../classes/Routine')
 const generateHashCode = require('../functions/generateHashCode')
 
 class VirtualWebSocketChannel extends Routine {

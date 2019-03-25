@@ -1,6 +1,6 @@
 const NO_OP = require('../functions/NO_OP')
 
-module.exports = class Resolver {
+module.exports = class Resolvable {
   constructor (resolver = NO_OP) {
     this._promise = new Promise((resolve, reject) => {
       this._didComplete = false

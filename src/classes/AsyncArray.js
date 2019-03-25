@@ -1,4 +1,4 @@
-const Resolver = require('../classes/Resolver')
+const Resolver = require('./Resolvable')
 
 class AsyncArray {
   constructor () {

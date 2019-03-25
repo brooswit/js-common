@@ -5,6 +5,7 @@ module.exports = {
 
   // functions
   'calculateMemoryFootprint': require('./functions/calculateMemoryFootprint'),
+  'extendWs': require('./functions/extendWs'),
   'generateHashCode': require('./functions/generateHashCode'),
   'hashCode': require('./functions/hashCode'),
   'isAsync': require('./functions/isAsync'),
@@ -22,4 +23,7 @@ module.exports = {
   'Resolver': require('./classes/Resolver'),
   'TaskManager': require('./classes/TaskManager'),
   'VirtualWebSocket': require('./classes/VirtualWebSocket'),
+
+  // deprecated
+  'VirtualWebSocket': require('./deprecated/VirtualWebSocket')
 }
