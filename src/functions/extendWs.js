@@ -63,7 +63,7 @@ function handleMessage(msg) {
   }
 }
 
-function handleData(message)) {
+function handleData(message) {
   const {data, payload} = message
   if (!data) return
   const {event, messageId} = data
