@@ -7,10 +7,10 @@ module.exports = class Completable {
   }
 
   complete(result) {
-    this._completeResolvable.set(result)
+    this._completeResolvable.resolve(result)
   }
 
   async tilCompleted() {
-    return await this._completeResolvable.get()
+    return await this._completeResolvable
   }
 }
