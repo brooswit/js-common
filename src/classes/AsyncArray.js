@@ -35,7 +35,7 @@ class AsyncArray {
   }
 
   async _get (action) {
-    const resolver = new Resolver()
+    const resolver = new Resolvable()
     this._requestQueue.push({ action, resolver })
     this._processQueues()
     return await resolver
