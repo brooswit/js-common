@@ -1,7 +1,7 @@
 module.exports = class Disposable {
   constructor() {
     this.isDisposed = false
-    this._disposeResolver = new Resolvable()
+    this._disposeResolvable = new Resolvable()
   }
 
   dispose() {
