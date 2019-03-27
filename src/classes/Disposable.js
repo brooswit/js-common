@@ -6,10 +6,10 @@ module.exports = class Disposable {
 
   dispose() {
     this.isDisposed = true
-    this._resolver.resolve()
+    this._disposeResolvable.resolve()
   }
 
   await tilDisposed() {
-    await resolver
+    await this._disposeResolvable
   }
 }
