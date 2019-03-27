@@ -1,3 +1,5 @@
+const 
+
 module.exports = class Readiable  {
   constructor() {
     super()
