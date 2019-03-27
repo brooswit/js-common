@@ -2,7 +2,6 @@ const Resolvable = require('./Resolvable')
 
 module.exports = class Completable {
   constructor() {
-    super()
     this._completeResolvable = new Resolvable()
   }
 

@@ -2,7 +2,6 @@ const Resolvable = require('./Resolvable')
 
 module.exports = class Readiable  {
   constructor() {
-    super()
     this._resolver = new Resolver()
   }
 
