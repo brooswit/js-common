@@ -1,4 +1,4 @@
-const resolvable = require('./Resolvable')
+const Resolvable = require('./Resolvable')
 
 module.exports = class Completable {
   constructor() {
