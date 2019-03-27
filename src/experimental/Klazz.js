@@ -10,10 +10,10 @@ module.exports = class Klazz {
     this._internalEvents = new EventEmitter()
 
     this._readyResolvable = new Resolvable()
-    this._destroyedPromise = new Resolvable()
+    this._destroyedResolvable = new Resolvable()
 
     this._internalEvents.on('ready', this._readyResolvable.resolve)
-    this._internalEvents.on('destroyed', this._destroyedPromise.resolve)
+    this._internalEvents.on('destroyed', this._destroyedResolvable.resolve)
 
     this._initialize.apply(this, arguments)
   }
@@ -38,7 +38,7 @@ module.exports = class Klazz {
 
 
   isActive () {
-    return !this._destroyedPromise.didComplete()
+    return !this._destroyedResolvable.didComplete()
   }
 
   isReady () {
@@ -51,7 +51,7 @@ module.exports = class Klazz {
   }
 
   async untilDestroyed () {
-    let result = await this._destroyedPromise
+    let result = await this._destroyedResolvable
     return result
   }
 }
