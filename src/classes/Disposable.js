@@ -1,4 +1,4 @@
-module.exports = class Disposable {
+const Resolvable = require('resolvable')module.exports = class Disposable {
   constructor() {
     this.isDisposed = false
     this._disposeResolvable = new Resolvable()
