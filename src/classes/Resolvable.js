@@ -2,7 +2,7 @@ const NO_OP = require('../functions/NO_OP')
 
 module.exports = class Resolvable {
   constructor (resolver = NO_OP) {
-    this._promise = new Promise((resolve, reject) => {
+    this._internalPromise = new Promise((resolve, reject) => {
       this._didComplete = false
       this._didReject = false
       this._didResolve = false
@@ -15,11 +15,11 @@ module.exports = class Resolvable {
   }
 
   then() {
-    this._promise.then.apply(this._promise, arguments)
+    this._internalPromise.then.apply(this._internalPromise, arguments)
   }
 
   catch() {
-    this._promise.catch.apply(this._promise, arguments)
+    this._internalPromise.catch.apply(this._internalPromise, arguments)
   }
 
   resolve (value) {
