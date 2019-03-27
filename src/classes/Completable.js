@@ -1,3 +1,4 @@
+const Future = require('./f')
 module.exports = class Completable extends Disposable {
   constructor() {
     super()

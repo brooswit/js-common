@@ -1,4 +1,4 @@
-const Resolvable = require('../c/Resolvable')
+const Resolvable = require('./Resolvable')
 
 module.exports = class Disposable {
   constructor() {
