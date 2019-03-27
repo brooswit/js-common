@@ -35,17 +35,17 @@ class AsyncArray {
   }
 
   async _get (action) {
-    const resolver = new Resolvable()
-    this._requestQueue.push({ action, resolver })
+    const resolvable = new Resolvable()
+    this._requestQueue.push({ action, resolvable })
     this._processQueues()
-    return await resolver
+    return await resolvable
   }
 
   _processQueues() {
     while(this._requestQueue.length > 0 && (this.isStopped || this._elementQueue.length > 0) ) {
-      const {action, resolver} = this._requestQueue.shift()
+      const {action, resolvable} = this._requestQueue.shift()
       const element = this._elementQueue[action]()
-      resolver.resolve(element)
+      resolvable.resolve(element)
     }
   }
 }
