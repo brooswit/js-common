@@ -1,8 +1,7 @@
-module.exports = class Readiable extends Disposable {
+module.exports = class Readiable  {
   constructor() {
     super()
     this._resolver = new Resolver()
-    this.tilDisposed.then( () =>  this.ready() )
   }
 
   ready() {
