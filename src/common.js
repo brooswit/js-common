@@ -22,7 +22,6 @@ module.exports = {
   'Routine': require('./classes/Routine'),
   'Resolvable': require('./classes/Resolvable'),
   'TaskManager': require('./classes/TaskManager'),
-  'VirtualWebSocket': require('./classes/VirtualWebSocket'),
 
   // deprecated
   'VirtualWebSocket': require('./deprecated/VirtualWebSocket')
