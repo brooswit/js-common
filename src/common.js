@@ -20,7 +20,7 @@ module.exports = {
   'ExtendedEmitter': require('./classes/ExtendedEmitter'),
   'Future': require('./classes/Future'),
   'Routine': require('./classes/Routine'),
-  'Resolver': require('./classes/Resolver'),
+  'Resolvable': require('./classes/Resolvable'),
   'TaskManager': require('./classes/TaskManager'),
   'VirtualWebSocket': require('./classes/VirtualWebSocket'),
 
