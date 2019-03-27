@@ -1,16 +1,16 @@
-const Future = require('./Future')
+const resolvable = require('./Resolvable')
 
 module.exports = class Completable {
   constructor() {
     super()
-    this._future = new Future()
+    this._resolvable = new resolvable()
   }
 
   complete(result) {
-    this._future.set(result)
+    this._resolvable.set(result)
   }
 
   async tilCompleted() {
-    return await this._future.get()
+    return await this._resolvable.get()
   }
 }
