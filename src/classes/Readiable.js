@@ -1,4 +1,4 @@
-const 
+const Resolvable = require('./Resolvable')
 
 module.exports = class Readiable  {
   constructor() {
