@@ -1,10 +1,9 @@
 const Future = require('./Future')
 
-module.exports = class Completable e {
+module.exports = class Completable {
   constructor() {
     super()
     this._future = new Future()
-    this.tilDisposed.then( () =>  this.complete() )
   }
 
   complete(result) {
