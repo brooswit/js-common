@@ -1,4 +1,5 @@
-const ubjson = require('@shelacek/ubjson');
+const ubjson = require('@shelacek/ubjson')
+const EventEmitter = require('events')
 
 class WebChannel extends EventEmitter {
   constructor(xws, localMessageId, remoteMessageId) {

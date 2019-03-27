@@ -1,5 +1,5 @@
 // Intended to be used with https://github.com/websockets/ws
-const Readiable = require('./Readiable')
+const Readiable = require('../classes/Readiable')
 const WebSocket = require('ws');
 
 class WebPipe {
