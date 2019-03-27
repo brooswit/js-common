@@ -9,10 +9,10 @@ module.exports = class Klazz {
     this._id = nextId++
     this._internalEvents = new EventEmitter()
 
-    this._readyPromise = new Resolvable()
+    this._readyResolvable = new Resolvable()
     this._destroyedPromise = new Resolvable()
 
-    this._internalEvents.on('ready', this._readyPromise.resolve)
+    this._internalEvents.on('ready', this._readyResolvable.resolve)
     this._internalEvents.on('destroyed', this._destroyedPromise.resolve)
 
     this._initialize.apply(this, arguments)
@@ -42,11 +42,11 @@ module.exports = class Klazz {
   }
 
   isReady () {
-    return this._readyPromise.didComplete()
+    return this._readyResolvable.didComplete()
   }
 
   async untilReady () {
-    let result = await this._readyPromise
+    let result = await this._readyResolvable
     return result
   }
 
