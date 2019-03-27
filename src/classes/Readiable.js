@@ -2,14 +2,14 @@ const Resolvable = require('./Resolvable')
 
 module.exports = class Readiable  {
   constructor() {
-    this._resolver = new Resolver()
+    this._readyResolvable = new Resolvable()
   }
 
   ready() {
-    this._resolver.resolve()
+    this._readyResolvable.resolve()
   }
 
   async tilReady() {
-    return await this._resolver.get()
+    return await this._readyResolvable.get()
   }
 }
