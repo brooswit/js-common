@@ -1,6 +1,6 @@
 const Future = require('./Future')
 
-module.exports = class Completable extends Disposable {
+module.exports = class Completable e {
   constructor() {
     super()
     this._future = new Future()
