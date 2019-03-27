@@ -1,5 +1,5 @@
 const EventEmitter = require('./EventEmitter');
-const Resolver = require('./Resolver')
+const Resolvable = require('./Resolvable')
 
 let nextId = 0
 
@@ -9,8 +9,8 @@ module.exports = class Klazz {
     this._id = nextId++
     this._internalEvents = new EventEmitter()
 
-    this._readyPromise = new Resolver()
-    this._destroyedPromise = new Resolver()
+    this._readyPromise = new Resolvable()
+    this._destroyedPromise = new Resolvable()
 
     this._internalEvents.on('ready', this._readyPromise.resolve)
     this._internalEvents.on('destroyed', this._destroyedPromise.resolve)
