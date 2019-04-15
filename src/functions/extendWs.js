@@ -48,6 +48,7 @@ module.exports = function extendWs(ws) {
   if(!ws.on) {
     this._emitter = new EventEmitter()
     
+    this
   }
   ws.on('message', handleMessage.bind(ws))
   ws.on('data', handleData.bind(ws))
