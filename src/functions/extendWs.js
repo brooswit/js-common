@@ -74,7 +74,6 @@ module.exports = function extendWs(ws) {
       args.unshift('close')
       this.emit.apply(null, args)
     }
-    
   }
   ws.on('message', handleMessage.bind(ws))
   ws.on('data', handleData.bind(ws))
