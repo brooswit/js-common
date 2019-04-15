@@ -62,6 +62,18 @@ module.exports = function extendWs(ws) {
       args.unshift('message')
       this.emit.apply(null, args)
     }
+
+    this.onerror = function() {
+      let args = Array.prototype.slice.call(arguments)
+      args.unshift('error')
+      this.emit.apply(null, args)
+    }
+
+    this.onclose = function() {
+      let args = Array.prototype.slice.call(arguments)
+      args.unshift('close')
+      this.emit.apply(null, args)
+    }
     
   }
   ws.on('message', handleMessage.bind(ws))
