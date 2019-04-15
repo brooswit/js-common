@@ -52,7 +52,7 @@ module.exports = function extendWs(ws) {
     this.off = this._emitter.off.bind(this._emitter)
     this.once = this._emitter.once.bind(this._emitter)
     this.onopen = function() {
-      let args = Array.prototype.slice.call}
+      let args = Array.prototype.slice.call(arguments)}
     
   }
   ws.on('message', handleMessage.bind(ws))
