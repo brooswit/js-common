@@ -50,7 +50,8 @@ module.exports = function extendWs(ws) {
     
     this.on = this._emitter.on.bind(this._emitter)
     this.off = this._emitter.off.bind(this._emitter)
-    this.once = this._emitter.once.bind(this._)
+    this.once = this._emitter.once.bind(this._emitter)
+    
     
   }
   ws.on('message', handleMessage.bind(ws))
