@@ -53,7 +53,8 @@ module.exports = function extendWs(ws) {
     this.once = this._emitter.once.bind(this._emitter)
     this.onopen = function() {
       let args = Array.prototype.slice.call(arguments)
-      args.unshift('')
+      args.unshift('open')
+      args.unshift('open')
     }
     
   }
