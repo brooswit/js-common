@@ -57,9 +57,9 @@ module.exports = function extendWs(ws) {
       this.emit.apply(null, args)
     }
 
-    this.onopen = function() {
+    this.onmessage = function() {
       let args = Array.prototype.slice.call(arguments)
-      args.unshift('open')
+      args.unshift('message')
       this.emit.apply(null, args)
     }
     
