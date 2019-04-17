@@ -54,13 +54,14 @@ module.exports = function extendWs(ws) {
     ws.emit = ws._emitter.emit.bind(ws._emitter)
 
     ws.onopen = function() {
-      console.log()
+      console.warn('onopen')
       let args = Array.prototype.slice.call(arguments)
       args.unshift('open')
       this.emit.apply(null, args)
     }
 
     ws.onmessage = function() {
+      console.warn('onopen')
       let args = Array.prototype.slice.call(arguments)
       args.unshift('message')
       this.emit.apply(null, args)
