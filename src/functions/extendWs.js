@@ -51,7 +51,7 @@ module.exports = function extendWs(ws) {
     ws.on = ws._emitter.on.bind(ws._emitter)
     ws.off = ws._emitter.off.bind(ws._emitter)
     ws.once = ws._emitter.once.bind(ws._emitter)
-    this.emit = ws._emitter.emit.bind(ws._emitter)
+    ws.emit = ws._emitter.emit.bind(ws._emitter)
 
     ws.onopen = function() {
       let args = Array.prototype.slice.call(arguments)
