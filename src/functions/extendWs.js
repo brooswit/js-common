@@ -68,6 +68,7 @@ module.exports = function extendWs(ws) {
     }
 
     ws.onerror = function() {
+      console.warn('onopen')
       let args = Array.prototype.slice.call(arguments)
       args.unshift('error')
       this.emit.apply(null, args)
