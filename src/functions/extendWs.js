@@ -75,6 +75,7 @@ module.exports = function extendWs(ws) {
     }
 
     ws.onclose = function() {
+      console.warn('onclose')
       let args = Array.prototype.slice.call(arguments)
       args.unshift('close')
       this.emit.apply(null, args)
