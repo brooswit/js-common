@@ -61,14 +61,14 @@ module.exports = function extendWs(ws) {
     }
 
     ws.onmessage = function() {
-      console.warn('onopen')
+      console.warn('onmessage')
       let args = Array.prototype.slice.call(arguments)
       args.unshift('message')
       this.emit.apply(null, args)
     }
 
     ws.onerror = function() {
-      console.warn('onopen')
+      console.warn('onerror')
       let args = Array.prototype.slice.call(arguments)
       args.unshift('error')
       this.emit.apply(null, args)
