@@ -4,4 +4,4 @@ module.exports = async function promiseCallback(context, method) {
             args.push(resolve)
             method.apply(context, args)
     })
-}
+}   
