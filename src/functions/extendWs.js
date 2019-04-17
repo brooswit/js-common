@@ -46,35 +46,35 @@ class WebChannel extends EventEmitter {
 let _nextMessageId = 0
 module.exports = function extendWs(ws) {
   if(!ws.on) {
-    this._emitter = new EventEmitter()
+    ws._emitter = new EventEmitter()
     
-    this.on = this._emitter.on.bind(this._emitter)
-    this.off = this._emitter.off.bind(this._emitter)
-    this.once = this._emitter.once.bind(this._emitter)
-    this.emit = this._emitter.emit.bind(this._emitter)
-    
-    this.onopen = function() {
+    ws.on = ws._emitter.on.bind(ws._emitter)
+    ws.off = ws._emitter.off.bind(ws._emitter)
+    ws.once = ws._emitter.once.bind(ws._emitter)
+    ws.emit = ws._emitter.emit.bind(ws._emitter)
+
+    ws.onopen = function() {
       let args = Array.prototype.slice.call(arguments)
       args.unshift('open')
-      this.emit.apply(null, args)
+      ws.emit.apply(null, args)
     }
 
-    this.onmessage = function() {
+    ws.onmessage = function() {
       let args = Array.prototype.slice.call(arguments)
       args.unshift('message')
-      this.emit.apply(null, args)
+      ws.emit.apply(null, args)
     }
 
-    this.onerror = function() {
+    ws.onerror = function() {
       let args = Array.prototype.slice.call(arguments)
       args.unshift('error')
-      this.emit.apply(null, args)
+      ws.emit.apply(null, args)
     }
 
-    this.onclose = function() {
+    ws.onclose = function() {
       let args = Array.prototype.slice.call(arguments)
       args.unshift('close')
-      this.emit.apply(null, args)
+      ws.emit.apply(null, args)
     }
   }
   ws.on('message', handleMessage.bind(ws))
