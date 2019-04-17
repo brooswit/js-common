@@ -51,30 +51,30 @@ module.exports = function extendWs(ws) {
     ws.on = ws._emitter.on.bind(ws._emitter)
     ws.off = ws._emitter.off.bind(ws._emitter)
     ws.once = ws._emitter.once.bind(ws._emitter)
-    ws.emit = ws._emitter.emit.bind(ws._emitter)
+    this.emit = ws._emitter.emit.bind(ws._emitter)
 
     ws.onopen = function() {
       let args = Array.prototype.slice.call(arguments)
       args.unshift('open')
-      ws.emit.apply(null, args)
+      this.emit.apply(null, args)
     }
 
     ws.onmessage = function() {
       let args = Array.prototype.slice.call(arguments)
       args.unshift('message')
-      ws.emit.apply(null, args)
+      this.emit.apply(null, args)
     }
 
     ws.onerror = function() {
       let args = Array.prototype.slice.call(arguments)
       args.unshift('error')
-      ws.emit.apply(null, args)
+      this.emit.apply(null, args)
     }
 
     ws.onclose = function() {
       let args = Array.prototype.slice.call(arguments)
       args.unshift('close')
-      ws.emit.apply(null, args)
+      this.emit.apply(null, args)
     }
   }
   ws.on('message', handleMessage.bind(ws))
