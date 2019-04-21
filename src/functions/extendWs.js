@@ -97,6 +97,7 @@ function handleData(message) {
   if (!data) return
   const {event, messageId} = data
   if (!event) return
+  if (ws.enableDebug) console.warn('EVENT RECI')
   this.emit(event, payload, messageId)
 }
 
