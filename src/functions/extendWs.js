@@ -59,25 +59,25 @@ module.exports = function extendWs(ws, enableDebug) {
     ws.onopen = function() {
       let args = Array.prototype.slice.call(arguments)
       args.unshift('open')
-      this.emit.apply(null, args)
+      this.emit.apply(this, args)
     }
 
     ws.onmessage = function() {
       let args = Array.prototype.slice.call(arguments)
       args.unshift('message')
-      this.emit.apply(null, args)
+      this.emit.apply(this, args)
     }
 
     ws.onerror = function() {
       let args = Array.prototype.slice.call(arguments)
       args.unshift('error')
-      this.emit.apply(null, args)
+      this.emit.apply(this, args)
     }
 
     ws.onclose = function() {
       let args = Array.prototype.slice.call(arguments)
       args.unshift('close')
-      this.emit.apply(null, args)
+      this.emit.apply(this, args)
     }
   }
   
