@@ -57,7 +57,8 @@ module.exports = function extendWs(ws, enableDebug) {
     ws.emit = ws._emitter.emit.bind(ws._emitter)
 
     ws.onopen = function() {
-      console.warn('onopen')
+    if (ws.enableDebug) console.warn('browser support')
+
       let args = Array.prototype.slice.call(arguments)
       args.unshift('open')
       this.emit.apply(null, args)
