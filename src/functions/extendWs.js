@@ -60,7 +60,8 @@ module.exports = function extendWs(ws, enableDebug) {
     ws.onmessage = makeEventHandler('message')
     ws.onerror = makeEventHandler('error')
     ws.onclose = makeEventHandler('close')
-        function makeEventHandler(eventName) {
+
+    function makeEventHandler(eventName) {
       return function eventHandler() {
         let args = Array.prototype.slice.call(arguments)
         args.unshift(eventName)
