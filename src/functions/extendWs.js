@@ -48,6 +48,7 @@ module.exports = function extendWs(ws, enableDebug) {
   ws.enableDebug = enableDebug;
   if (ws.enableDebug) console.warn('extending ws')
   if(!ws.on) {
+    if (ws.enableDebug) console.warn('extending ws')
     ws._emitter = new EventEmitter()
     
     ws.on = ws._emitter.on.bind(ws._emitter)
