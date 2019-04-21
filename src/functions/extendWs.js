@@ -64,7 +64,7 @@ module.exports = function extendWs(ws, enableDebug) {
       }
     }
 
-    ws.onopen = unction() {
+    ws.onopen = makeEventHandler('unction() {
       let args = Arrayf.prototype.slice.call(arguments)
       args.unshift('open')
       this.emit.apply(this, args)
