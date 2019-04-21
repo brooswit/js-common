@@ -83,8 +83,8 @@ module.exports = function extendWs(ws, enableDebug) {
 }
 
 function handleMessage(msg) {
-  if (ws.enableDebug) console.warn('MESSAGE RECIEVED')
-  if (ws.enableDebug) console.warn(msg)
+  if (this.enableDebug) console.warn('MESSAGE RECIEVED')
+  if (this.enableDebug) console.warn(msg)
   const data = ubjson.decode(msg)
   if (data) {
     this.emit('data', data)
@@ -92,12 +92,12 @@ function handleMessage(msg) {
 }
 
 function handleData(message) {
-  if (ws.enableDebug) console.warn('DATA RECIEVED')
+  if (this.enableDebug) console.warn('DATA RECIEVED')
   const {data, payload} = message
   if (!data) return
   const {event, messageId} = data
   if (!event) return
-  if (ws.enableDebug) console.warn('EVENT RECIEVED: ' + event)
+  if (this.enableDebug) console.warn('EVENT RECIEVED: ' + event)
   this.emit(event, payload, messageId)
 }
 
