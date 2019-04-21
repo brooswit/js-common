@@ -44,7 +44,8 @@ class WebChannel extends EventEmitter {
 }
 
 let _nextMessageId = 0
-module.exports = function extendWs(ws, debug) {
+module.exports = function extendWs(ws, en) {
+  ws.en = en
   if(!ws.on) {
     ws._emitter = new EventEmitter()
     
