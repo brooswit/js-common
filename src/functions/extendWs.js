@@ -80,6 +80,7 @@ module.exports = function extendWs(ws, enableDebug) {
       this.emit.apply(null, args)
     }
   }
+  
   ws.on('message', handleMessage.bind(ws))
   ws.on('data', handleData.bind(ws))
   ws.on('init-channel', handleInitChannel.bind(ws))
