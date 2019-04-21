@@ -92,6 +92,7 @@ function handleMessage(msg) {
 }
 
 function handleData(message) {
+  if (ws.enableDebug) console.warn('DATA')
   const {data, payload} = message
   if (!data) return
   const {event, messageId} = data
