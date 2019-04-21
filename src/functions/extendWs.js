@@ -63,7 +63,6 @@ module.exports = function extendWs(ws, enableDebug) {
     }
 
     ws.onmessage = function() {
-      console.warn('onmessage')
       let args = Array.prototype.slice.call(arguments)
       args.unshift('message')
       this.emit.apply(null, args)
