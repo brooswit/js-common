@@ -116,6 +116,7 @@ function handleInitChannel(_payload_, remoteMessageId) {
 
 function sendData(data) {
   const buffer = ubjson.encode(data)
+  console.log(data)
   this.send(buffer)
 }
 
