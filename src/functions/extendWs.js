@@ -56,12 +56,17 @@ module.exports = function extendWs(ws, enableDebug) {
     ws.once = ws._emitter.once.bind(ws._emitter)
     ws.emit = ws._emitter.emit.bind(ws._emitter)
 
-
-
     ws.onopen = makeEventHandler('open')
     ws.onmessage = makeEventHandler('message')
     ws.onerror = makeEventHandler('error')
     ws.onclose = makeEventHandler('close')
+        function makeEventHandler(eventName) {
+      return function eventHandler() {
+        let args = Array.prototype.slice.call(arguments)
+        args.unshift(eventName)
+        this.emit.apply(this, args)
+      }
+    }
   }
   
   ws.on('message', handleMessage.bind(ws))
