@@ -132,7 +132,7 @@ function sendRequest(event, payload, callback) {
 }
 
 function sendResponse(remoteMessageId, payload) {
-  return sendEvent(`respond:${remoteMessageId}`, payload)
+  return this.sendEvent(`respond:${remoteMessageId}`, payload)
 }
 
 function openChannel(callback) {
