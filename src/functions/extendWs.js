@@ -142,5 +142,5 @@ function openChannel(callback) {
 }
 
 function sendChannel(remoteMessageId, payload) {
-  return sendEvent(`channel:${remoteMessageId}`, payload)
+  return this.sendEvent(`channel:${remoteMessageId}`, payload)
 }
