@@ -87,6 +87,7 @@ function handleMessage(msg) {
   if (this.enableDebug) console.warn(msg)
   const data = ubjson.decode(msg)
   if (data) {
+    
     this.emit('data', data)
   }
 }
