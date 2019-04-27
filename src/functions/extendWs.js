@@ -82,15 +82,15 @@ module.exports = function extendWs(ws, enableDebug) {
   ws.sendChannel = sendChannel
 }
 
-function handleMessage(msg) {
+function handleMessage(msg, msg2) {
   if (this.enableDebug) console.warn('MESSAGE RECIEVED')
-  if (this.enableDebug) console.warn(msg)
+  if (this.enableDebug) console.warn(argu)
   const data = ubjson.decode(msg)
   if (data) {
     if (this.enableDebug) console.warn('has data')
     this.emit('data', data)
   } else {
-    
+
   }
 }
 
