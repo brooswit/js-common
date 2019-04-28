@@ -84,7 +84,7 @@ module.exports = function extendWs(ws, enableDebug) {
 
 function handleMessage(msg) {
   if (this.enableDebug) console.warn('MESSAGE RECIEVED')
-  if (this.enableDebug) console.warn(arguments)
+  if (this.enableDebug) console.warn(msg)
 
   const data = ubjson.decode(msg)
   if (data) {
