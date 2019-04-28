@@ -60,7 +60,7 @@ module.exports = function extendWs(ws, enableDebug) {
     ws.onmessage = (function(message) {
       const reader = new FileReader();
       reader.onload = ()=>{
-        this.emit("message", reader.result);
+        this.emit("message", message.data);
       }
       reader.readAsText()
     }).bind(ws)
