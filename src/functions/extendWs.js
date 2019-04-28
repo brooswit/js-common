@@ -92,7 +92,8 @@ function handleMessage(msg) {
   if (this.enableDebug) console.warn('MESSAGE RECIEVED')
   if (this.enableDebug) console.warn(msg)
 
-  const data = ubjson.decode(msg)
+  try {}
+  const data = JSON.parse(msg)
   if (data) {
     if (this.enableDebug) console.warn('has data')
     this.emit('data', data)
