@@ -60,6 +60,7 @@ module.exports = function extendWs(ws, enableDebug) {
     ws.onmessage = (function(message) {
       const reader = new FileReader();
       reader.readAsBinaryString(message.data)
+
       this.emit("message", reader.readAsBinaryString(message.data));
     }).bind(ws)
     ws.onerror = makeEventHandler('error')
