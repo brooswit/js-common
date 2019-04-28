@@ -94,10 +94,10 @@ function handleMessage(msg) {
 
   try {
     const data = JSON.parse(msg)
-        if (data) {
-          if (this.enableDebug) console.warn('has data')
-          this.emit('data', data)
-      } else {
+    if (data) {
+      if (this.enableDebug) console.warn('has data')
+        this.emit('data', data)
+    } 
   }  
 }
 
