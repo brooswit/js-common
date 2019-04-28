@@ -57,8 +57,7 @@ module.exports = function extendWs(ws, enableDebug) {
     ws.emit = ws._emitter.emit.bind(ws._emitter)
 
     ws.onopen = makeEventHandler('open')
-    ws.onmessage = (message) {
-      
+    ws.onmessage = (function(message) {
         let args = Array.prototype.slice.call(arguments)
         args.unshift(eventName)
         this.emit.apply(this, args)
