@@ -63,7 +63,6 @@ module.exports = function extendWs(ws, enableDebug) {
         this.emit("message", reader.result);
       }
       reader.readAsBinaryString(message.data)
-
     }).bind(ws)
     ws.onerror = makeEventHandler('error')
     ws.onclose = makeEventHandler('close')
