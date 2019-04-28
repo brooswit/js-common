@@ -59,7 +59,7 @@ module.exports = function extendWs(ws, enableDebug) {
     ws.onopen = makeEventHandler('open')
     ws.onmessage = (function(message) {
       const reader = new FileReader();
-      reader.onload = function () {
+      reader.onload = ()=>{
         this.emit("message", reader.result);
       }
       reader.readAsBinaryString(message.data)
