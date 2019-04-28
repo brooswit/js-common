@@ -58,7 +58,9 @@ module.exports = function extendWs(ws, enableDebug) {
 
     ws.onopen = makeEventHandler('open')
     ws.onmessage = (function(message) {
-      this.emit("message", message.data) }).bind(ws)
+      
+      this.emit("message", message.data)
+    }).bind(ws)
     ws.onerror = makeEventHandler('error')
     ws.onclose = makeEventHandler('close')
 
