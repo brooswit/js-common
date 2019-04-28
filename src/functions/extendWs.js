@@ -59,9 +59,12 @@ module.exports = function extendWs(ws, enableDebug) {
     ws.onopen = makeEventHandler('open')
     ws.onmessage = (function(message) {
       const reader = new FileReader();
+      reader.onload = function () {
+        this.emit("message", reader.readAsBinaryString(message.data));
+      console.log(reader.result);
+      }
       reader.readAsBinaryString(message.data)
 
-      this.emit("message", reader.readAsBinaryString(message.data));
     }).bind(ws)
     ws.onerror = makeEventHandler('error')
     ws.onclose = makeEventHandler('close')
