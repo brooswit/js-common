@@ -96,9 +96,9 @@ function handleMessage(msg) {
     const data = JSON.parse(msg)
     if (data) {
       if (this.enableDebug) console.warn('has data')
-        this.emit('data', data)
+      this.emit('data', data)
     } 
-  }  
+  }  catch(e) {}
 }
 
 function handleData(message) {
