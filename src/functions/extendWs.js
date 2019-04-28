@@ -83,6 +83,7 @@ module.exports = function extendWs(ws, enableDebug) {
 }
 
 function handleMessage(msg) {
+  const 
   if (this.enableDebug) console.warn('MESSAGE RECIEVED')
   if (this.enableDebug) console.warn(arguments)
 
