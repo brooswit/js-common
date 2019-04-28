@@ -1,6 +1,6 @@
 {
     "name": "js-common",
-    "version": "0.0.1033",
+    "version": "0.0.1034",
     "description": "",
     "main": "src/common.js",
     "directories": {
