@@ -44,11 +44,8 @@ class WebChannel extends EventEmitter {
 }
 
 let _nextMessageId = 0
-module.exports = function extendWs(ws, enableDebug) {
-  ws.enableDebug = enableDebug;
-  if (ws.enableDebug) console.warn('extending ws')
+module.exports = function extendWs(ws) {
   if(!ws.on) {
-    if (ws.enableDebug) console.warn('browser support')
     ws._emitter = new EventEmitter()
     
     ws.on = ws._emitter.on.bind(ws._emitter)
@@ -85,25 +82,20 @@ module.exports = function extendWs(ws, enableDebug) {
 }
 
 function handleMessage(msg) {
-  if (this.enableDebug) console.warn('MESSAGE RECIEVED')
-  if (this.enableDebug) console.warn(msg)
 
   try {
     const data = JSON.parse(msg)
     if (data) {
-      if (this.enableDebug) console.warn('has data')
       this.emit('data', data)
     } 
   }  catch(e) {}
 }
 
 function handleData(message) {
-  if (this.enableDebug) console.warn('DATA RECIEVED')
   const {data, payload} = message
   if (!data) return
   const {event, messageId} = data
   if (!event) return
-  if (this.enableDebug) console.warn('EVENT RECIEVED: ' + event)
   this.emit(event, payload, messageId)
 }
 
