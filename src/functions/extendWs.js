@@ -48,10 +48,18 @@ module.exports = function extendWs(ws) {
   if(!ws.on) {
     ws._emitter = new EventEmitter()
     
-    ws.on = ws._emitter.on.bind(ws._emitter)
-    ws.off = ws._emitter.off.bind(ws._emitter)
-    ws.once = ws._emitter.once.bind(ws._emitter)
+    ws.on = function(event, func) {
+      const boundFunc = ws.bind(func)
+      ws._emitter.on(event, boundFunc)
+    }
+    
+    ws.once = function(event, func) {
+      const boundFunc = ws.bind(func)
+      ws._emitter.once(event, boundFunc)
+    }
+
     ws.emit = ws._emitter.emit.bind(ws._emitter)
+    ws.off = ws._emitter.off.bind(ws._emitter)
 
     ws.onopen = makeEventHandler('open')
     ws.onmessage = (function(message) {
